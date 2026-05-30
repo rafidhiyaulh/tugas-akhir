@@ -54,5 +54,7 @@ ENV/
 *.acr
 *.alg
 *.xdv
+*.equ
+*.loa
 
 IEEEtran.cls

@@ -1,5 +1,0 @@
-\contentsline {algorithm}{\numberline {IV.1}{\ignorespaces Algoritma Prapemrosesan dan Imputasi \textit {Rolling Mean} per Stasiun}}{68}{algorithm.caption.43}%
-\contentsline {algorithm}{\numberline {IV.2}{\ignorespaces Pembangkitan Fitur Interaksi dan Temporal}}{73}{algorithm.caption.47}%
-\contentsline {algorithm}{\numberline {IV.3}{\ignorespaces Kalkulasi Residu Hibrida Sekuensial}}{76}{algorithm.caption.49}%
-\contentsline {algorithm}{\numberline {V.4}{\ignorespaces Algoritma Validasi Silang \textit {TimeSeriesSplit} (5-Fold)}}{96}{algorithm.caption.64}%
-\contentsline {algorithm}{\numberline {V.5}{\ignorespaces Pelatihan dan Inferensi Model Hibrida RF-ARIMA}}{98}{algorithm.caption.67}%
