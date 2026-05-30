@@ -1,0 +1,26 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+ENV/
+
+.ipynb_checkpoints/
+
+.vscode/
+
+*.csv
+*.xlsx
+*.xls
+*.json
+!metadata.json # Contoh jika ada file json konfigurasi yang wajib masuk
+
+*.pkl
+*.joblib
+*.h5
