@@ -6,21 +6,53 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
 .venv/
 env/
 venv/
 ENV/
 
 .ipynb_checkpoints/
-
 .vscode/
 
 *.csv
 *.xlsx
 *.xls
 *.json
-!metadata.json # Contoh jika ada file json konfigurasi yang wajib masuk
+!metadata.json
 
 *.pkl
 *.joblib
 *.h5
+
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.ps
+*.bcf
+*.run.xml
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.xdv
+
+IEEEtran.cls
