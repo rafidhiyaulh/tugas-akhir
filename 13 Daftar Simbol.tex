@@ -1,0 +1,92 @@
+\cleardoublepage
+\vspace{2cm}
+\begin{center}
+{\fontsize{14}{16.8}\selectfont\textbf{DAFTAR SIMBOL}}\\[1em]
+\end{center}
+\label{chap:simbol}
+\addcontentsline{toc}{chapter}{DAFTAR SIMBOL}
+\setcounter{chapter}{0}
+\setcounter{section}{0}
+\vspace{2em}
+
+\begin{longtable}{@{} l >{\raggedright\arraybackslash}p{6.5cm} c @{}}
+\multicolumn{1}{l}{\textbf{Notasi}} & \multicolumn{1}{l}{\textbf{Deskripsi}} & \multicolumn{1}{l}{\parbox[c]{3.5cm}{\raggedright \textbf{Pemakaian pertama kali}}} \\
+
+% \multicolumn{2}{l}{\textbf{Simbol Polutan dan Kualitas Udara}} \\
+
+PM\textsubscript{10} & Partikulat debu halus dengan ukuran diameter kurang dari 10 mikrometer & 1 \\
+CO & Gas Karbon Monoksida & 2 \\
+O\textsubscript{3} & Gas Ozon & 2 \\
+SO\textsubscript{2} & Gas Sulfur Dioksida & 6 \\
+NO\textsubscript{2} & Gas Nitrogen Dioksida & 6 \\[1ex]
+
+% \multicolumn{2}{l}{\textbf{Notasi Waktu dan Deret Waktu}} \\
+
+$t$ & Indeks urutan waktu saat ini (observasi berjalan) & 2 \\
+$t+1$ & Proyeksi waktu satu hari ke depan & 2 \\
+$t-k$ & Rentang waktu observasi sebelumnya dengan jeda waktu $k$ & 14 \\
+$w$ & Rentang jendela observasi berjalan (\textit{rolling window}) & 20 \\
+$T$ & Total waktu observasi deret waktu & 15 \\
+$Y_t$ & Deret waktu observasi aktual pada waktu $t$ & 14 \\
+$X_t$ & Matriks data variabel observasi polutan historis & 36 \\
+$L$ & Operator bergeser mundur (\textit{backshift operator}) & 17 \\[1ex]
+
+% \multicolumn{2}{l}{\textbf{Komponen Uji Stasioneritas (ADF)}} \\
+
+$\Delta$ & Operator selisih atau pembedaan (\textit{differencing}) & 14 \\
+$\alpha$ & Parameter konstanta pada model regresi uji ADF & 14 \\
+$\beta$ & Parameter koefisien tren linier pada uji ADF & 14 \\
+$\gamma$ & Koefisien parameter jeda pada uji ADF & 14 \\
+$\delta_i$ & Koefisien selisih pada lag ke-$i$ di uji ADF & 14 \\
+$\epsilon_t$ & Sisaan acak (\textit{error}) atau \textit{white noise} pada waktu $t$ & 14 \\[1ex]
+
+% \multicolumn{2}{l}{\textbf{Parameter Model Regresi dan Hibrida}} \\
+
+$N$ & Total jumlah baris data observasi & 15 \\
+$M$ & Jumlah variabel fitur yang dievaluasi & 15 \\
+$B$ & Jumlah ansambel pohon pada algoritma \textit{Random Forest} & 16 \\
+$K$ & Jumlah pohon keputusan (\textit{estimators}) & 23 \\
+$p$ & Orde komponen \textit{AutoRegressive} (AR) pada ARIMA & 16 \\
+$d$ & Orde komponen \textit{Integrated} (I) pada ARIMA & 16 \\
+$q$ & Orde komponen \textit{Moving Average} (MA) pada ARIMA & 16 \\
+$c$ & Parameter konstanta model ARIMA & 16 \\
+$\phi$ & Koefisien pembobot komponen \textit{AutoRegressive} & 16 \\
+$\theta$ & Koefisien pembobot komponen \textit{Moving Average} & 16 \\
+$N_t$ & Komponen fluktuasi non-linier dari dekomposisi data & 17 \\
+$L_t$ & Komponen autokorelasi linier dari dekomposisi data & 17 \\
+$e_t$ & Sisa galat prediksi (\textit{residual}) pada waktu $t$ & 18 \\
+$y_t'$ & Data hasil pembedaan (\textit{differencing}) tingkat pertama & 16 \\
+$\hat{N}_t$ & Estimasi proyeksi nilai awal dari model fase primer & 18 \\
+$\hat{L}_t$ & Estimasi taksiran sisaan (\textit{residual}) dari model fase sekunder & 18 \\
+$\hat{y}_{RF}$ & Estimasi regresi dari algoritma \textit{Random Forest} & 16 \\
+$\hat{r}_{ARIMA}$ & Taksiran sisaan (\textit{residual}) dari komponen statistik ARIMA & 18 \\
+$\hat{Y}_{hybrid}$ & Taksiran akhir prediksi dari arsitektur model hibrida sekuensial & 18 \\
+$f(\cdot)$ & Fungsi transformasi regresi prediktif & 36 \\[1ex]
+
+% \multicolumn{2}{l}{\textbf{Statistik, Metrik, dan AHP}} \\
+
+$R^2$ & Koefisien determinasi & 2 \\
+$\bar{y}$ & Rata-rata nilai observasi data & 15 \\
+$\rho_k$ & Koefisien fungsi autokorelasi (ACF) pada jeda waktu $k$ & 15 \\
+$MA_w$ & Nilai rata-rata bergerak (\textit{Moving Average}) pada rentang waktu $w$ & 20 \\
+$STD_w$ & Nilai standar deviasi bergerak pada rentang waktu $w$ & 20 \\
+$RM_w$ & Nilai rata-rata observasi berjalan pada rentang waktu $w$ & 37 \\
+$RStd_w$ & Nilai standar deviasi observasi berjalan pada rentang waktu $w$ & 37 \\
+$z$ & Skor standar (Z-Score) untuk normalisasi fitur & 54 \\
+$\mu$ & Rata-rata (\textit{mean}) distribusi data & 16 \\
+$\sigma$ & Deviasi standar distribusi data & 54 \\
+$n$ & Jumlah dimensi kriteria matriks AHP / jumlah sampel evaluasi & 41 \\
+$\lambda_{max}$ & Nilai Eigen Maksimum pada matriks kriteria AHP & 41 \\
+$CI$ & Indeks Konsistensi (\textit{Consistency Index}) pada uji AHP & 41 \\
+$RI$ & Indeks Acak Standar (\textit{Random Index}) pada uji AHP & 41 \\
+$CR$ & Rasio Konsistensi (\textit{Consistency Ratio}) pada uji AHP & 41 \\[1ex]
+
+% \multicolumn{2}{l}{\textbf{Notasi Lain-lain}} \\
+
+$O(\cdot)$ & Notasi \textit{Big-O} untuk batas atas kompleksitas komputasi & 23 \\
+$S$ & Himpunan subset fitur pada perhitungan \textit{Shapley Value} & 24 \\
+$\Delta f_i(S)$ & Diferensiasi kontribusi marjinal fitur tunggal (SHAP) & 24 \\
+$\phi_i$ & Nilai akhir bobot atribusi SHAP untuk fitur $i$ & 24 \\
+$\phi_0$ & Nilai prediksi rata-rata (\textit{base value}) pada algoritma SHAP & 58 \\
+
+\end{longtable}

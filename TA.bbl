@@ -1,0 +1,1163 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global/global}
+    \entry{abdallah2025predicting}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=6c27d199860e5724863050d0ad262df2}{%
+           family={Abdallah},
+           familyi={A\bibinitperiod},
+           given={Asma\bibnamedelimb Salah\bibnamedelimb Aldeen\bibnamedelima Mohammed},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d39c4abebc32197403ebbe78c601370d}{%
+           family={Elameen},
+           familyi={E\bibinitperiod},
+           given={Islam\bibnamedelimb Hamad\bibnamedelima Eljack},
+           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{fullhash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{fullhashraw}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{bibnamehash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{authorbibnamehash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{authornamehash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{authorfullhash}{fff9238a2dbc2d4f70899075da04b3a6}
+      \strng{authorfullhashraw}{fff9238a2dbc2d4f70899075da04b3a6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{issn}{2319-6734}
+      \field{journaltitle}{International Journal of Engineering and Science Invention}
+      \field{number}{6}
+      \field{title}{Predicting {PM2.5} Levels in {Seoul} Using Random Forest Regression}
+      \field{volume}{14}
+      \field{year}{Juni 2025}
+      \field{pages}{45\bibrangedash 48}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.35629/6734-14064548
+      \endverb
+      \verb{urlraw}
+      \verb https://ijesi.org/papers/Vol(14)i6/14064548.pdf
+      \endverb
+      \verb{url}
+      \verb https://ijesi.org/papers/Vol(14)i6/14064548.pdf
+      \endverb
+    \endentry
+    \entry{alarsy2025pm25}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=37d7cff062a888bb5c336e66eb467013}{%
+           family={Arsy},
+           familyi={A\bibinitperiod},
+           given={Muhammad\bibnamedelimb Naufal\bibnamedelimb Afif\bibnamedelima Al},
+           giveni={M\bibinitperiod\bibinitdelim N\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=25d3b43408435be6b689378ea7b22d95}{%
+           family={Yasir},
+           familyi={Y\bibinitperiod},
+           given={Ahmad\bibnamedelima Meijlan},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{fullhash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{fullhashraw}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{bibnamehash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{authorbibnamehash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{authornamehash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{authorfullhash}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \strng{authorfullhashraw}{3c3c0151aa2470bcbea43baaeb2d221f}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Journal of Computation Physics and Earth Science}
+      \field{number}{1}
+      \field{title}{{PM2.5} Concentration Prediction Model in {Jakarta} Area Using Random Forest Algorithm}
+      \field{volume}{5}
+      \field{year}{April 2025}
+      \field{pages}{31\bibrangedash 39}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb https://journal.physan.org/index.php/jocpes/article/view/52
+      \endverb
+      \verb{url}
+      \verb https://journal.physan.org/index.php/jocpes/article/view/52
+      \endverb
+    \endentry
+    \entry{aulia2024air}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4766702bbeee634461a1a4b2c96d8078}{%
+           family={Aulia},
+           familyi={A\bibinitperiod},
+           given={Salza\bibnamedelima Afifa},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{fullhash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{fullhashraw}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{bibnamehash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{authorbibnamehash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{authornamehash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{authorfullhash}{4766702bbeee634461a1a4b2c96d8078}
+      \strng{authorfullhashraw}{4766702bbeee634461a1a4b2c96d8078}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Human Error and Safety}
+      \field{number}{1}
+      \field{title}{Air Pollution Threatens Health and Climate Change in Jakarta}
+      \field{volume}{1}
+      \field{year}{2024}
+      \field{pages}{36\bibrangedash 46}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.61511/hes.v1i1.2024.648
+      \endverb
+      \verb{urlraw}
+      \verb https://journal-iasssf.com/index.php/HES/article/download/648/562/4393
+      \endverb
+      \verb{url}
+      \verb https://journal-iasssf.com/index.php/HES/article/download/648/562/4393
+      \endverb
+    \endentry
+    \entry{carb2025inhalable}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=0c1ac4ccdff9816f13f3769edce9ccbd}{%
+           family={{California Air Resources Board}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {California Air Resources Board}%
+      }
+      \strng{namehash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{fullhash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{fullhashraw}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{bibnamehash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{authorbibnamehash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{authornamehash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{authorfullhash}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \strng{authorfullhashraw}{0c1ac4ccdff9816f13f3769edce9ccbd}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Inhalable Particulate Matter and Health ({PM}$_{2.5}$ and {PM}$_{10}$)}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://ww2.arb.ca.gov/resources/inhalable-particulate-matter-and-health
+      \endverb
+      \verb{url}
+      \verb https://ww2.arb.ca.gov/resources/inhalable-particulate-matter-and-health
+      \endverb
+    \endentry
+    \entry{chaniago2020ispu}{online}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=4bcb60953772315e6f640f362eabca77}{%
+           family={Chaniago},
+           familyi={C\bibinitperiod},
+           given={Dasrul},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=16afd6d5eaff14c48224f39328164ec2}{%
+           family={Zahara},
+           familyi={Z\bibinitperiod},
+           given={Annisa},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f60809dec56a23e8a54c3640aaa76378}{%
+           family={Ramadhani},
+           familyi={R\bibinitperiod},
+           given={Indah\bibnamedelima Suci},
+           giveni={I\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Direktorat Pengendalian Pencemaran Udara KLHK}%
+      }
+      \strng{namehash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{fullhash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{fullhashraw}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{bibnamehash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{authorbibnamehash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{authornamehash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{authorfullhash}{87dd338ad4f9bc589d52075412e671fc}
+      \strng{authorfullhashraw}{87dd338ad4f9bc589d52075412e671fc}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Indeks Standar Pencemar Udara ({ISPU}) sebagai Informasi Mutu Udara Ambien di {Indonesia}}
+      \field{year}{September 2020}
+      \verb{urlraw}
+      \verb https://ditppu.menlhk.go.id/portal/read/indeks-standar-pencemar-udara-ispu-sebagai-informasi-mutu-udara-ambien-di-indonesia
+      \endverb
+      \verb{url}
+      \verb https://ditppu.menlhk.go.id/portal/read/indeks-standar-pencemar-udara-ispu-sebagai-informasi-mutu-udara-ambien-di-indonesia
+      \endverb
+    \endentry
+    \entry{chen2025hybrid}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=293c31f46eb012efc4b2449215c92484}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Gang},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d8e067686fba595d7089936cc1cc806f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Shen},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ecfd1d34e9c9c1aec231ae3da61ff906}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Dong},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c810c1c483828d6cb908e0977db54bb0}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Cai},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{5826a811078fdf1388798988c97abc62}
+      \strng{fullhash}{8127f49d9b8339c279ead17d1b7cebfa}
+      \strng{fullhashraw}{8127f49d9b8339c279ead17d1b7cebfa}
+      \strng{bibnamehash}{8127f49d9b8339c279ead17d1b7cebfa}
+      \strng{authorbibnamehash}{8127f49d9b8339c279ead17d1b7cebfa}
+      \strng{authornamehash}{5826a811078fdf1388798988c97abc62}
+      \strng{authorfullhash}{8127f49d9b8339c279ead17d1b7cebfa}
+      \strng{authorfullhashraw}{8127f49d9b8339c279ead17d1b7cebfa}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Scientific Reports}
+      \field{number}{3685}
+      \field{title}{A hybrid deep learning air pollution prediction approach based on neighborhood selection and spatio-temporal attention}
+      \field{volume}{15}
+      \field{year}{Januari 2025}
+      \verb{doi}
+      \verb 10.1038/s41598-025-88086-1
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/s41598-025-88086-1
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/s41598-025-88086-1
+      \endverb
+    \endentry
+    \entry{firdaus2023jakarta}{online}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=c6c783b02dbff37370c622c775fff070}{%
+           family={Firdaus},
+           familyi={F\bibinitperiod},
+           given={Fadhil\bibnamedelima Muhammad},
+           giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2c669962dd2f5921339c3e4c56663408}{%
+           family={Elliott},
+           familyi={E\bibinitperiod},
+           given={Beth},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b2a9f42d96ead276ce50db6900f7f9c8}{%
+           family={Malsch},
+           familyi={M\bibinitperiod},
+           given={Jorie},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=700dbb037fb64d5dcb9cfd695c98e7d1}{%
+           family={Surjadi},
+           familyi={S\bibinitperiod},
+           given={Paulista},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {WRI Indonesia}%
+      }
+      \strng{namehash}{a69fdb557cd1dbdc2ca27cd9e4ae389f}
+      \strng{fullhash}{5131f76dd6bf772a284ef107d839d0cd}
+      \strng{fullhashraw}{5131f76dd6bf772a284ef107d839d0cd}
+      \strng{bibnamehash}{5131f76dd6bf772a284ef107d839d0cd}
+      \strng{authorbibnamehash}{5131f76dd6bf772a284ef107d839d0cd}
+      \strng{authornamehash}{a69fdb557cd1dbdc2ca27cd9e4ae389f}
+      \strng{authorfullhash}{5131f76dd6bf772a284ef107d839d0cd}
+      \strng{authorfullhashraw}{5131f76dd6bf772a284ef107d839d0cd}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 20 November 2025}
+      \field{title}{7 Things to Know About Jakarta's Air Pollution Crisis}
+      \field{year}{September 2023}
+      \verb{urlraw}
+      \verb https://wri-indonesia.org/en/insights/7-things-know-about-jakartas-air-pollution-crisis
+      \endverb
+      \verb{url}
+      \verb https://wri-indonesia.org/en/insights/7-things-know-about-jakartas-air-pollution-crisis
+      \endverb
+    \endentry
+    \entry{haryanti2022dsrm}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=9a0886c472164454053f807a6410a1e2}{%
+           family={Haryanti},
+           familyi={H\bibinitperiod},
+           given={Tining},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc8545f36e51df773ca26cfe2f64a2fe}{%
+           family={Rakhmawati},
+           familyi={R\bibinitperiod},
+           given={Nur\bibnamedelima Aini},
+           giveni={N\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=21ac0a677c2824d63186b4d190e0ba6b}{%
+           family={Subriadi},
+           familyi={S\bibinitperiod},
+           given={Apol\bibnamedelima Pribadi},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6985e76edac429d0fa4e4740ae0392e2}{%
+           family={Tjahyanto},
+           familyi={T\bibinitperiod},
+           given={Aris},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{8d148a4e1b145cb3bfe30a241108b403}
+      \strng{fullhash}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \strng{fullhashraw}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \strng{bibnamehash}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \strng{authorbibnamehash}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \strng{authornamehash}{8d148a4e1b145cb3bfe30a241108b403}
+      \strng{authorfullhash}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \strng{authorfullhashraw}{9b1e95bb1cd7e5cad5daa0210a2c05ae}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE}
+      \field{title}{The Design Science Research Methodology ({DSRM}) for Self-Assessing Digital Transformation Maturity Index in {Indonesia}}
+      \field{year}{2022}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+      \verb{urlraw}
+      \verb https://repository.um-surabaya.ac.id/id/eprint/10034/2/4.%20IEEE%20Prociding%20(DSRM).pdf
+      \endverb
+      \verb{url}
+      \verb https://repository.um-surabaya.ac.id/id/eprint/10034/2/4.%20IEEE%20Prociding%20(DSRM).pdf
+      \endverb
+    \endentry
+    \entry{jimenez2024explainable}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=fdfa40a0a4c5a2762c3b593cbdee4d6f}{%
+           family={Jiménez-Navarro},
+           familyi={J\bibinithyphendelim N\bibinitperiod},
+           given={Manuel\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ddc6ffa1a8898485dae13f05273833db}{%
+           family={Martínez-Ballesteros},
+           familyi={M\bibinithyphendelim B\bibinitperiod},
+           given={María},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=71aa0f6460f60aa4cbeab3fa45fd4bab}{%
+           family={Lovrić},
+           familyi={L\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=958e24e13dfbdf6a78e6f28a0b4d9c38}{%
+           family={Kecorius},
+           familyi={K\bibinitperiod},
+           given={Simonas},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=020c98a2d8e21875b75988b602ae16a2}{%
+           family={Nyarko},
+           familyi={N\bibinitperiod},
+           given={Emmanuel\bibnamedelima Karlo},
+           giveni={E\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{be8d873b8be6e16c8edb70e2a8cb8bb8}
+      \strng{fullhash}{5e6d3341aede86cf71d0fdb9465018d4}
+      \strng{fullhashraw}{5e6d3341aede86cf71d0fdb9465018d4}
+      \strng{bibnamehash}{5e6d3341aede86cf71d0fdb9465018d4}
+      \strng{authorbibnamehash}{5e6d3341aede86cf71d0fdb9465018d4}
+      \strng{authornamehash}{be8d873b8be6e16c8edb70e2a8cb8bb8}
+      \strng{authorfullhash}{5e6d3341aede86cf71d0fdb9465018d4}
+      \strng{authorfullhashraw}{5e6d3341aede86cf71d0fdb9465018d4}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Results in Engineering}
+      \field{title}{Explainable Deep Learning on Multi-Target Time Series Forecasting: An Air Pollution Use Case}
+      \field{volume}{24}
+      \field{year}{Desember 2024}
+      \field{pages}{103290}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.rineng.2024.103290
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S2590123024015445
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S2590123024015445
+      \endverb
+    \endentry
+    \entry{permenlhk2020ispu}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=fc67d03b41f9ee6cf64be829bff4321c}{%
+           family={{Kementerian Lingkungan Hidup dan Kehutanan Republik Indonesia}},
+           familyi={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{fullhash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{fullhashraw}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{bibnamehash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{authorbibnamehash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{authornamehash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{authorfullhash}{fc67d03b41f9ee6cf64be829bff4321c}
+      \strng{authorfullhashraw}{fc67d03b41f9ee6cf64be829bff4321c}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Berita Negara Republik Indonesia Tahun 2020 Nomor 774}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Peraturan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia Nomor P.14/MENLHK/SETJEN/KUM.1/7/2020 tentang Indeks Standar Pencemar Udara}
+      \field{year}{Juli 2020}
+      \verb{urlraw}
+      \verb https://jdih.menlhk.go.id/new2/uploads/files/P_14_2020_ISPU_menlhk_07302020074834.pdf
+      \endverb
+      \verb{url}
+      \verb https://jdih.menlhk.go.id/new2/uploads/files/P_14_2020_ISPU_menlhk_07302020074834.pdf
+      \endverb
+    \endentry
+    \entry{kostadinov2024forecasting}{article}{}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=5d263c84df5e4697de253096c332a164}{%
+           family={Kostadinov},
+           familyi={K\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=acf73e8d3dd9374037acea6580770f50}{%
+           family={Zdravevski},
+           familyi={Z\bibinitperiod},
+           given={Eftim},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f31ce9a312bf5feaf34c928f3db0e57b}{%
+           family={Lameski},
+           familyi={L\bibinitperiod},
+           given={Petre},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=94dd46efc7cf7964c68ae71de5adbda0}{%
+           family={Coelho},
+           familyi={C\bibinitperiod},
+           given={Paulo\bibnamedelima Jorge},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=78d81fbdc3406bf42506c764e9f1928b}{%
+           family={Stojkoska},
+           familyi={S\bibinitperiod},
+           given={Biljana},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2d0819f4c92fadac4bc8d489a7791d5a}{%
+           family={Herzog},
+           familyi={H\bibinitperiod},
+           given={Michael\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9e851362862d3f4a08e935142a28de31}{%
+           family={Trajkovik},
+           familyi={T\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f8851b09ebb64a43d1bdc16ce048ea7b}
+      \strng{fullhash}{bdecc43c7dc336d19a8902aef2c67411}
+      \strng{fullhashraw}{bdecc43c7dc336d19a8902aef2c67411}
+      \strng{bibnamehash}{bdecc43c7dc336d19a8902aef2c67411}
+      \strng{authorbibnamehash}{bdecc43c7dc336d19a8902aef2c67411}
+      \strng{authornamehash}{f8851b09ebb64a43d1bdc16ce048ea7b}
+      \strng{authorfullhash}{bdecc43c7dc336d19a8902aef2c67411}
+      \strng{authorfullhashraw}{bdecc43c7dc336d19a8902aef2c67411}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{PLoS ONE}
+      \field{number}{12}
+      \field{title}{Forecasting air pollution with deep learning with a focus on impact of urban traffic on {PM10} and noise pollution}
+      \field{volume}{19}
+      \field{year}{Desember 2024}
+      \field{pages}{e0313356}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0313356
+      \endverb
+      \verb{urlraw}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC11630587/
+      \endverb
+      \verb{url}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC11630587/
+      \endverb
+    \endentry
+    \entry{kyung2020particulate}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=38688b1f2bfc38ef242d6bd4a4d87697}{%
+           family={Kyung},
+           familyi={K\bibinitperiod},
+           given={Sun\bibnamedelima Young},
+           giveni={S\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4487ce8437b7f77a51214e423cb826d0}{%
+           family={Jeong},
+           familyi={J\bibinitperiod},
+           given={Sung\bibnamedelima Hwan},
+           giveni={S\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{fullhash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{fullhashraw}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{bibnamehash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{authorbibnamehash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{authornamehash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{authorfullhash}{0ab5fffcecf76a15d619f56cace7434e}
+      \strng{authorfullhashraw}{0ab5fffcecf76a15d619f56cace7434e}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Tuberculosis and Respiratory Diseases}
+      \field{number}{2}
+      \field{title}{Particulate-Matter Related Respiratory Diseases}
+      \field{volume}{83}
+      \field{year}{Maret 2020}
+      \field{pages}{116\bibrangedash 121}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.4046/trd.2019.0025
+      \endverb
+      \verb{urlraw}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC7105434/
+      \endverb
+      \verb{url}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC7105434/
+      \endverb
+    \endentry
+    \entry{lundberg2025shap}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b659ebc88023a12a732b4db9afdede3d}{%
+           family={Lundberg},
+           familyi={L\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {SHAP}%
+      }
+      \strng{namehash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{fullhash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{fullhashraw}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{bibnamehash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{authorbibnamehash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{authornamehash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{authorfullhash}{b659ebc88023a12a732b4db9afdede3d}
+      \strng{authorfullhashraw}{b659ebc88023a12a732b4db9afdede3d}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025. Dokumentasi resmi SHAP}
+      \field{title}{An introduction to explainable {AI} with {Shapley} values}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html
+      \endverb
+      \verb{url}
+      \verb https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html
+      \endverb
+    \endentry
+    \entry{minitab2025adf}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b5dd7710f980f0e1d448e1e2f44b4922}{%
+           family={{Minitab, LLC}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Minitab Support}%
+      }
+      \strng{namehash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{fullhash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{fullhashraw}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{bibnamehash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{authorbibnamehash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{authornamehash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{authorfullhash}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \strng{authorfullhashraw}{b5dd7710f980f0e1d448e1e2f44b4922}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Example of Augmented Dickey-Fuller Test}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://support.minitab.com/en-us/minitab/help-and-how-to/statistical-modeling/time-series/how-to/augmented-dickey-fuller-test/before-you-start/example/
+      \endverb
+      \verb{url}
+      \verb https://support.minitab.com/en-us/minitab/help-and-how-to/statistical-modeling/time-series/how-to/augmented-dickey-fuller-test/before-you-start/example/
+      \endverb
+    \endentry
+    \entry{molnar2025shap}{inbook}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=1519de263bd388a2ce312e7171b96d0d}{%
+           family={Molnar},
+           familyi={M\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Leanpub}%
+      }
+      \strng{namehash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{fullhash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{fullhashraw}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{bibnamehash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{authorbibnamehash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{authornamehash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{authorfullhash}{1519de263bd388a2ce312e7171b96d0d}
+      \strng{authorfullhashraw}{1519de263bd388a2ce312e7171b96d0d}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{chapter}{SHAP (SHapley Additive exPlanations)}
+      \field{edition}{2}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Interpretable Machine Learning: A Guide for Making Black Box Models Explainable}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://christophm.github.io/interpretable-ml-book/shap.html
+      \endverb
+      \verb{url}
+      \verb https://christophm.github.io/interpretable-ml-book/shap.html
+      \endverb
+    \endentry
+    \entry{naz2024two}{article}{}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=cbe2ac401cf92cc74a3ca28669287a69}{%
+           family={Naz},
+           familyi={N\bibinitperiod},
+           given={Fareena},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5211f9b5874c11924a27f8f6219d4cdb}{%
+           family={Fahim},
+           familyi={F\bibinitperiod},
+           given={Muhammad},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c57e9a7e3123f069d9ea3e713a9d513d}{%
+           family={Cheema},
+           familyi={C\bibinitperiod},
+           given={Adnan\bibnamedelima Ahmad},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7df6fb62e995ad1cb30c1f10657e2892}{%
+           family={Viet},
+           familyi={V\bibinitperiod},
+           given={Nguyen\bibnamedelima Trung},
+           giveni={N\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e1ec3c66630e6b55b39c536f374ae2ad}{%
+           family={Cao},
+           familyi={C\bibinitperiod},
+           given={Tuan-Vu},
+           giveni={T\bibinithyphendelim V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d1265d736e4cec99110dd3218e93bd17}{%
+           family={Hunter},
+           familyi={H\bibinitperiod},
+           given={Ruth},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1d85c12bcc920c5727a2f5369adccf9d}
+      \strng{fullhash}{d7c97fdbfa580ef2f334e6987f666b36}
+      \strng{fullhashraw}{d7c97fdbfa580ef2f334e6987f666b36}
+      \strng{bibnamehash}{d7c97fdbfa580ef2f334e6987f666b36}
+      \strng{authorbibnamehash}{d7c97fdbfa580ef2f334e6987f666b36}
+      \strng{authornamehash}{1d85c12bcc920c5727a2f5369adccf9d}
+      \strng{authorfullhash}{d7c97fdbfa580ef2f334e6987f666b36}
+      \strng{authorfullhashraw}{d7c97fdbfa580ef2f334e6987f666b36}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{IEEE Access}
+      \field{title}{Two-Stage Feature Engineering to Predict Air Pollutants in Urban Areas}
+      \field{volume}{12}
+      \field{year}{2024}
+      \field{pages}{114073\bibrangedash 114085}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1109/ACCESS.2024.3443810
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/10636142
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/10636142
+      \endverb
+    \endentry
+    \entry{pohan2025jakarta}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=01c28a935e0be6c2f89b1cf0fb7fa4e3}{%
+           family={Pohan},
+           familyi={P\bibinitperiod},
+           given={Taufiq},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{fullhash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{fullhashraw}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{bibnamehash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{authorbibnamehash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{authornamehash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{authorfullhash}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \strng{authorfullhashraw}{01c28a935e0be6c2f89b1cf0fb7fa4e3}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Kaggle}
+      \field{note}{Diakses 21 November 2025. Dataset berisi nilai harian ISPU/AQI dari Januari 2010 sampai Februari 2025}
+      \field{title}{Air Quality Index in Jakarta}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.kaggle.com/datasets/senadu34/air-quality-index-in-jakarta-2010-2021
+      \endverb
+      \verb{url}
+      \verb https://www.kaggle.com/datasets/senadu34/air-quality-index-in-jakarta-2010-2021
+      \endverb
+    \endentry
+    \entry{kemkes2019air}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b49d809e512fc7c920072c5afbff70e1}{%
+           family={{Pusat Krisis Kesehatan Kementerian Kesehatan Republik Indonesia}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Kementerian Kesehatan Republik Indonesia}%
+      }
+      \strng{namehash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{fullhash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{fullhashraw}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{bibnamehash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{authorbibnamehash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{authornamehash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{authorfullhash}{b49d809e512fc7c920072c5afbff70e1}
+      \strng{authorfullhashraw}{b49d809e512fc7c920072c5afbff70e1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Beware of Poor Air Quality Escalation}
+      \field{year}{Juli 2019}
+      \verb{urlraw}
+      \verb https://pusatkrisis.kemkes.go.id/beware-of-poor-air-quality-escalation
+      \endverb
+      \verb{url}
+      \verb https://pusatkrisis.kemkes.go.id/beware-of-poor-air-quality-escalation
+      \endverb
+    \endentry
+    \entry{radjabaycolle2025improving}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=4144c67323ce8b22bd7ada4704d7a951}{%
+           family={Radjabaycolle},
+           familyi={R\bibinitperiod},
+           given={Jefri\bibnamedelimb E.\bibnamedelimi T.},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=340b61f28c951dcc4e6e60f34952c5ae}{%
+           family={Wattimena},
+           familyi={W\bibinitperiod},
+           given={Emanuella\bibnamedelimb M.\bibnamedelimi C.},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7c4e8ab5b2c158a3eded896f5467df9f}{%
+           family={Pattiradjawane},
+           familyi={P\bibinitperiod},
+           given={Victor\bibnamedelima Eric},
+           giveni={V\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{fullhash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{fullhashraw}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{bibnamehash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{authorbibnamehash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{authornamehash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{authorfullhash}{29f6411d8de2f08f79f651d5fc11b487}
+      \strng{authorfullhashraw}{29f6411d8de2f08f79f651d5fc11b487}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{issn}{2722-273X}
+      \field{journaltitle}{Journal of Embedded System Security and Intelligent Systems}
+      \field{number}{3}
+      \field{title}{Improving Air Quality Forecasts with {LSTM} and {SHAP} Explainability: A Case Study in {Jakarta}}
+      \field{volume}{6}
+      \field{year}{Oktober 2025}
+      \field{pages}{337\bibrangedash 347}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb https://journal.unm.ac.id/index.php/JESSI/article/view/9512
+      \endverb
+      \verb{url}
+      \verb https://journal.unm.ac.id/index.php/JESSI/article/view/9512
+      \endverb
+    \endentry
+    \entry{septiani2024combating}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c465175501abafda07950441fbe735c0}{%
+           family={Septiani},
+           familyi={S\bibinitperiod},
+           given={Faradila},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {MUSA Green}%
+      }
+      \strng{namehash}{c465175501abafda07950441fbe735c0}
+      \strng{fullhash}{c465175501abafda07950441fbe735c0}
+      \strng{fullhashraw}{c465175501abafda07950441fbe735c0}
+      \strng{bibnamehash}{c465175501abafda07950441fbe735c0}
+      \strng{authorbibnamehash}{c465175501abafda07950441fbe735c0}
+      \strng{authornamehash}{c465175501abafda07950441fbe735c0}
+      \strng{authorfullhash}{c465175501abafda07950441fbe735c0}
+      \strng{authorfullhashraw}{c465175501abafda07950441fbe735c0}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Combating Air Pollution in {Indonesia}: What You Need to Know About {ISPU} Regulation}
+      \field{year}{Juni 2024}
+      \verb{urlraw}
+      \verb https://www.musagreen.com/2024/06/20/combating-air-pollution-in-indonesia-what-you-need-to-know-about-ispu-regulation/
+      \endverb
+      \verb{url}
+      \verb https://www.musagreen.com/2024/06/20/combating-air-pollution-in-indonesia-what-you-need-to-know-about-ispu-regulation/
+      \endverb
+    \endentry
+    \entry{vasconcelos2025stationarity}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c169bd673bbb2a5aeafc82635c33eec6}{%
+           family={Vasconcelos},
+           familyi={V\bibinitperiod},
+           given={Izairton},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Developer Service Blog}%
+      }
+      \strng{namehash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{fullhash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{fullhashraw}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{bibnamehash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{authorbibnamehash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{authornamehash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{authorfullhash}{c169bd673bbb2a5aeafc82635c33eec6}
+      \strng{authorfullhashraw}{c169bd673bbb2a5aeafc82635c33eec6}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Diakses 21 November 2025}
+      \field{title}{Stationarity in Time Series: The Power of {ADF} and {KPSS} Tests for {ARIMA} Models}
+      \field{year}{Juli 2025}
+      \verb{urlraw}
+      \verb https://developer-service.blog/stationarity-in-time-series-the-power-of-adf-and-kpss-tests-for-arima-models/
+      \endverb
+      \verb{url}
+      \verb https://developer-service.blog/stationarity-in-time-series-the-power-of-adf-and-kpss-tests-for-arima-models/
+      \endverb
+    \endentry
+    \entry{yenkikar2025explainable}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=cdcb603694be25f59080cb62a98eb97d}{%
+           family={Yenkikar},
+           familyi={Y\bibinitperiod},
+           given={Anuradha},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=40470f0b5fedebb61c5783c3ad9f83bd}{%
+           family={Mishra},
+           familyi={M\bibinitperiod},
+           given={Ved\bibnamedelima Prakash},
+           giveni={V\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2006bf8415cb60c316c81e905f0c325e}{%
+           family={Bali},
+           familyi={B\bibinitperiod},
+           given={Manish},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=899ece4e98a2b8eeb69dc0ed5b1ca025}{%
+           family={Ara},
+           familyi={A\bibinitperiod},
+           given={Tabassum},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d206956e9844e1750e42a028f60b6be1}
+      \strng{fullhash}{696cf71e4acc09eca10cb011a43c4c54}
+      \strng{fullhashraw}{696cf71e4acc09eca10cb011a43c4c54}
+      \strng{bibnamehash}{696cf71e4acc09eca10cb011a43c4c54}
+      \strng{authorbibnamehash}{696cf71e4acc09eca10cb011a43c4c54}
+      \strng{authornamehash}{d206956e9844e1750e42a028f60b6be1}
+      \strng{authorfullhash}{696cf71e4acc09eca10cb011a43c4c54}
+      \strng{authorfullhashraw}{696cf71e4acc09eca10cb011a43c4c54}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{MethodsX}
+      \field{title}{Explainable Forecasting of Air Quality Index Using a Hybrid Random Forest and {ARIMA} Model}
+      \field{volume}{15}
+      \field{year}{Juli 2025}
+      \field{pages}{103517}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.mex.2025.103517
+      \endverb
+      \verb{urlraw}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12329590/
+      \endverb
+      \verb{url}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12329590/
+      \endverb
+    \endentry
+    \entry{yunis2024hybridization}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=29624a37a96150a2771b734b21a689c2}{%
+           family={Yunis},
+           familyi={Y\bibinitperiod},
+           given={Roni},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8a52c18655d9751e628eb21e3474105b}{%
+           family={Andri},
+           familyi={A\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=fc84e9bfc8ceb0f3654925ded1562563}{%
+           family={Djoni},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{fullhash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{fullhashraw}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{bibnamehash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{authorbibnamehash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{authornamehash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{authorfullhash}{e904f7d4e9390ef3c502a483ea82782a}
+      \strng{authorfullhashraw}{e904f7d4e9390ef3c502a483ea82782a}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{COGITO Smart Journal}
+      \field{number}{1}
+      \field{title}{Hybridization Model for Air Pollution Prediction Using Time Series Data}
+      \field{volume}{10}
+      \field{year}{Juni 2024}
+      \field{pages}{1\bibrangedash 14}
+      \range{pages}{14}
+      \verb{urlraw}
+      \verb https://cogito.unklab.ac.id/index.php/cogito/article/view/619
+      \endverb
+      \verb{url}
+      \verb https://cogito.unklab.ac.id/index.php/cogito/article/view/619
+      \endverb
+    \endentry
+    \entry{zhang2021association}{article}{}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=614fdf51ce9628d993d9e0dc779c15a2}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yifan},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b818123cf2c544b6fb074d1c5bf6571b}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Yuxia},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=24000220ba99e64b4c88f3822be79cc7}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Fengliu},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=765bc94d57cffc4ed141f33df561ba39}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Bowen},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=050c6f0d9a9884fcf96d78b17adaa449}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Hang},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6acf593281fdd61dd3edd5d1d9499e3d}{%
+           family={Shen},
+           familyi={S\bibinitperiod},
+           given={Jiahui},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b0d99b0eb2486aa65c4755e44b9bb920}{%
+           family={Jiao},
+           familyi={J\bibinitperiod},
+           given={Haoran},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{fa65d318c268d108da8573873dc9b440}
+      \strng{fullhash}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \strng{fullhashraw}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \strng{bibnamehash}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \strng{authorbibnamehash}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \strng{authornamehash}{fa65d318c268d108da8573873dc9b440}
+      \strng{authorfullhash}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \strng{authorfullhashraw}{0a934cca5eb34aea1ab14874d4eeb4ba}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{author}
+      \field{journaltitle}{Scientific Reports}
+      \field{number}{12129}
+      \field{title}{Association between {PM}$_{10}$ and specific circulatory system diseases in {China}}
+      \field{volume}{11}
+      \field{year}{Juni 2021}
+      \verb{doi}
+      \verb 10.1038/s41598-021-91637-x
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/s41598-021-91637-x
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/s41598-021-91637-x
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
