@@ -17,14 +17,14 @@ Lebih lanjut, tren publikasi menunjukkan adanya perbedaan fokus dalam pemanfaata
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=centering}
-\setlength{\tabcolsep}{5pt} 
+\setlength{\tabcolsep}{5pt}
 \caption{Matriks Perbandingan Riset Terkait (\textit{State-of-the-Art}) Prediksi Kualitas Udara}
 \label{tbl:matriks_sota}
 
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.2cm}|
-                              >{\raggedright\arraybackslash}p{2.2cm}|
-                              >{\raggedright\arraybackslash}X|
-                              >{\raggedright\arraybackslash}X|}
+                             >{\raggedright\arraybackslash}p{2.2cm}|
+                             >{\raggedright\arraybackslash}X|
+                             >{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Penulis} & \textbf{Metode} & \textbf{Fitur Utama} & \textbf{Celah Riset (\textit{Gap})} \\
 \hline
@@ -32,7 +32,7 @@ Lebih lanjut, tren publikasi menunjukkan adanya perbedaan fokus dalam pemanfaata
 \hline
 \textcite{naz2024two} & \textit{Feature Engineering} & Turunan temporal & Ketiadaan koreksi residu temporal. \\
 \hline
-\textcite{alarsy2025pm25} & \textit{Random Forest} & Polutan mentah & Mengabaikan tren linier jangka panjang. \\
+\textcite{alarsy2025pm25} & \textit{Random Forest} Regresi & Polutan mentah & Mengabaikan tren linier jangka panjang. \\
 \hline
 \textcite{chen2025hybrid} & \textit{Deep Learning} & \textit{Spatio-temporal attention} & Beban komputasi harian tinggi (GPU). \\
 \hline
@@ -45,27 +45,34 @@ Lebih lanjut, tren publikasi menunjukkan adanya perbedaan fokus dalam pemanfaata
 
 Berdasarkan analisis komparatif pada Tabel \ref{tbl:matriks_sota}, terlihat bahwa meskipun metrik akurasi yang dihasilkan oleh berbagai pemodelan terdahulu cukup bervariasi, mayoritas pendekatan saat ini menitikberatkan pada sisi arsitektur komputasinya (\textit{model-centric}). Kondisi ini menyebabkan variabel polutan sering kali diproses oleh model sebagai representasi numerik murni tanpa memperhitungkan aspek keterkaitan fisik dan kimiawinya di atmosfer.
 
+Di antara berbagai literatur yang dievaluasi, studi oleh Yenkikar dkk. \autocite{yenkikar2025explainable} dipilih sebagai referensi utama dalam Tugas Akhir ini karena berhasil mendemonstrasikan kerangka komplementer hibrida sekuensial yang kokoh. Namun, karena adanya keterbatasan model dasar tersebut yang mengabaikan hubungan fotokimiawi lokal, penelitian ini membatasi kontribusinya pada aspek analisis pengaruh fitur baru dan evaluasi performa arsitektur tersebut di wilayah DKI Jakarta. 
+
 Hal tersebut dapat menyebabkan tidak tertangkapnya pola indikator penyebab polusi sekunder yang memengaruhi fluktuasi kualitas udara di wilayah tropis. Dari evaluasi literatur di atas, teridentifikasi tiga celah riset fundamental yang menjadi dasar pelaksanaan penelitian ini:
 
 \begin{enumerate}
-    \item {Pengabaian Interaksi Kimiawi:} Mayoritas penelitian (seperti pada studi \autocite{alarsy2025pm25} dan \autocite{yenkikar2025explainable}) hanya memasukkan parameter polutan secara individual ke dalam model. Faktanya, perubahan konsentrasi PM\textsubscript{10} di udara terbuka juga dipengaruhi oleh efek interaksi antar\-gas akibat radiasi matahari (\textit{fotolisis}). Celah ini mendasari penerapan \textit{feature engineering} untuk memetakan hubungan antar variabel tersebut.
-    \item {Keterbatasan Fleksibilitas Arsitektur Model:} Pendekatan yang masih terpisah antara model statistik (ARIMA) yang linear atau \textit{ma\-chi\-ne lear\-ning} yang non\-li\-ne\-ar namun kurang menangkap pola autokorelasi pada data sisaan (\textit{residual}). Penggunaan arsitektur hibrida sekuensial untuk mengevaluasi data berjangka waktu panjang (15 tahun) di wilayah Jakarta masih terbatas dibahas.
-    \item {Kebutuhan Efisiensi dan Transparansi:} Penelitian yang mengejar nilai akurasi menggunakan arsitektur \textit{Deep Learning} (seperti pada studi \autocite{chen2025hybrid}) memerlukan sumber daya komputasi yang besar dan sifatnya tidak transparan (\textit{black-box}). Pendekatan tersebut kurang sesuai untuk diterapkan pada sistem instansi lokal yang membutuhkan efisiensi operasional harian serta kejelasan dasar pengambilan keputusan melalui metode XAI.
+   \item {Pengabaian Interaksi Kimiawi:} Mayoritas penelitian (seperti pada studi \autocite{alarsy2025pm25} dan \autocite{yenkikar2025explainable}) hanya memasukkan parameter polutan secara individual ke dalam model. Faktanya, perubahan konsentrasi PM\textsubscript{10} di udara terbuka juga dipengaruhi oleh efek interaksi antar\-gas akibat radiasi matahari (\textit{fotolisis}). Celah ini mendasari penerapan \textit{feature engineering} untuk memetakan hubungan antar variabel tersebut.
+   \item {Keterbatasan Fleksibilitas Arsitektur Model:} Pendekatan yang masih terpisah antara model statistik (ARIMA) yang linear atau \textit{ma\-chi\-ne lear\-ning} yang non\-li\-ne\-ar namun kurang menangkap pola autokorelasi pada data sisaan (\textit{residual}). Penggunaan arsitektur hibrida sekuensial untuk mengevaluasi data berjangka waktu panjang (15 tahun) di wilayah Jakarta masih terbatas dibahas.
+   \item {Kebutuhan Efisiensi dan Transparansi:} Penelitian yang mengejar nilai akurasi menggunakan arsitektur \textit{Deep Learning} (seperti pada studi \autocite{chen2025hybrid}) memerlukan sumber daya komputasi yang besar dan sifatnya tidak transparan (\textit{black-box}). Pendekatan tersebut kurang sesuai untuk diterapkan pada sistem instansi lokal yang membutuhkan efisiensi operasional harian serta kejelasan dasar pengambilan keputusan melalui metode XAI.
 \end{enumerate}
+
 \section{Domain Sains Atmosfer dan Paradigma Regulasi ISPU}
 
 Pemahaman mengenai parameter kualitas udara tidak dapat dilepaskan dari konteks sains atmosfer dan regulasi pemerintah yang mengaturnya. Bagian ini membahas karakteristik partikulat udara, kondisi spesifik polusi di Jakarta, standar pelaporan Indeks Standar Pencemar Udara (ISPU), serta mekanisme pembentukan polutan sekunder. Pemantauan kualitas udara secara global umumnya dilakukan terhadap \textit{Particulate Matter} (PM), yaitu campuran partikel padat dan cair yang melayang di udara. Partikel ini diklasifikasikan secara mendasar berdasarkan ukuran diameternya untuk menentukan sifat retensi dan perilakunya di udara \autocite{carb2025inhalable}. Pengelompokan ini diperlukan karena perbedaan dimensi fisik polutan memengaruhi karakteristik dispersi dan tingkat penetrasinya ke dalam organ pernapasan manusia. Perbandingan dimensi, sumber emisi, dan implikasi klinis secara lebih rinci antara dua jenis partikulat utama disajikan pada Tabel \ref{tbl:pm10vspm25}.
 
+Berdasarkan karakteristik fisik yang disajikan pada Tabel \ref{tbl:pm10vspm25}, profil risiko kesehatan dari partikulat ini menjadi aspek yang ditelaah secara mendalam dalam berbagai studi epidemiologi. Partikulat PM\textsubscript{10} dapat masuk ke sistem pernapasan bagian atas karena karakteristik fisisnya yang banyak dihasilkan dari proses mekanis, seperti debu jalan raya dan aktivitas konstruksi harian \autocite{firdaus2023jakarta}. Penelitian oleh \textcite{zhang2021association} menunjukkan bahwa setiap kenaikan konsentrasi PM\textsubscript{10} sebesar 10 µg/m³ berkaitan dengan kecenderungan kenaikan jumlah kunjungan gawat darurat akibat penyakit kardiovaskular sebesar 0,14\%. Sementara itu, \textcite{kyung2020particulate} menemukan bahwa paparan terhadap PM\textsubscript{10} berkorelasi dengan adanya perubahan angka rawat inap pasien Penyakit Paru Obstruktif Kronis (PPOK) sebesar 2,7\%.
+
+Kecenderungan data statistik dan rekam medis tersebut menunjukkan bahwa pemantauan dan penyediaan informasi proyeksi kualitas udara diperlukan untuk mendukung langkah preventif, khususnya bagi kelompok masyarakat yang rentan. Hal ini menjadi relevan bagi wilayah dengan tingkat aktivitas urban yang padat seperti DKI Jakarta, di mana akumulasi emisi harian berpotensi memengaruhi kondisi kesehatan publik dalam jangka panjang. Oleh karena itu, analisis pemodelan untuk mengestimasi konsentrasi polutan ini diposisikan sebagai pendekatan teoretis dan eksperimental guna menyediakan acuan data yang dapat ditelaah secara terukur bagi pengelolaan lingkungan perkotaan.
+
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=centering}
-\setlength{\tabcolsep}{6pt} 
+\setlength{\tabcolsep}{6pt}
 \caption{Perbandingan Karakteristik Polutan PM\textsubscript{10} dan PM\textsubscript{2,5}}
 \label{tbl:pm10vspm25}
 
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.8cm}|
-                              >{\raggedright\arraybackslash}X|
-                              >{\raggedright\arraybackslash}X|}
+                             >{\raggedright\arraybackslash}X|
+                             >{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Aspek Analisis} & \textbf{PM\textsubscript{10}} & \textbf{PM\textsubscript{2,5}} \\
 \hline
@@ -80,10 +87,6 @@ Risiko Kesehatan & Iritasi saluran napas, eksaserbasi asma, dan PPOK (\textit{CO
 \end{tabularx}
 \end{table}
 
-Berdasarkan karakteristik fisik yang disajikan pada Tabel \ref{tbl:pm10vspm25}, profil risiko kesehatan dari partikulat ini menjadi aspek yang ditelaah secara mendalam dalam berbagai studi epidemiologi. Partikulat PM\textsubscript{10} dapat masuk ke sistem pernapasan bagian atas karena karakteristik fisisnya yang banyak dihasilkan dari proses mekanis, seperti debu jalan raya dan aktivitas konstruksi harian \autocite{firdaus2023jakarta}. Penelitian oleh \textcite{zhang2021association} menunjukkan bahwa setiap kenaikan konsentrasi PM\textsubscript{10} sebesar 10 µg/m³ berkaitan dengan kecenderungan kenaikan jumlah kunjungan gawat darurat akibat penyakit kardiovaskular sebesar 0,14\%. Sementara itu, \textcite{kyung2020particulate} menemukan bahwa paparan terhadap PM\textsubscript{10} berkorelasi dengan adanya perubahan angka rawat inap pasien Penyakit Paru Obstruktif Kronis (PPOK) sebesar 2,7\%.
-
-Kecenderungan data statistik dan rekam medis tersebut menunjukkan bahwa pemantauan dan penyediaan informasi proyeksi kualitas udara diperlukan untuk mendukung langkah preventif, khususnya bagi kelompok masyarakat yang rentan. Hal ini menjadi relevan bagi wilayah dengan tingkat aktivitas urban yang padat seperti DKI Jakarta, di mana akumulasi emisi harian berpotensi memengaruhi kondisi kesehatan publik dalam jangka panjang. Oleh karena itu, analisis pemodelan untuk mengestimasi konsentrasi polutan ini diposisikan sebagai pendekatan teoretis dan eksperimental guna menyediakan acuan data yang dapat ditelaah secara terukur bagi pengelolaan lingkungan perkotaan.
-
 \subsection{Krisis Polusi Jakarta dan Integritas Dataset}
 DKI Jakarta tercatat sebagai salah satu kota dengan tingkat polusi udara yang tinggi di kawasan Asia Tenggara. Berbeda dengan kota-kota di lintang subtropis, kondisi polusi di Jakarta dipengaruhi oleh iklim tropis dan pola angin muson. Menurut \textcite{firdaus2023jakarta}, konsentrasi polutan mengalami kenaikan selama musim kemarau. Pada periode tersebut, fenomena inversi suhu menahan gas buang dari kendaraan bermotor dan industri di lapisan udara bawah kota. Kondisi ini sejalan dengan data Kementerian Kesehatan RI yang mencatat bahwa kualitas udara Jakarta dapat masuk ke dalam zona "Tidak Sehat" \autocite{kemkes2019air, aulia2024air}.
 
@@ -93,18 +96,16 @@ Dalam perancangan model sains data berbasis deret waktu (\textit{time series}), 
 
 Untuk mempermudah penyampaian informasi tingkat polusi kepada masyarakat, Kementerian Lingkungan Hidup dan Kehutanan (KLHK) menggunakan indikator Indeks Standar Pencemar Udara (ISPU) \autocite{chaniago2020ispu}. Berdasarkan Peraturan Menteri LHK No. P.14 Tahun 2020 \autocite{permenlhk2020ispu}, ISPU didefinisikan sebagai angka tanpa satuan (dari 0 hingga lebih dari 300) yang merangkum tingkat pencemaran dari berbagai indikator utama melalui mekanisme interpolasi linear bersegmen.
 
-Penelitian Tugas Akhir ini difokuskan secara langsung pada prediksi nilai konsentrasi numerik mentah dari partikulat PM\textsubscript{10} ($\mu\text{g/m}^3$) dan bukan pada angka indeks transformasi ISPU. Pendekatan ini dipilih guna menjaga granularitas varians data asli agar tidak tereduksi oleh fungsi pembagian segmen regulasi, sehingga algoritma komputasi dapat mempelajari pola fluktuasi secara lebih sensitif. Namun, klasifikasi kategori mutu udara berdasarkan rentang nilai regulasi tetap dimanfaatkan sebagai acuan dasar dalam memetakan tingkat risiko lingkungan di DKI Jakarta, sebagaimana disajikan pada Tabel \ref{tbl:ispu}.
-
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=centering}
-\setlength{\tabcolsep}{6pt} 
+\setlength{\tabcolsep}{6pt}
 \caption{Kategorisasi ISPU dan Dampak Kesehatan Spesifik}
 \label{tbl:ispu}
 
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.3cm}|
-                              >{\raggedright\arraybackslash}p{3.2cm}|
-                              >{\raggedright\arraybackslash}X|}
+                             >{\raggedright\arraybackslash}p{3.2cm}|
+                             >{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Rentang Indeks} & \textbf{Kategori Mutu} & \textbf{Dampak dan Implikasi Kesehatan} \\
 \hline
@@ -121,6 +122,8 @@ $>$ 300 & Berbahaya & Tingkat kritis; memicu keadaan darurat kesehatan serta gan
 \end{tabularx}
 \end{table}
 
+Penelitian Tugas Akhir ini difokuskan secara langsung pada prediksi nilai konsentrasi numerik mentah dari partikulat PM\textsubscript{10} ($\mu\text{g/m}^3$) dan bukan pada angka indeks transformasi ISPU. Pendekatan ini dipilih guna menjaga granularitas varians data asli agar tidak tereduksi oleh fungsi pembagian segmen regulasi, sehingga algoritma komputasi dapat mempelajari pola fluktuasi secara lebih sensitif. Namun, klasifikasi kategori mutu udara berdasarkan rentang nilai regulasi tetap dimanfaatkan sebagai acuan dasar dalam memetakan tingkat risiko lingkungan di DKI Jakarta, sebagaimana disajikan pada Tabel \ref{tbl:ispu}.
+
 Keterbatasan utama dari mekanisme pelaporan ISPU saat ini adalah sifatnya yang reaktif \autocite{septiani2024combating}. Nilai ISPU yang dipublikasikan merupakan hasil perhitungan rata-rata dari kondisi kualitas udara selama 24 jam ke belakang. Artinya, mekanisme tersebut bersifat retrospektif karena mencerminkan akumulasi nilai masa lalu, sehingga belum menyediakan informasi prediktif untuk periode mendatang. Keterbatasan ini menjadi alasan mengapa integrasi pendekatan \textit{machine learning} digunakan untuk membantu membangun pemodelan estimasi dini yang proaktif.
 
 \subsection{Mekanisme Fotokimia: Justifikasi Interaksi Fitur Komposit}
@@ -129,7 +132,9 @@ Dinamika partikulat di udara perkotaan tidak hanya ditentukan oleh emisi pembuan
 
 Dalam rantai reaksi tersebut, gas Karbon Monoksida (CO) dan Ozon (O\textsubscript{3}) memiliki keterkaitan. CO digunakan sebagai indikator besarnya aktivitas emisi primer kendaraan sekaligus agen yang mempercepat reaksi kimia di udara. Di sisi lain, O\textsubscript{3} di permukaan tanah terbentuk dari hasil reaksi gas buang kendaraan akibat paparan radiasi matahari. Apabila konsentrasi gas CO dan O\textsubscript{3} berada pada tingkat yang tinggi dalam waktu yang bersamaan, kondisi ini mengindikasikan bahwa proses pembentukan polutan sekunder di udara sedang berlangsung, yang memengaruhi fluktuasi konsentrasi PM\textsubscript{10}.
 
-Pembuatan fitur turunan baru yang merupakan hasil kali interaksi antara gas tersebut ($CO \times O_3$) bertujuan untuk mendeteksi kondisi atmosferik yang reaktif tersebut. Secara komputasi, fitur tambahan ini memberikan informasi varians tambahan kepada algoritma \textit{Random Forest} untuk mengenali pola pembentukan polusi sekunder. Penggunaan fitur interaksi kimiawi ini ditujukan untuk meminimalkan kesalahan prediksi pada saat terjadinya lonjakan polusi mendadak \autocite{naz2024two}. Dengan demikian, model memasukkan representasi karakteristik fisik dan kimia yang terjadi di atmosfer perkotaan.
+Pembuatan fitur turunan baru yang merupakan hasil kali interaksi antara gas tersebut ($CO \times O_3$) bertujuan untuk mendeteksi kondisi atmosferik yang reaktif tersebut. Secara komputasi, fitur tambahan ini memberikan informasi varians tambahan kepada algoritma \textit{Random Forest} Regresi untuk mengenali pola pembentukan polusi sekunder. Penggunaan fitur interaksi kimiawi ini ditujukan untuk meminimalkan kesalahan prediksi pada saat terjadinya lonjakan polusi mendadak \autocite{naz2024two}. Dengan demikian, model memasukkan representasi karakteristik fisik dan kimia yang terjadi di atmosfer perkotaan.
+
+\newpage
 
 \section{Fondasi Teoretis Analisis Deret Waktu (\textit{Time Series Analysis})}
 
@@ -145,7 +150,7 @@ Pemisahan konseptual antara komponen pergerakan jangka panjang dan pola fluktuas
 
 Syarat dalam menggunakan model statistik linier seperti ARIMA adalah data deret waktu harus bersifat stasioner. Sebuah data deret waktu dikatakan stasioner apabila karakteristik statistiknya, seperti nilai rata-rata (\textit{mean}) dan ragam (\textit{variance}), konstan seiring berjalannya waktu \autocite{minitab2025adf}. Jika syarat stasioneritas ini tidak terpenuhi, model prediksi dapat menghasilkan estimasi yang kurang akurat.
 
-Untuk memastikan apakah sebuah data sudah stasioner, pengujian dilakukan secara statistik menggunakan uji \textit{Augmented Dickey-Fuller} (ADF) \autocite{vasconcelos2025stationarity}. Uji ADF bekerja dengan mendeteksi ada tidaknya akar unit (\textit{unit root}) pada data. Evaluasi ini dilakukan menggunakan model regresi yang diturunkan pada Persamaan \ref{eq:adf}.
+Untuk memastikan apakah sebuah data sudah stasioner, pengujian dilakukan secara statistik menggunakan uji \textit{Augmented Dickey-Fuller} (ADF) \autocite{vasconcelos2025stationarity}. Uji ADF bekerja dengan mendeteksi ada tidaknya akar unit (\textit{unit root}) pada data. Evaluasi menggunakan model regresi yang diturunkan pada Persamaan \ref{eq:adf}.
 
 \begin{equation}
 \Delta y_t = \alpha + \beta t + \gamma y_{t-1} + \sum_{i=1}^{p} \delta_i \Delta y_{t-i} + \epsilon_t
@@ -153,13 +158,11 @@ Untuk memastikan apakah sebuah data sudah stasioner, pengujian dilakukan secara 
 \end{equation}
 \eqcaption{Formulasi Regresi Uji \textit{Augmented Dickey-Fuller} (ADF)}
 
-\newpage
-
 Hasil dari perhitungan uji ADF dievaluasi melalui nilai probabilitas (\textit{p-value}). Hipotesis nol ($H_0$) pada pengujian ini menyatakan bahwa data memiliki akar unit (tidak stasioner). Jika nilai \textit{p-value} yang dihasilkan lebih kecil dari 0,05, maka $H_0$ ditolak, yang mengonfirmasi bahwa data PM\textsubscript{10} telah stasioner sehingga pemodelan menggunakan ARIMA dapat dilakukan.
 
 \subsection{\textit{Autocorrelation} dan \textit{Partial Autocorrelation Function} (ACF \& PACF)}
 
-Identifikasi korelasi waktu digunakan untuk memahami hubungan antara kualitas udara di masa lalu terhadap kondisi saat ini. Dalam pemodelan statistik, parameter model ditentukan dengan menganalisis nilai autokorelasi pada data tersebut. 
+Identifikasi korelasi waktu digunakan untuk memahami hubungan antara kualitas udara di masa lalu terhadap kondisi saat ini. Dalam pemodelan statistik, parameter model ditentukan dengan menganalisis nilai autokorelasi pada data tersebut.
 
 \textit{Autocorrelation Function} (ACF) mengukur tingkat korelasi antara nilai observasi saat ini ($y_t$) dengan nilai observasi pada masa lalu ($y_{t-k}$) pada berbagai interval waktu jeda (\textit{lag}). Formulasi matematis untuk menghitung koefisien ACF diturunkan pada Persamaan \ref{eq:acf}.
 
@@ -175,16 +178,18 @@ Sementara itu, \textit{Partial Autocorrelation Function} (PACF) mengukur korelas
 
 Pemodelan data deret waktu PM\textsubscript{10} berhadapan dengan dua karakteristik utama, yaitu pola non-linier yang dipicu oleh fluktuasi cuaca serta interaksi antar-polutan, dan pola linier dari tren jangka panjang. Oleh karena itu, pendekatan teoretis dalam penelitian ini menggabungkan algoritma \textit{machine learning} berbasis pohon keputusan dan model statistik klasik.
 
-\subsection{Algoritma \textit{Random Forest Regressor}}
+\newpage
 
-\textit{Random Forest} (RF) merupakan algoritma \textit{ensemble learning} yang bekerja dengan menggabungkan sekumpulan pohon keputusan (\textit{Decision Trees}) untuk menghasilkan prediksi akhir dengan nilai kesalahan yang rendah \autocite{alarsy2025pm25, abdallah2025predicting}. Algoritma ini dirancang untuk mereduksi masalah varians tinggi (\textit{overfitting}) yang dapat terjadi jika hanya menggunakan satu pohon keputusan tunggal. RF menjaga stabilitas estimasi melalui dua proses acak utama:
+\subsection{Algoritma \textit{Random Forest Regressor} (Regresi)}
+
+\textit{Random Forest} Regresi (RF) merupakan algoritma \textit{ensemble learning} yang bekerja dengan menggabungkan sekumpulan pohon keputusan (\textit{Decision Trees}) untuk menghasilkan prediksi akhir dengan nilai kesalahan yang rendah \autocite{alarsy2025pm25, abdallah2025predicting}. Algoritma ini dirancang untuk mereduksi masalah varians tinggi (\textit{overfitting}) yang dapat terjadi jika hanya menggunakan satu pohon keputusan tunggal. RF menjaga stabilitas estimasi melalui dua proses acak utama:
 
 \begin{enumerate}
-    \item {\textit{Bootstrap Aggregating} (Bagging):} Setiap pohon keputusan di dalam model dilatih menggunakan sebagian baris data sampel acak berukuran $N$ yang diambil dengan pengembalian (\textit{with replacement}). Sekitar 36,8\% data yang tidak terambil oleh sebuah pohon disebut sebagai data \textit{Out-of-Bag} (OOB), yang dimanfaatkan untuk proses validasi internal model.
-    \item {\textit{Random Subspace Method}:} Pada setiap proses penentuan cabang (\textit{node splitting}), algoritma membatasi jumlah variabel fitur yang diuji. Jika terdapat $M$ total fitur, algoritma hanya memilih sebagian fitur (umumnya $\sqrt{M}$ atau $M/3$) secara acak. Proses ini meminimalkan dominasi dari satu fitur tertentu, sehingga pohon-pohon yang dihasilkan menjadi lebih bervariasi secara independen.
+   \item {\textit{Bootstrap Aggregating} (Bagging):} Setiap pohon keputusan di dalam model dilatih menggunakan sebagian baris data sampel acak berukuran $N$ yang diambil dengan pengembalian (\textit{with replacement}). Sekitar 36,8\% data yang tidak terambil oleh sebuah pohon disebut sebagai data \textit{Out-of-Bag} (OOB), yang dimanfaatkan untuk proses validasi internal model.
+   \item {\textit{Random Subspace Method}:} Pada setiap proses penentuan cabang (\textit{node splitting}), algoritma membatasi jumlah variabel fitur yang diuji. Jika terdapat $M$ total fitur, algoritma hanya memilih sebagian fitur (umumnya $\sqrt{M}$ atau $M/3$) secara acak. Proses ini meminimalkan dominasi dari satu fitur tertentu, sehingga pohon-pohon yang dihasilkan menjadi lebih bervariasi secara independen.
 \end{enumerate}
 
-\bigskip
+Secara teknis, mekanisme ini bekerja dengan membagi data latih menjadi beberapa bagian kecil yang berbeda untuk diproses oleh setiap pohon keputusan. Ketika melakukan estimasi, setiap pohon keputusan akan mengeluarkan hasil perhitungan sendiri, kemudian seluruh hasil tersebut dirata-ratakan untuk mendapatkan satu angka estimasi akhir. Pendekatan ini digunakan untuk meminimalkan ketergantungan model pada satu variabel tertentu dan menjaga kestabilan hasil prediksi.
 
 Dalam setiap pembentukan pohon regresi, algoritma mencari fitur dan nilai batas (\textit{threshold}) yang menghasilkan tingkat kesalahan minimum. Titik pemisahan tersebut dihitung dengan meminimalkan jumlah kuadrat sisaan (\textit{Sum of Squared Residuals}) pada ruang pemisahan, sebagaimana diturunkan pada Persamaan \ref{eq:rf_split}.
 
@@ -194,15 +199,15 @@ Dalam setiap pembentukan pohon regresi, algoritma mencari fitur dan nilai batas 
 \end{equation}
 \eqcaption{Formulasi Penentuan Pemisahan Simpul pada Pohon Regresi}
 
+\newpage
+
 \begin{equation}
 \hat{y}_{RF} = \frac{1}{B} \sum_{b=1}^{B} T_b(x)
 \label{eq:rf_math}
 \end{equation}
-\eqcaption{Formulasi Agregasi Prediksi Akhir Ansambel \textit{Random Forest}}
+\eqcaption{Formulasi Agregasi Prediksi Akhir Ansambel \textit{Random Forest} Regresi}
 
 Kelebihan fungsional RF adalah kemampuannya memodelkan data non-linier tanpa memerlukan asumsi distribusi data normal (\textit{non-parametric}). Namun, struktur pembagian cabang membuat algoritma ini memiliki keterbatasan dalam memetakan tren pergerakan linier pada data deret waktu \autocite{yenkikar2025explainable}. Hal ini menjadi dasar pertimbangan penggunaan algoritma tambahan, seperti ARIMA, untuk memodelkan sisaan (\textit{residual}) linier yang tidak tertangkap oleh komponen RF.
-
-\newpage
 
 \subsection{Arsitektur \textit{AutoRegressive Integrated Moving Average} (ARIMA)}
 
@@ -223,6 +228,8 @@ y_t' = y_t - y_{t-1}
 \label{eq:diff}
 \end{equation}
 \eqcaption{Formulasi Transformasi Diferensi Tingkat Pertama}
+
+\newpage
 
 Sementara itu, komponen \textit{Moving Average} (MA) memodelkan observasi saat ini sebagai fungsi dari nilai sisaan galat (\textit{error}) yang terjadi pada observasi masa lalu. Model ini digunakan untuk mengakomodasi fluktuasi acak pada data deret waktu. Orde $q$ menentukan jumlah jendela observasi galat yang disertakan, sebagaimana diformulasikan pada Persamaan \ref{eq:ma_q}.
 
@@ -251,22 +258,24 @@ Y_t = N_t + L_t
 \eqcaption{Formulasi Dekomposisi Hibrida Sekuensial Metodologi Zhang}
 
 \subsection{Justifikasi Pemodelan Residu Linier Menggunakan ARIMA}
-Pertanyaan mendasar dalam arsitektur ini adalah mengapa sisaan atau residu perlu dimodelkan secara terpisah dan mengapa ARIMA ditempatkan pada fase sekunder untuk memproses residu tersebut. 
-
-Algoritma berbasis pohon keputusan seperti \textit{Random Forest} melatih pemisahan fitur secara non-parametrik tanpa asumsi deret waktu. Akibatnya, \textit{Random Forest} cenderung memperlakukan setiap baris data sebagai observasi independen dan tidak mampu menangkap struktur autokorelasi linier (ketergantungan data hari $t$ dengan hari $t-k$) yang intrinsik pada sisaan prediksi. Residu dari \textit{Random Forest} ($e_t = Y_t - \hat{N}_t$) bukanlah derau acak putih (\textit{white noise}), melainkan masih menyimpan informasi temporal dan tren linier sisa yang tidak terurai oleh percabangan pohon keputusan. 
+Pertanyaan mendasar dalam arsitektur ini adalah mengapa sisaan atau residu perlu dimodelkan secara terpisah dan mengapa ARIMA ditempatkan pada fase sekunder untuk memproses residu tersebut.
 
 \newpage
 
-Di sinilah letak peran ARIMA. ARIMA secara spesifik dirancang untuk menyelesaikan struktur autokorelasi linier pada data univariat yang stasioner melalui parameter AutoRegressive (AR) dan Moving Average (MA). Dengan menempatkan ARIMA khusus pada fase sekunder untuk memodelkan deret residu, model hibrida ini bekerja secara komplementer: \textit{Random Forest} menyelesaikan fluktuasi kompleks non-linier dari parameter multivariat, sedangkan ARIMA membersihkan dan mengoreksi sisa galat linier temporal yang tertinggal. Pendekatan gabungan ini terbukti menghasilkan nilai kesalahan peramalan yang lebih rendah dibandingkan jika hanya mengandalkan satu model regresi tunggal murni.
+\raggedbottom
+
+Algoritma berbasis pohon keputusan seperti \textit{Random Forest} melatih pemisahan fitur secara non-parametrik tanpa asumsi deret waktu. Akibatnya, \textit{Random Forest} Regresi cenderung memperlakukan setiap baris data sebagai observasi independen dan tidak mampu menangkap struktur autokorelasi linier (ketergantungan data hari $t$ dengan hari $t-k$) yang intrinsik pada sisaan prediksi. Residu dari \textit{Random Forest} ($e_t = Y_t - \hat{N}_t$) bukanlah derau acak putih (\textit{white noise}), melainkan masih menyimpan informasi temporal dan tren linier sisa yang tidak terurai oleh percabangan pohon keputusan.
+
+Dalam konteks pemodelan ini, residu merupakan nilai selisih atau sisa kesalahan yang tidak dapat digambarkan oleh algoritma Random Forest. Sisa kesalahan tersebut tidak bersifat acak, melainkan masih memiliki keterikatan waktu secara linear dari hari ke hari berikutnya. Kondisi tersebut mendasari penggunaan model ARIMA pada fase kedua, yang dikonfigurasi khusus untuk memproses pola sisaan linear tersebut agar kesalahan akhir dapat dikurangi.
+
+Di sinilah letak peran ARIMA. ARIMA secara spesifik dirancang untuk menyelesaikan struktur autokorelasi linier pada data univariat yang stasioner melalui parameter AutoRegressive (AR) dan Moving Average (MA). Dengan menempatkan ARIMA khusus pada fase sekunder untuk memodelkan deret residu, model hibrida ini bekerja secara komplementer: \textit{Random Forest} Regresi menyelesaikan fluktuasi kompleks non-linier dari parameter multivariat, sedangkan ARIMA membersihkan dan mengoreksi sisa galat linier temporal yang tertinggal. Pendekatan gabungan ini terbukti menghasilkan nilai kesalahan peramalan yang lebih rendah dibandingkan jika hanya mengandalkan satu model regresi tunggal murni.
 
 Implementasi model hibrida sekuensial membagi proses kalkulasi berdasarkan karakteristik fungsi datanya. Model ini bekerja melalui tiga fase proses algoritma:
 \begin{enumerate}
-    \item {Fase Primer:} Model \textit{Random Forest} (RF) digunakan pada tahap awal untuk memproses variabel fitur masukan dan menghasilkan proyeksi estimasi nilai awal ($\hat{N}_t$). RF bertugas menangkap komponen tren non-linier data polusi.
-    \item {Ekstraksi Residu:} Sisa galat prediksi (\textit{residual}) dari hasil RF dihitung melalui persamaan $e_t = Y_t - \hat{N}_t$. Sisa galat ini merepresentasikan komponen linier data yang tidak dikenali oleh algoritma pohon keputusan.
-    \item {Fase Sekunder:} Nilai sisaan galat ($e_t$) tersebut kemudian diolah secara terpisah oleh model linier ARIMA. ARIMA akan menyesuaikan ordenya untuk memprediksi arah nilai galat pada periode selanjutnya ($\hat{L}_t$).
+   \item {Fase Primer:} Model \textit{Random Forest} Regresi (RF) digunakan pada tahap awal untuk memproses variabel fitur masukan dan menghasilkan proyeksi estimasi nilai awal ($\hat{N}_t$). RF bertugas menangkap komponen tren non-linier data polusi.
+   \item {Ekstraksi Residu:} Sisa galat prediksi (\textit{residual}) dari hasil RF dihitung melalui persamaan $e_t = Y_t - \hat{N}_t$. Sisa galat ini merepresentasikan komponen linier data yang tidak dikenali oleh algoritma pohon keputusan.
+   \item {Fase Sekunder:} Nilai sisaan galat ($e_t$) tersebut kemudian diolah secara terpisah oleh model linier ARIMA. ARIMA akan menyesuaikan ordenya untuk memprediksi arah nilai galat pada periode selanjutnya ($\hat{L}_t$).
 \end{enumerate}
-
-\bigskip
 
 Taksiran akhir dari arsitektur hibrida sekuensial ($\hat{Y}_{hybrid}$) merupakan hasil penjumlahan dari prediksi fase primer dan koreksi dari fase sekunder, sebagaimana diturunkan pada Persamaan \ref{eq:hybrid_akhir}.
 
@@ -276,7 +285,7 @@ Taksiran akhir dari arsitektur hibrida sekuensial ($\hat{Y}_{hybrid}$) merupakan
 \end{equation}
 \eqcaption{Formulasi Agregasi Akhir Prediksi Hibrida Sekuensial}
 
-Keluaran prediksi akhir untuk parameter PM\textsubscript{10} diperoleh melalui operasi penjumlahan antara nilai estimasi komponen regresi \textit{Random Forest} ($\hat{y}_{RF}$) dengan taksiran sisaan (\textit{residual}) dari komponen statistik ARIMA ($\hat{r}_{ARIMA}$). Proses penggabungan hasil kalkulasi komponen non-linier dan linier ini secara matematis direpresentasikan pada Persamaan \ref{eq:hybrid_impl}.
+Keluaran prediksi akhir untuk parameter PM\textsubscript{10} diperoleh melalui operasi penjumlahan antara nilai estimasi komponen regresi \textit{Random Forest} Regresi ($\hat{y}_{RF}$) dengan taksiran sisaan (\textit{residual}) dari komponen statistik ARIMA ($\hat{r}_{ARIMA}$). Proses penggabungan hasil kalkulasi komponen non-linier dan linier ini secara matematis direpresentasikan pada Persamaan \ref{eq:hybrid_impl}.
 
 \begin{equation}
 \hat{y}_{hybrid} = \hat{y}_{RF} + \hat{r}_{ARIMA}
@@ -284,15 +293,15 @@ Keluaran prediksi akhir untuk parameter PM\textsubscript{10} diperoleh melalui o
 \end{equation}
 \eqcaption{Formulasi Implementasi Integrasi Random Forest dan ARIMA}
 
-Sebagai bentuk penerapan dari kerangka pemodelan komplementer tersebut, penelitian ini mengasimilasi algoritma \textit{Random Forest} dan ARIMA ke dalam satu alur sekuensial yang saling melengkapi \autocite{yenkikar2025explainable}. Konfigurasi aliran data, ekstraksi nilai residu, hingga tahapan jumlahan hasil penaksiran nilai pada arsitektur hibrida yang diusulkan ini secara menyeluruh divisualisasikan pada Gambar \ref{gambar:hybrid}.
-
 \begin{figure}[htbp]
-  \centering
-  \captionsetup{justification=centering}
-  \includegraphics[width=0.5\textwidth]{images/gambar2.png}
-  \caption{Arsitektur Aliran Kerja Model Hibrida \textit{Random Forest}-ARIMA \autocite{yenkikar2025explainable}}
-  \label{gambar:hybrid}
+ \centering
+ \captionsetup{justification=centering}
+ \includegraphics[width=0.5\textwidth]{images/gambar2.png}
+ \caption{Arsitektur Aliran Kerja Model Hibrida \textit{Random Forest} Regresi-ARIMA \autocite{yenkikar2025explainable}}
+ \label{gambar:hybrid}
 \end{figure}
+
+Sebagai bentuk penerapan dari kerangka pemodelan komplementer tersebut, penelitian ini mengasimilasi algoritma \textit{Random Forest} Regresi dan ARIMA ke dalam satu alur sekuensial yang saling melengkapi \autocite{yenkikar2025explainable}. Konfigurasi aliran data, ekstraksi nilai residu, hingga tahapan jumlahan hasil penaksiran nilai pada arsitektur hibrida yang diusulkan ini secara menyeluruh divisualisasikan pada Gambar \ref{gambar:hybrid}.
 
 \section{Rekayasa Fitur (\textit{Feature Engineering}) Dimensi Atmosferik}
 
@@ -314,8 +323,6 @@ Data kualitas udara harian dapat mengandung fluktuasi acak (\textit{noise}) akib
 
 Untuk meminimalkan risiko tersebut, rekayasa fitur diperluas dengan menambahkan perhitungan statistik berbasis rentang waktu berjalan (\textit{rolling window statistics}). Metode ini berfungsi untuk mentransformasi fluktuasi harian menjadi nilai tren pergerakan akumulasi polutan. Fitur ini dihitung melalui dua pendekatan, yaitu rata-rata bergerak (\textit{rolling mean}) dan standar deviasi bergerak (\textit{rolling standard deviation}).
 
-\newpage
-
 Pendekatan rata-rata bergerak (\textit{moving average}) digunakan untuk memperhalus fluktuasi harian yang ekstrim pada data. Fitur ini menyajikan representasi mengenai arah pergerakan tren polutan secara umum. Pada penelitian ini, digunakan jendela waktu berjalan 3-hari (\texttt{pm10\_ma3}) untuk mengidentifikasi tren jangka pendek dan jendela 7-hari (\texttt{pm10\_ma7}) untuk mengevaluasi stabilitas tren mingguan. Formulasi matematika untuk menghitung rata-rata bergerak pada rentang waktu $w$ diturunkan pada Persamaan \ref{eq:ma_feature}.
 
 \begin{equation}
@@ -331,11 +338,16 @@ STD_w(t) = \sqrt{\frac{1}{w-1} \sum_{i=1}^{w} \left( y_{t-i} - MA_w(t) \right)^2
 \label{eq:std_feature}
 \end{equation}
 \eqcaption{Formulasi Derivasi \textit{Rolling Standard Deviation}}
+
+\newpage
+
+\raggedbottom
+
 \subsection{Penanda Temporal Kategorikal dan Interaksi Polutan}
 
 Model juga memerlukan variabel temporal eksplisit untuk mengenali pengaruh pergantian musim. Fitur kategorikal \texttt{month} (bulan) dan \texttt{season} (musim) digunakan agar algoritma dapat mempelajari pola pengendapan basah (\textit{wet scavenging}) di mana curah hujan berkontribusi menurunkan konsentrasi polutan di udara. Selain itu, variabel biner \texttt{is\_weekend} ditambahkan sebagai penanda komputasi mengenai penurunan volume kendaraan pada akhir pekan.
 
-Untuk aspek kimiawi, pembentukan partikulat sangat dipengaruhi oleh reaksi fotokimiawi akibat radiasi sinar matahari. Fitur interaksi komposit \texttt{co\_times\_o3} (hasil perkalian konsentrasi Karbon Monoksida dengan Ozon) dimasukkan sebagai variabel baru. Karbon Monoksida merepresentasikan indikator emisi primer kendaraan, sedangkan Ozon merupakan indikator derajat oksidasi atmosferik. Melalui penggabungan kedua nilai tersebut menjadi fitur tunggal, model \textit{Random Forest} dapat mengidentifikasi kondisi pembentukan polutan sekunder secara lebih efisien tanpa memerlukan kedalaman percabangan pohon keputusan yang tinggi.
+Untuk aspek kimiawi, pembentukan partikulat sangat dipengaruhi oleh reaksi fotokimiawi akibat radiasi sinar matahari. Fitur interaksi komposit \texttt{co\_times\_o3} (hasil perkalian konsentrasi Karbon Monoksida dengan Ozon) dimasukkan sebagai variabel baru. Karbon Monoksida merepresentasikan indikator emisi primer kendaraan, sedangkan Ozon merupakan indikator derajat oksidasi atmosferik. Melalui penggabungan kedua nilai tersebut menjadi fitur tunggal, model \textit{Random Forest} Regresi dapat mengidentifikasi kondisi pembentukan polutan sekunder secara lebih efisien tanpa memerlukan kedalaman percabangan pohon keputusan yang tinggi.
 
 \subsection{Spesifikasi Matriks Fitur Prediktor}
 
@@ -343,10 +355,10 @@ Proses rekayasa fitur dalam penelitian ini disusun menjadi sebuah himpunan varia
 
 Matriks fitur pada penelitian ini terdiri dari 15 variabel yang dikelompokkan ke dalam 5 fitur dasar (\textit{baseline}) dan 10 fitur turunan (\textit{engineered features}). Keseluruhan spesifikasi dari kelima belas fitur masukan tersebut beserta fungsi fisisnya disajikan pada Tabel \ref{tbl:features}.
 
-\setlength{\tabcolsep}{5pt} 
+\setlength{\tabcolsep}{5pt}
 \begin{longtable}{>{\raggedright\arraybackslash}p{2.5cm}
-                   >{\raggedright\arraybackslash}p{2.3cm}
-                   >{\raggedright\arraybackslash}p{8.1cm}}
+                  >{\raggedright\arraybackslash}p{2.3cm}
+                  >{\raggedright\arraybackslash}p{8.1cm}}
 \caption{Spesifikasi Matriks 15 Fitur Prediktor dalam Arsitektur Model} \label{tbl:features} \\
 
 \toprule
@@ -384,15 +396,15 @@ Matriks fitur pada penelitian ini terdiri dari 15 variabel yang dikelompokkan ke
 \textit{Interaksi Kimia} & co\_times\_o3 & Hasil kali CO $\times$ O\textsubscript{3} untuk mendeteksi laju pembentukan polutan sekunder. \\
 \end{longtable}
 
+\raggedbottom
+
 \section{Prosedur Penyetelan Parameter Menggunakan Optuna}
 
-Dalam pengembangan model pembelajaran mesin, penyesuaian nilai parameter internal (\textit{hyperparameter}) merupakan tahapan pendukung untuk memfasilitasi proses pelatihan komponen pembentuk model hibrida. Pada algoritma \textit{Random Forest}, tahapan ini mencakup pengaturan batasan struktural seperti jumlah pohon keputusan dan batas kedalaman cabang. Penentuan nilai parameter ini diterapkan sebagai instrumen bantu untuk mengendalikan kondisi di mana model meniru data latih secara berlebihan (\textit{overfitting}) atau kurang mampu menangkap pola dasar data (\textit{underfitting}). Pustaka Optuna digunakan dalam penelitian ini sebagai alat pendukung untuk mencari konfigurasi parameter secara terarah berdasarkan riwayat eksperimen sebelumnya, guna membantu proses inisialisasi komponen non-linier pada arsitektur hibrida \autocite{kostadinov2024forecasting}.
+Dalam pengembangan model pembelajaran mesin, penyesuaian nilai parameter internal (\textit{hyperparameter}) merupakan tahapan pendukung untuk memfasilitasi proses pelatihan komponen pembentuk model hibrida. Pada algoritma \textit{Random Forest} Regresi, tahapan ini mencakup pengaturan batasan struktural seperti jumlah pohon keputusan dan batas kedalaman cabang. Penentuan nilai parameter ini diterapkan sebagai instrumen bantu untuk mengendalikan kondisi di mana model meniru data latih secara berlebihan (\textit{overfitting}) atau kurang mampu menangkap pola dasar data (\textit{underfitting}). Pustaka Optuna digunakan dalam penelitian ini sebagai alat pendukung untuk mencari konfigurasi parameter secara terarah berdasarkan riwayat eksperimen sebelumnya, guna membantu proses inisialisasi komponen non-linier pada arsitektur hibrida \autocite{kostadinov2024forecasting}.
 
 \subsection{Perbandingan Metode Grid Search dan Pencarian Probabilistik}
 
 Metode \textit{Grid Search} bekerja dengan mengevaluasi seluruh kombinasi parameter yang ditentukan dalam ruang pencarian secara berurutan. Pendekatan konvensional ini memerlukan alokasi waktu pemrosesan yang bertambah seiring banyaknya variasi parameter yang diuji. Sebagai alternatif pendukung, pencarian berbasis probabilitas memanfaatkan data evaluasi dari tahapan sebelumnya untuk memperkirakan rentang parameter berikutnya yang memiliki potensi nilai kesalahan harian yang lebih rendah. Pustaka Optuna menerapkan prinsip ini dengan membangun fungsi perkiraan (\textit{surrogate model}) untuk memetakan pengaruh nilai parameter terhadap nilai galat estimasi, sehingga durasi pencarian konfigurasi pada komponen model hibrida dapat berjalan secara teratur \autocite{kostadinov2024forecasting}.
-
-\newpage
 
 \subsection{Mekanisme Pencarian Berbasis \textit{Tree-structured Parzen Estimator} (TPE)}
 
@@ -408,23 +420,21 @@ Evaluasi terhadap sebuah arsitektur pemodelan \textit{machine learning} tidak ha
 
 Estimasi efisiensi algoritma ini diformulasikan menggunakan notasi \textit{Big-O} ($O$). Notasi ini mendeskripsikan batas atas waktu eksekusi (\textit{upper bound}) atau performa algoritma pada skenario terburuk (\textit{worst-case scenario}) ketika ukuran data observasi ($N$) bernilai besar. Melalui pendekatan teoretis ini, potensi kendala efisiensi komputasi dapat diidentifikasi sebelum model diterapkan pada tahap implementasi operasional ke dalam sistem peladen (\textit{server}).
 
-Pada kasus peramalan kualitas udara harian di Jakarta, sistem memerlukan proses kalkulasi yang cepat secara berulang (iteratif) setiap hari. Oleh karena itu, penggabungan model pada arsitektur hibrida \textit{Random Forest}-ARIMA harus dipastikan secara teoritis tidak menghasilkan pertumbuhan durasi eksekusi yang eksponensial.
-
-\newpage
+Pada kasus peramalan kualitas udara harian di Jakarta, sistem memerlukan proses kalkulasi yang cepat secara berulang (iteratif) setiap hari. Oleh karena itu, penggabungan model pada arsitektur hibrida \textit{Random Forest} Regresi-ARIMA harus dipastikan secara teoritis tidak menghasilkan pertumbuhan durasi eksekusi yang eksponensial.
 
 \subsection{Kompleksitas Komputasi Fase Primer: \textit{Random Forest}}
 
-Kompleksitas waktu untuk proses pelatihan (\textit{training time}) pada algoritma \textit{Random Forest} ditentukan oleh interaksi tiga variabel utama, yaitu total jumlah baris data observasi ($N$), jumlah fitur prediktor yang dievaluasi pada setiap penentuan cabang ($M$), dan jumlah pohon keputusan yang dibangun dalam model (\textit{estimators}) yang disimbolkan dengan $K$. Ketiga parameter ini menentukan jumlah operasi perhitungan yang dieksekusi oleh prosesor komputer.
+Kompleksitas waktu untuk proses pelatihan (\textit{training time}) pada algoritma \textit{Random Forest} Regresi ditentukan oleh interaksi tiga variabel utama, yaitu total jumlah baris data observasi ($N$), jumlah fitur prediktor yang dievaluasi pada setiap penentuan cabang ($M$), dan jumlah pohon keputusan yang dibangun dalam model (\textit{estimators}) yang disimbolkan dengan $K$. Ketiga parameter ini menentukan jumlah operasi perhitungan yang dieksekusi oleh prosesor komputer.
 
 Dalam proses pembangunan satu pohon keputusan, tahapan dengan kebutuhan komputasi terbesar adalah proses pengurutan (\textit{sorting}) nilai fitur untuk menemukan titik pisah (\textit{threshold}) dengan nilai kesalahan minimum. Algoritma \textit{sorting} secara umum memerlukan waktu komputasi sebesar $N \log N$. Proses ini kemudian dikalikan dengan jumlah fitur ($M$) dan jumlah pohon yang dibangun ($K$). Dengan demikian, kompleksitas waktu batas atas untuk pelatihan \textit{Random Forest} diturunkan pada Persamaan \ref{eq:complexity_rf}.
 
 \begin{equation}
-    O(K \cdot M \cdot N \log N)
+   O(K \cdot M \cdot N \log N)
 \label{eq:complexity_rf}
 \end{equation}
-\eqcaption{Formulasi Kompleksitas Waktu Pelatihan \textit{Random Forest}}
+\eqcaption{Formulasi Kompleksitas Waktu Pelatihan \textit{Random Forest} Regresi}
 
-Berdasarkan Persamaan \ref{eq:complexity_rf}, \textit{Random Forest} memiliki kompleksitas waktu bersifat kuasi-linier ($N \log N$). Waktu komputasinya mengalami pertumbuhan yang konstan seiring dengan penambahan baris data. Karakteristik skalabilitas ini mendukung efisiensi \textit{Random Forest} untuk memproses data tabular berjumlah besar jika dibandingkan dengan arsitektur \textit{Deep Learning} seperti LSTM yang memiliki kompleksitas fungsi kuadratik $O(N^2)$ serta memerlukan proses perulangan mundur (\textit{backpropagation}) secara berulang.
+Berdasarkan Persamaan \ref{eq:complexity_rf}, \textit{Random Forest} Regresi memiliki kompleksitas waktu bersifat kuasi-linier ($N \log N$). Waktu komputasinya mengalami pertumbuhan yang konstan seiring dengan penambahan baris data. Karakteristik skalabilitas ini mendukung efisiensi \textit{Random Forest} untuk memproses data tabular berjumlah besar jika dibandingkan dengan arsitektur \textit{Deep Learning} seperti LSTM yang memiliki kompleksitas fungsi kuadratik $O(N^2)$ serta memerlukan proses perulangan mundur (\textit{backpropagation}) secara berulang.
 
 \subsection{Kompleksitas Komputasi Fase Sekunder: Arsitektur ARIMA}
 
@@ -433,7 +443,7 @@ Pada fase sekunder, pemrosesan sisa galat dilakukan menggunakan algoritma statis
 Kompleksitas konvergensi dari fungsi MLE dipengaruhi oleh penjumlahan orde \textit{AutoRegressive} ($p$) dan orde \textit{Moving Average} ($q$), serta total baris deret waktu observasi ($N$). Jika proses perulangan internal pencarian dibatasi oleh konstanta maksimal sebesar $c$, maka batas atas kompleksitas waktu pelatihan algoritma ARIMA direpresentasikan pada Persamaan \ref{eq:complexity_arima}.
 
 \begin{equation}
-    O(c \cdot N \cdot (p+q)^2)
+   O(c \cdot N \cdot (p+q)^2)
 \label{eq:complexity_arima}
 \end{equation}
 \eqcaption{Formulasi Batas Atas Kompleksitas Pelatihan Algoritma ARIMA}
@@ -442,14 +452,14 @@ Persamaan \ref{eq:complexity_arima} menunjukkan karakteristik matematis di mana 
 
 \section{Interpretabilitas Model menggunakan SHAP}
 
-Meskipun model ansambel seperti \textit{Random Forest} memberikan nilai akurasi estimasi yang terkendali, model ini memiliki karakteristik komputasi yang tertutup (\textit{black-box}) \autocite{jimenez2024explainable}. Untuk kebutuhan analisis polusi udara, model harus mampu memberikan penjelasan mengenai variabel fitur yang memengaruhi variasi nilai konsentrasi PM\textsubscript{10}. Penelitian ini menerapkan pendekatan \textit{Explainable AI} (XAI) melalui metode SHAP (\textit{SHapley Additive exPlanations}) untuk memetakan besaran pengaruh setiap variabel masukan terhadap hasil estimasi akhir.
+Meskipun model ansambel seperti \textit{Random Forest} Regresi memberikan nilai akurasi estimasi yang terkendali, model ini memiliki karakteristik komputasi yang tertutup (\textit{black-box}) \autocite{jimenez2024explainable}. Untuk kebutuhan analisis polusi udara, model harus mampu memberikan penjelasan mengenai variabel fitur yang memengaruhi variasi nilai konsentrasi PM\textsubscript{10}. Penelitian ini menerapkan pendekatan \textit{Explainable AI} (XAI) melalui metode SHAP (\textit{SHapley Additive exPlanations}) untuk memetakan besaran pengaruh setiap variabel masukan terhadap hasil estimasi akhir.
 
 \subsection{Justifikasi Validitas SHAP pada Model Hibrida Sekuensial}
-Satu hal krusial yang perlu diklarifikasi adalah mengapa metode SHAP valid digunakan untuk menginterpretasikan model hibrida sekuensial ini. 
+Satu hal krusial yang perlu diklarifikasi adalah mengapa metode SHAP valid digunakan untuk menginterpretasikan model hibrida sekuensial ini.
 
-Dalam arsitektur hibrida yang diusulkan, seluruh 15 variabel masukan (fitur dasar, lag temporal, statistik jendela berjalan, penanda musim, dan interaksi komposit $CO \times O_3$) dievaluasi dan diproses hanya pada fase primer oleh model regresi non-linier Random Forest. Model ARIMA pada fase sekunder tidak menerima 15 fitur tersebut, melainkan hanya menerima data univariate deret waktu sisaan (residual) satu dimensi ($e_t$) yang tidak memiliki struktur fitur regresi. 
+Dalam arsitektur hibrida yang diusulkan, seluruh 15 variabel masukan (fitur dasar, lag temporal, statistik jendela berjalan, penanda musim, dan interaksi komposit $CO \times O_3$) dievaluasi dan diproses hanya pada fase primer oleh model regresi non-linier Random Forest Regresi. Model ARIMA pada fase sekunder tidak menerima 15 fitur tersebut, melainkan hanya menerima data univariate deret waktu sisaan (residual) satu dimensi ($e_t$) yang tidak memiliki struktur fitur regresi.
 
-Oleh karena itu, hubungan inferensial pemetaan fitur-fitur prediktor terhadap keputusan estimasi sepenuhnya terjadi di dalam struktur pohon keputusan \textit{Random Forest}. Penerapan TreeSHAP secara eksklusif pada fase primer bersifat valid karena mengurai visualisasi kontribusi marginal dari 15 fitur tersebut terhadap pembentukan nilai prediksi awal ($\hat{N}_t$), yang merupakan komponen varians terbesar dalam arsitektur hibrida ini. Koreksi residual dari ARIMA bersifat post-hoc penyesuaian tren runtun waktu linear sisa dan tidak mengaburkan interpretasi fisis antar-fitur polutan yang diekstrak oleh SHAP.
+Oleh karena itu, hubungan inferensial pemetaan fitur-fitur prediktor terhadap keputusan estimasi sepenuhnya terjadi di dalam struktur pohon keputusan \textit{Random Forest} Regresi. Penerapan TreeSHAP secara eksklusif pada fase primer bersifat valid karena mengurai visualisasi kontribusi marginal dari 15 fitur tersebut terhadap pembentukan nilai prediksi awal ($\hat{N}_t$), yang merupakan komponen varians terbesar dalam arsitektur hibrida ini. Koreksi residual dari ARIMA bersifat post-hoc penyesuaian tren runtun waktu linear sisa dan tidak mengaburkan interpretasi fisis antar-fitur polutan yang diekstrak oleh SHAP.
 
 \subsection{Distribusi Atribusi \textit{Shapley Value}}
 
@@ -476,6 +486,25 @@ Keluaran dari perhitungan nilai SHAP dapat ditampilkan melalui dua grafik utama 
 \textit{SHAP Summary Plot} (\textit{Beeswarm}) digunakan untuk menampilkan peringkat dan arah pengaruh dari setiap variabel masukan terhadap prediksi model secara global. Pada grafik ini, sumbu vertikal ($Y$) menampilkan nama fitur yang diurutkan berdasarkan kontribusi absolutnya terhadap model. Sumbu horizontal ($X$) menunjukkan besaran nilai SHAP yang dihasilkan. Grafik ini menggunakan gradasi warna untuk menunjukkan nilai asli dari fitur tersebut, di mana warna biru merepresentasikan nilai fitur yang rendah dan warna merah merepresentasikan nilai fitur yang tinggi. Sebagai contoh, jika persebaran titik berwarna merah pada fitur Ozon berada di sisi kanan sumbu $X$ (nilai SHAP positif), kondisi tersebut menunjukkan bahwa nilai konsentrasi Ozon yang tinggi berhubungan dengan estimasi nilai \MakeUppercase{pm}\textsubscript{10} yang lebih tinggi pada model.
 
 Sementara itu, \textit{SHAP Dependence Plot} digunakan untuk menganalisis efek dari satu variabel fitur secara spesifik. Sumbu horizontal memuat nilai asli fitur tersebut, sedangkan sumbu vertikal memuat nilai dampak SHAP terhadap prediksi model. Distribusi titik pada grafik memperlihatkan karakteristik hubungan fitur terhadap target, seperti kecenderungan pola linear, eksponensial, atau kondisi konstan pada titik tertentu. \textit{SHAP Dependence Plot} juga dapat dilengkapi dengan gradasi warna berbasis variabel kedua untuk meninjau pola interaksi antara dua variabel prediktor dalam memengaruhi hasil estimasi.
+
+\subsection{Kerangka Pemikiran Aliran Data-ke-Luaran}
+\label{subsection:kerangka_transformasi}
+
+Untuk memberikan landasan teoretis yang terstruktur mengenai proses perubahan data mentah hingga menjadi luaran prediktif yang dapat ditelaah, disusun sebuah kerangka konseptual aliran data. Tahapan ini menggambarkan bagaimana domain sains data dan sains atmosfer disintesis secara berurutan tanpa mendahului pembahasan perancangan sistem fisik. Proses transformasi tersebut dibagi menjadi empat fase logis utama:
+
+\begin{enumerate}
+   \item {Fase Akuisisi dan Pengayaan Masukan (\textit{Input Phase}):} 
+   Data mentah yang terdiri atas variabel polutan dasar univariat diperluas dimensi informasinya melalui rekayasa fitur dimensi atmosferik. Pengolahan ini menghasilkan variabel baru berupa komponen \textit{lag temporal} untuk persistensi, metrik tren berjalan untuk stabilisasi derau, serta fitur komposit interaksi kimiawi ($CO \times O_3$) untuk memetakan pembentukan polutan sekunder. Matriks dimensi baru ini kemudian diselaraskan skalanya menggunakan transformasi \textit{Z-Score}.
+
+   \item {Fase Analisis Varians Non-Linier (\textit{Fase Primer}):} 
+   Matriks fitur multidimensi yang telah terstandardisasi diproses oleh komponen pembelajar primer, yaitu algoritma \textit{Random Forest} Regresi. Algoritma ini memetakan karakteristik non-linier data melalui pembentukan ansambel pohon keputusan secara non-parametrik. Hasil akhir dari fase ini berupa nilai estimasi awal ($\hat{N}_t$) dan ekstraksi deret sisaan galat temporal ($e_t$) yang belum mampu diurai oleh pemisahan cabang pohon.
+   
+   \item {Fase Koreksi Dependensi Linier (\textit{Fase Sekunder}):} 
+   Deret sisaan galat ($e_t$) diisolasi menjadi runtun waktu univariat satu dimensi untuk dianalisis stasioneritasnya melalui uji ADF. Model statistik ARIMA kemudian diterapkan pada fase sekunder ini untuk menyelesaikan pola autokorelasi linier yang tertinggal pada residu, menghasilkan nilai proyeksi koreksi galat ($\hat{L}_t$).
+   
+   \item {Fase Agregasi Luaran dan Atribusi Fisis (\textit{Output \& Explanation Phase}):} 
+   Kombinasi akhir hasil peramalan diperoleh melalui fungsi jumlahan aditif antara hasil estimasi fase primer dan komponen koreksi fase sekunder ($\hat{Y}_{hybrid}$). Bersamaan dengan pembentukan nilai estimasi tersebut, algoritma \textit{TreeSHAP} mengekstrak nilai kontribusi marjinal dari lima belas fitur masukan pada fase primer. Hasil akhir (*final output*) dikemas dalam format pelaporan yang menyajikan angka estimasi ke depan beserta rincian visualisasi faktor pendorong polusi.
+\end{enumerate}
 
 \section{Prosedur Pengukuran Galat dan Skema Validasi Temporal}
 

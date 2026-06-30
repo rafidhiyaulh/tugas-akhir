@@ -4,15 +4,13 @@
 
 \section{Arsitektur Konseptual Sistem}
 
-Bagian ini menguraikan landasan konseptual dan fungsional dari penyesuaian alur sistem pemantauan kualitas udara melalui evaluasi terhadap karakteristik sistem berjalan serta penyusunan kerangka kerja usulan yang diorientasikan pada karakteristik pemodelan yang adaptif. Perancangan arsitektur konseptual ini bertujuan untuk memberikan gambaran mengenai aliran informasi dan logika pemrosesan data, dengan menekankan pada pergeseran fungsionalitas dari pelaporan data historis menjadi komponen analisis prediktif. Integrasi pemodelan komputasi berbasis \textit{machine learning} dalam arsitektur usulan dirancang untuk memproses karakteristik data polusi udara di Jakarta sehingga diharapkan mampu mengurangi nilai kesalahan estimasi guna membantu proses pemantauan lingkungan.
+Bagian ini menguraikan landasan konseptual dan fungsional dari penyesuaian alur sistem pemantauan kualitas udara melalui evaluasi terhadap karakteristik sistem berjalan serta penyusunan kerangka kerja usulan yang diorientasikan pada karakteristik pemodelan yang adaptif. {Perancangan arsitektur sistem nyata ini merupakan implementasi fisik dan perwujudan praktis dari kerangka konseptual transformasi data-ke-luaran yang telah dirumuskan secara teoretis pada Subbab \ref{subsection:kerangka_transformasi}.} Perancangan arsitektur konseptual ini bertujuan untuk memberikan gambaran mengenai aliran informasi dan logika pemrosesan data, dengan menekankan pada pergeseran fungsionalitas dari pelaporan data historis menjadi komponen analisis prediktif. Integrasi pemodelan komputasi berbasis \textit{machine learning} dalam arsitektur usulan dirancang untuk memproses karakteristik data polusi udara di Jakarta sehingga diharapkan mampu mengurangi nilai kesalahan estimasi guna membantu proses pemantauan lingkungan.
 
 \subsection{Sistem Berjalan (\textit{Existing Sistem})}
 
-Sistem pemantauan kualitas udara yang dikelola oleh Dinas Lingkungan Hidup (DLH) Provinsi DKI Jakarta saat ini menggunakan arsitektur pemrosesan satu arah. Secara operasional, data mentah ditarik dari stasiun pemantauan, dikonversi menjadi Indeks Standar Pencemar Udara (ISPU), dan didistribusikan kepada masyarakat melalui kanal digital resmi. Alur sistem berjalan yang bersifat linear ini mencerminkan proses pengolahan data konvensional yang belum mengintegrasikan pemodelan prediktif secara otomatis.
+Sistem pemantauan kualitas udara yang dikelola oleh Dinas Lingkungan Hidup Provinsi DKI Jakarta saat ini menggunakan arsitektur pemrosesan satu arah. Secara operasional, data mentah ditarik dari stasiun pemantauan, dikonversi menjadi Indeks Standar Pencemar Udara (ISPU), dan didistribusikan kepada masyarakat melalui kanal digital resmi. Alur sistem berjalan yang bersifat linear ini mencerminkan proses pengolahan data konvensional yang belum mengintegrasikan pemodelan prediktif secara otomatis.
 
 Secara arsitektural, sistem ini beroperasi sebagai entitas penyimpan dan pelapor data historis (\textit{data logger and reporter}) yang bersifat pasif. Keterbatasan analitik prediktif menyebabkan sistem memetakan kondisi kualitas udara yang telah terjadi tanpa menyediakan estimasi nilai untuk periode mendatang. Hal ini memengaruhi kegunaan data dalam upaya penentuan langkah mitigasi dan perencanaan kebijakan perlindungan kesehatan masyarakat yang memerlukan informasi proyeksi polusi secara antisipatif.
-
-\newpage
 
 Karakteristik pada modul pemrosesan menyebabkan data mentah belum diproses melalui rekayasa fitur secara multivariat untuk menangkap variasi atmosferik yang dinamis. Tanpa adanya modul inferensi yang memadai, sistem memproses data historis tanpa menghasilkan proyeksi nilai yang dapat digunakan oleh pemangku kepentingan. Akibatnya, sistem belum menyediakan acuan numerik mengenai proyeksi kualitas udara untuk mengantisipasi fluktuasi polutan, sebagaimana ditunjukkan pada diagram alir Gambar \ref{gambar:sistem_sebelum}.
 
@@ -26,11 +24,9 @@ Karakteristik pada modul pemrosesan menyebabkan data mentah belum diproses melal
 
 \subsection{Arsitektur Usulan (\textit{Proposed Sistem})}
 
-Untuk meminimalkan keterbatasan arsitektur yang ada, penelitian ini merancang ulang arsitektur sistem dengan menambahkan komponen pemodelan prediktif ke dalam alur informasi secara terintegrasi. Arsitektur usulan mengusung konsep modul terpisah (\textit{decoupled modules}) yang beroperasi secara berurutan (\textit{pipeline}) untuk mendukung kelancaran pemrosesan data. Pendekatan ini memungkinkan setiap komponen sistem bekerja secara mandiri namun tetap terhubung dalam satu aliran data yang konsisten.
+Untuk meminimalkan keterbatasan arsitektur yang ada, penelitian ini merancang ulang arsitektur sistem dengan menambahkan komponen pemodelan prediktif ke dalam alur informasi secara terintegrasi. Dengan mengadopsi fondasi arsitektur hibrida sekuensial dari Yenkikar dkk. \autocite{yenkikar2025explainable} sebagai referensi utama, batasan sistem usulan ini difokuskan pada analisis pengayaan fitur komposit serta evaluasi performa model saat diimplementasikan secara lokal. Arsitektur usulan mengusung konsep modul terpisah (\textit{decoupled modules}) yang beroperasi secara berurutan (\textit{pipeline}) untuk mendukung kelancaran pemrosesan data. Pendekatan ini memungkinkan setiap komponen sistem bekerja secara mandiri namun tetap terhubung dalam satu aliran data yang konsisten.
 
-Data yang bersumber dari basis data SPKUA diproses secara sistematis melalui modul \textit{Data Pipeline \& ETL} untuk tahap pembersihan, penanganan data hilang, dan normalisasi. Selanjutnya, data tersebut dimasukkan ke modul \textit{Feature Engineering} untuk mengekstraksi variabel baru berupa karakteristik jeda temporal dan interaksi kimiawi antar polutan gas yang relevan dengan kondisi lokal Jakarta. Matriks data hasil rekayasa kemudian diproses secara sekuensial oleh modul inferensi hibrida yang menggabungkan karakteristik pemodelan non-linier dari \textit{Random Forest} dan komponen linier dari ARIMA.
-
-\newpage
+Data yang bersumber dari basis data SPKUA diproses secara sistematis melalui modul \textit{Data Pipeline \& ETL} untuk tahap pembersihan, penanganan data hilang, dan normalisasi. Selanjutnya, data tersebut dimasukkan ke modul \textit{Feature Engineering} untuk mengekstraksi variabel baru berupa karakteristik jeda temporal dan interaksi kimiawi antar polutan gas yang relevan dengan kondisi lokal Jakarta. Matriks data hasil rekayasa kemudian diproses secara sekuensial oleh modul inferensi hibrida yang menggabungkan karakteristik pemodelan non-linier dari \textit{Random Forest} Regresi dan komponen linier dari ARIMA.
 
 Dalam rangka memberikan transparansi terhadap hasil prediksi, arsitektur ini mengintegrasikan modul penjelasan model (\textit{Explainable AI}) berbasis metode SHAP. Modul tersebut berfungsi untuk menguraikan kontribusi setiap variabel terhadap nilai estimasi sehingga dasar dari sebuah keputusan model dapat dianalisis secara logis oleh analis kualitas udara. Luaran sistem ini menyediakan informasi variabel yang bervariasi dibandingkan sistem berjalan, dengan visualisasi arsitektur yang ditampilkan secara menyeluruh pada Gambar \ref{gambar:sistem_usulan}.
 
@@ -98,8 +94,6 @@ Dalam konteks sistem ini, entitas "Dinas Lingkungan Hidup / Sensor SPKUA" bertin
 
 Desain ETL mengatur mekanisme penyiapan data yang berasal dari kelima stasiun pemantauan (DKI1 hingga DKI5) agar dapat digunakan dalam pemodelan secara terpisah. Proses ini diperlukan mengingat data mentah dapat memiliki celah informasi akibat kendala teknis pada sensor di lapangan. Melalui tahapan ekstraksi dan transformasi, kelengkapan data dipertahankan sebelum masuk ke fase pemodelan komputasi.
 
-\newpage
-
 Dalam rangka menangani data yang hilang tanpa menyebabkan kebocoran informasi masa depan (\textit{look-ahead bias}), dirancang sebuah algoritma imputasi dengan pendekatan \textit{historical rolling mean}. Penggunaan jendela waktu $k=5$ harian memungkinkan sistem untuk mengestimasi nilai yang hilang pada waktu $t$ murni berdasarkan tren lokal terdekat secara historis ($t-1$ hingga $t-k$) pada stasiun yang bersangkutan. Pendekatan ini digunakan untuk menjaga integritas urutan waktu kronologis dan memastikan bahwa informasi dari masa depan tidak memengaruhi proses prapemrosesan data latih.
 
 Tahap akhir dari proses ETL adalah melakukan pembersihan dan transformasi data untuk membentuk matriks fitur prediktor yang siap digunakan. Proses prapemrosesan dilakukan secara berurutan pada setiap stasiun pemantauan guna menjaga karakteristik spasial yang unik di setiap wilayah administratif DKI Jakarta. Logika prapemrosesan dan alur imputasi data tersebut dijabarkan secara rinci pada Algoritma \ref{alg:etl-imputation}.
@@ -140,6 +134,8 @@ Dalam arsitektur data runtun waktu, pencegahan \textit{data leakage} (khususnya 
 
 Logika fase komputasi model pada saat mode pelatihan (\textit{training}) didokumentasikan melalui \textit{Activity Diagram} untuk menggambarkan urutan aktivitas secara sekuensial. Diagram ini memberikan gambaran mengenai alur kerja sistem dalam mempelajari karakteristik data dari tahap awal hingga model siap digunakan untuk melakukan estimasi. Pemisahan aktivitas dilakukan dengan tujuan menghindari tumpang tindih fungsi dalam arsitektur hibrida sekuensial yang dikembangkan. Rincian alur kerja serta tahapan sekuensial pada proses pelatihan model ini disajikan secara visual pada Gambar \ref{gambar:activity_diagram}.
 
+Berdasarkan alur yang dirancang pada Gambar \ref{gambar:activity_diagram}, proses komputasi berjalan secara berurutan untuk menjaga keteraturan fungsi tiap modul. Setelah tahapan rekayasa fitur (\textit{feature engineering}) selesai dieksekusi, data dikirim ke modul \textit{Random Forest} Regresi untuk fase pelatihan primer guna menghasilkan estimasi nilai awal, yang kemudian dilanjutkan dengan kalkulasi sisaan (\textit{residual}) melalui selisih antara nilai aktual dan hasil prediksi tersebut. Deret sisaan galat ini selanjutnya diproses menggunakan model statistik ARIMA pada fase sekunder untuk menangkap komponen linier temporal yang belum terurai oleh percabangan pohon keputusan. Penggabungan dua metode dengan karakteristik berbeda ini diterapkan agar diperoleh hasil estimasi akhir dengan akumulasi galat yang terkendali, di mana keseluruhan alur pelatihan diakhiri dengan penyimpanan konfigurasi parameter dari kedua model (\textit{Saved Model}) untuk fase inferensi harian secara berkala.
+
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
@@ -147,10 +143,6 @@ Logika fase komputasi model pada saat mode pelatihan (\textit{training}) didokum
   \caption{\textit{Activity Diagram} Alur Pelatihan Model Hibrida Sekuensial}
   \label{gambar:activity_diagram}
 \end{figure}
-
-Berdasarkan alur yang dirancang pada Gambar \ref{gambar:activity_diagram}, proses komputasi berjalan secara berurutan untuk menjaga keteraturan fungsi tiap modul. Setelah tahapan rekayasa fitur (\textit{feature engineering}) selesai dieksekusi, data dikirim ke modul \textit{Random Forest} untuk fase pelatihan primer guna menghasilkan estimasi nilai awal, yang kemudian dilanjutkan dengan kalkulasi sisaan (\textit{residual}) melalui selisih antara nilai aktual dan hasil prediksi tersebut. Deret sisaan galat ini selanjutnya diproses menggunakan model statistik ARIMA pada fase sekunder untuk menangkap komponen linier temporal yang belum terurai oleh percabangan pohon keputusan. Penggabungan dua metode dengan karakteristik berbeda ini diterapkan agar diperoleh hasil estimasi akhir dengan akumulasi galat yang terkendali, di mana keseluruhan alur pelatihan diakhiri dengan penyimpanan konfigurasi parameter dari kedua model (\textit{Saved Model}) untuk fase inferensi harian secara berkala.
-
-\newpage
 
 \subsection{Sequence Diagram Sistem Inferensi Berkala}
 
@@ -166,7 +158,7 @@ Prosedur operasional sistem pada saat melakukan peramalan harian divisualisasika
 
 \newpage
 
-Berdasarkan tahapan urutan yang digambarkan pada Gambar \ref{gambar:sequence_diagram}, alur inferensi berkala (\textit{automated batch processing}) diawali ketika komponen penjadwal (\textit{Scheduler}) memicu modul ETL untuk menarik tujuh hari riwayat data terakhir dari basis data stasiun. Modul prediksi kemudian memuat konfigurasi parameter model \textit{Random Forest} dan ARIMA dari memori penyimpanan untuk menjalankan proses kalkulasi secara sekuensial, di mana hasil dari kedua model tersebut dijumlahkan untuk menghasilkan nilai prediksi tunggal yang merepresentasikan konsentrasi PM\textsubscript{10} untuk horizon satu hari ke depan ($t+1$). Tahap akhir dari rangkaian proses ini melibatkan modul penjelasan model untuk mengkalkulasi pengaruh setiap fitur masukan terhadap hasil estimasi yang dikeluarkan, sebelum seluruh informasi dikemas menjadi sebuah laporan terpadu yang memuat nilai prediksi beserta visualisasi kontribusi fiturnya.
+Berdasarkan tahapan urutan yang digambarkan pada Gambar \ref{gambar:sequence_diagram}, alur inferensi berkala (\textit{automated batch processing}) diawali ketika komponen penjadwal (\textit{Scheduler}) memicu modul ETL untuk menarik tujuh hari riwayat data terakhir dari basis data stasiun. Modul prediksi kemudian memuat konfigurasi parameter model \textit{Random Forest} Regresi dan ARIMA dari memori penyimpanan untuk menjalankan proses kalkulasi secara sekuensial, di mana hasil dari kedua model tersebut dijumlahkan untuk menghasilkan nilai prediksi tunggal yang merepresentasikan konsentrasi PM\textsubscript{10} untuk horizon satu hari ke depan ($t+1$). Tahap akhir dari rangkaian proses ini melibatkan modul penjelasan model untuk mengkalkulasi pengaruh setiap fitur masukan terhadap hasil estimasi yang dikeluarkan, sebelum seluruh informasi dikemas menjadi sebuah laporan terpadu yang memuat nilai prediksi beserta visualisasi kontribusi fiturnya.
 
 \section{Spesifikasi Algoritmik Rekayasa Fitur}
 
@@ -177,8 +169,6 @@ Bagian ini merumuskan transformasi variabel mentah menjadi matriks fitur yang me
 Transformasi variabel mentah menjadi matriks fitur dilakukan untuk mengelola karakteristik data kualitas udara PM\textsubscript{10} yang memiliki varians fluktuasi dan dependensi musiman. Rekayasa fitur dalam penelitian ini bertujuan untuk mengekstraksi informasi temporal dan kimiawi berkala yang tidak terlihat secara langsung pada observasi harian harian, namun berpengaruh terhadap persistensi polutan di atmosfer. Melalui perluasan dimensi input, model hibrida dapat menangkap dependensi temporal dan korelasi antarpolutan secara lebih komprehensif.
 
 Rancangan fitur secara teoretis dibagi ke dalam empat kategori utama untuk memberikan konteks prediktif. Kategori tersebut meliputi fitur \textit{lag} untuk menangkap pengaruh variabel hari sebelumnya, statistik \textit{rolling window} untuk memetakan tren mingguan, interaksi kimiawi untuk merepresentasikan hubungan antar gas polutan, serta penanda temporal untuk mengidentifikasi aktivitas masyarakat urban. Pembagian kategori ini dilakukan agar setiap variabel yang dihasilkan memiliki landasan teoretis yang sesuai dengan kondisi lingkungan perkotaan.
-
-\newpage
 
 Matriks desain fitur yang dikembangkan mengintegrasikan total 15 fitur komposit yang disusun berdasarkan karakteristik data ISPU di DKI Jakarta. Tabel \ref{tbl:matriks_fitur} merangkum spesifikasi teknis dari variabel-variabel turunan tersebut beserta fungsinya dalam model. Penentuan variabel ini menjadi tahapan dalam memitigasi galat prediksi yang muncul akibat perubahan pola emisi kendaraan dan industri yang dinamis, sebagaimana dirinci pada tabel berikut.
 
@@ -210,9 +200,7 @@ Penanda Temporal & \texttt{month}, \texttt{season}, \texttt{is\_weekend} & Mengi
 
 Polusi udara di wilayah metropolitan dipengaruhi oleh emisi primer dan reaksi pembentukan partikulat sekunder yang terjadi akibat interaksi kimiawi antar gas polutan. Pembangkitan fitur komposit dalam penelitian ini dirancang sebagai upaya untuk merepresentasikan dinamika tersebut, khususnya pada interaksi antara gas Karbon Monoksida dan Ozon Permukaan yang menjadi salah satu penanda fluktuasi partikulat. Melalui pendekatan perkalian antarvariabel gas ini, model diharapkan dapat mengidentifikasi pola data yang mendekati karakteristik kondisi di lapangan tanpa harus memperdalam struktur percabangan pohon keputusan.
 
-Selain variabel kimiawi, faktor aktivitas temporal berupa siklus mingguan dan bulanan juga dimasukkan sebagai fitur tambahan untuk mengamati indikasi variasi beban emisi dari sektor transportasi. Langkah ini dilakukan dengan tujuan agar setiap baris data memiliki penanda waktu, sehingga model dapat membedakan kecenderungan pola polusi antara hari kerja dan akhir pekan. Integrasi fitur temporal ini berfungsi sebagai informasi masukan pelengkap bagi algoritma \textit{Random Forest}. Prosedur rekayasa fitur beserta alur kerjanya secara berurutan ditunjukkan pada Algoritma \ref{alg:fitur-komposit} dan diagram alir Gambar \ref{gambar:flowchart_fe} di bawah ini.
-
-\newpage
+Selain variabel kimiawi, faktor aktivitas temporal berupa siklus mingguan dan bulanan juga dimasukkan sebagai fitur tambahan untuk mengamati indikasi variasi beban emisi dari sektor transportasi. Langkah ini dilakukan dengan tujuan agar setiap baris data memiliki penanda waktu, sehingga model dapat membedakan kecenderungan pola polusi antara hari kerja dan akhir pekan. Integrasi fitur temporal ini berfungsi sebagai informasi masukan pelengkap bagi algoritma \textit{Random Forest} Regresi. Prosedur rekayasa fitur beserta alur kerjanya secara berurutan ditunjukkan pada Algoritma \ref{alg:fitur-komposit} dan diagram alir Gambar \ref{gambar:flowchart_fe} di bawah ini.
 
 \begin{algorithm}[htbp]
 \caption{Pembangkitan Fitur Interaksi dan Temporal}
@@ -243,6 +231,8 @@ Selain variabel kimiawi, faktor aktivitas temporal berupa siklus mingguan dan bu
   \label{gambar:flowchart_fe}
 \end{figure}
 
+\newpage
+
 Diagram alir tersebut memperjelas bahwa implementasi logika pembangkitan fitur dieksekusi secara otomatis setelah tahap prapemrosesan data selesai. Urutan eksekusi dikonstruksi mulai dari pengolahan data \textit{lag}, perhitungan statistik bergerak pada jendela waktu yang ditentukan, hingga kalkulasi akhir fitur interaksi antarpolutan. Struktur prosedur ini dirancang untuk menjaga konsistensi hasil transformasi matriks fitur pada setiap iterasi eksperimen dan memastikan kerangka pemodelan tetap stabil.
 
 \subsection{Mekanisme Standardisasi Skala}
@@ -251,7 +241,7 @@ Seluruh matriks fitur yang telah dibangkitkan memiliki rentang nilai yang bervar
 
 Mekanisme standardisasi yang diterapkan dalam perancangan ini adalah \textit{Z-Score Standardization} (\textit{StandardScaler}). Metode ini mengubah distribusi setiap fitur sehingga memiliki nilai rata-rata nol dan deviasi standar satu, tanpa menghilangkan karakteristik distribusi aslinya. Proses penskalaan ini dilakukan secara terpisah antara data latih dan data uji untuk meminimalkan risiko terjadinya kebocoran informasi masa depan (\textit{look-ahead bias}) yang dapat menyebabkan hasil evaluasi menjadi bias.
 
-Penggunaan standardisasi skala digunakan untuk mendukung stabilitas numerik pada algoritma regresi dan membantu proses pencarian hiperparameter yang sesuai melalui Optuna. Dengan menyamakan rentang nilai, kontribusi setiap fitur terhadap target prediksi $PM_{10}$ dapat dievaluasi secara proporsional oleh model \textit{Random Forest} maupun ARIMA. Konstruksi matematis dari transformasi standardisasi skala ini mengikuti prinsip statistika sebagaimana diturunkan pada Persamaan \ref{eq:standardization}.
+Penggunaan standardisasi skala digunakan untuk mendukung stabilitas numerik pada algoritma regresi dan membantu proses pencarian hiperparameter yang sesuai melalui Optuna. Dengan menyamakan rentang nilai, kontribusi setiap fitur terhadap target prediksi $PM_{10}$ dapat dievaluasi secara proporsional oleh model \textit{Random Forest} Regresi maupun ARIMA. Konstruksi matematis dari transformasi standardisasi skala ini mengikuti prinsip statistika sebagaimana diturunkan pada Persamaan \ref{eq:standardization}.
 
 \begin{equation}
 z = \frac{x - \mu}{\sigma}
@@ -267,9 +257,9 @@ Integrasi sekuensial ini dimulai dengan pemodelan fase primer yang bertujuan unt
 
 Aliran kerja arsitektur hibrida ini secara sistematis mencakup fase pelatihan primer, perhitungan residu, pelatihan fase sekunder, hingga integrasi akhir hasil prediksi. Penggunaan metode sekuensial ini juga memfasilitasi proses pencarian parameter yang terstruktur bagi kedua model. Struktur desain ini menjadi fondasi utama dalam mencapai target penaksiran nilai galat peramalan kualitas udara di wilayah DKI Jakarta.
 
-\subsection{Desain Fase Primer (\textit{Random Forest})}
+\subsection{Desain Fase Primer (\textit{Random Forest}) Regresi}
 
-Pada fase pertama, keseluruhan matriks fitur $X_{train}$ hasil rekayasa dimasukkan ke model \textit{Random Forest Regressor} untuk memetakan hubungan fungsional terhadap target PM\textsubscript{10}. Algoritma ini dipilih sebagai pembelajar primer karena karakteristiknya dalam memproses data multidimensi dan kemampuannya dalam mengidentifikasi tingkat kepentingan fitur secara otomatis. Proses ini fokus pada penangkapan fluktuasi polusi yang dipengaruhi oleh interaksi kimiawi dan variabel temporal.
+Pada fase pertama, keseluruhan matriks fitur $X_{train}$ hasil rekayasa dimasukkan ke model \textit{Random Forest Regressor} (Regresi) untuk memetakan hubungan fungsional terhadap target PM\textsubscript{10}. Algoritma ini dipilih sebagai pembelajar primer karena karakteristiknya dalam memproses data multidimensi dan kemampuannya dalam mengidentifikasi tingkat kepentingan fitur secara otomatis. Proses ini fokus pada penangkapan fluktuasi polusi yang dipengaruhi oleh interaksi kimiawi dan variabel temporal.
 
 Konstruksi model fase primer melibatkan pembentukan sejumlah pohon keputusan yang bekerja secara independen melalui skema \textit{bagging}. Setiap pohon memberikan estimasi nilai polutan, yang kemudian dirata-ratakan untuk menghasilkan satu nilai estimasi nilai awal (\textit{base prediction}). Pendekatan ansambel ini digunakan untuk mereduksi varians dan menjaga stabilitas prediksi pada data polusi udara yang memiliki fluktuasi harian.
 
@@ -277,13 +267,21 @@ Ruang inisialisasi parameter pada fase ini dirancang untuk memfasilitasi proses 
 
 \subsection{Logika Kalkulasi Residu Temporal}
 
-Integrasi sekuensial antara komponen non-linier dan linier dalam pemodelan hibrida didasarkan pada prinsip jumlahan komponen varians data target PM\textsubscript{10}. Berdasarkan metode dekomposisi asimilasi, deret waktu aktual dipandang sebagai gabungan dari pola non-linier dan dependensi linier temporal. Dengan menjumlahkan hasil estimasi fase primer dan koreksi fase sekunder, model hibrida menyusun akumulasi proyeksi akhir. Formulasi jumlahan aditif untuk memperoleh nilai estimasi hibrida terpadu didefinisikan pada Persamaan \ref{eq:hybrid_sum}.
+Integrasi sekuensial antara komponen non-linier dan linier dalam pemodelan hibrida didasarkan pada prinsip jumlahan komponen varians data target PM\textsubscript{10}. Berdasarkan metode dekomposisi asimilasi, deret waktu aktual dipandang sebagai gabungan dari pola non-linier dan dependensi linier temporal. Dengan menjumlahkan hasil estimasi fase primer dan koreksi fase sekunder, model hibrida menyusun akumulasi proyeksi akhir. Formulasi jumlahan aditif beserta penjabaran komponen perhitungan matematis model hibrida secara eksplisit didefinisikan pada Persamaan \ref{eq:hybrid_sum}.
 
 \begin{equation}
-\hat{Y}_{hybrid, t} = \hat{N}_t + \hat{L}_t
+\begin{aligned}
+\hat{Y}_{hybrid, t} &= \hat{N}_t + \hat{L}_t \\[2ex]
+\text{dengan:} \quad \hat{N}_t &= \frac{1}{B} \sum_{b=1}^{B} T_b(X_t) \\[2ex]
+\hat{L}_t &= c + \sum_{i=1}^{p} \phi_i \Delta^d e_{t-i} + \sum_{j=1}^{q} \theta_j \epsilon_{t-j} \\[3ex]
+\text{Sehingga substitusi akhir } &\text{secara utuh didefinisikan sebagai:} \\[2ex]
+\hat{Y}_{hybrid, t} = \left[ \frac{1}{B} \sum_{b=1}^{B} T_b(X_t) \right] &+ \left[ c + \sum_{i=1}^{p} \phi_i \Delta^d e_{t-i} + \sum_{j=1}^{q} \theta_j \epsilon_{t-j} \right]
+\end{aligned}
 \label{eq:hybrid_sum}
 \end{equation}
-\eqcaption{Formulasi Prediksi Akhir Arsitektur Hibrida Sekuensial}
+\eqcaption{Formulasi Prediksi Akhir dan Eksplorasi Matematis Arsitektur Hibrida Sekuensial}
+
+Pada formulasi di atas, $B$ merepresentasikan jumlah estimator pohon (\textit{n\_estimators}), $T_b(X_t)$ merupakan luaran prediksi dari pohon ke-$b$ dengan masukan matriks fitur multidimensi $X_t$, $c$ adalah nilai konstanta, $\phi_i$ dan $\theta_j$ melambangkan koefisien parameter \textit{Autoregressive} (AR) dan \textit{Moving Average} (MA), $\Delta^d e_{t-i}$ merupakan nilai residu terdiferensiasi sebanyak $d$ kali, serta $\epsilon_{t-j}$ melambangkan komponen \textit{white noise}.
 
 Data residu ($e_t = Y_t - \hat{N}_t$) dalam konteks kualitas udara Jakarta mencerminkan komponen linier temporal sisa yang tidak terurai oleh percabangan pohon keputusan pada fase primer. Fenomena fisik atmosfer, seperti penumpukan partikulat di dekat permukaan tanah pada lapisan batas planet yang stabil, kerap menyisakan pola autokorelasi linier yang terlewat dari pemodelan berbasis pohon yang terfokus pada fluktuasi nilai harian. Melalui pemrosesan deret sisaan galat ini menggunakan komponen ARIMA pada fase sekunder, sistem melakukan penyesuaian nilai guna meminimalkan sisa kesalahan estimasi akhir secara keseluruhan. Logika komputasi kalkulasi residu dan penggabungan proyeksi sekuensial tersebut dijabarkan secara rinci pada Algoritma \ref{alg:kalkulasi-residu}.
 
@@ -321,17 +319,15 @@ Konfigurasi parameter $(p, d, q$) pada fase sekunder ini diatur secara dinamis u
 
 \subsection{Desain Orkestrasi Penyetelan Parameter Menggunakan Optuna}
 
-Penyetelan parameter dilakukan untuk menghindarkan model dari keterbatasan pencarian manual atau pencarian heuristik konvensional yang memerlukan waktu lama. Dalam penelitian ini, diimplementasikan kerangka pencarian probabilitas berbasis Bayesian menggunakan pustaka Optuna untuk mencari kombinasi parameter bagi \textit{Random Forest} dan ARIMA secara bersamaan. Pendekatan ini bekerja dengan mengevaluasi performa model berdasarkan fungsi objektif khusus yang meminimalkan galat prediksi berupa metrik \textit{Root Mean Squared Error} (RMSE) pada data validasi yang diekstrak melalui skema validasi silang di dalam arsitektur hibrida sekuensial.
+Penyetelan parameter dilakukan untuk menghindarkan model dari keterbatasan pencarian manual atau pencarian heuristik konvensional yang memerlukan waktu lama. Dalam penelitian ini, diimplementasikan kerangka pencarian probabilitas berbasis Bayesian menggunakan pustaka Optuna untuk mencari kombinasi parameter bagi \textit{Random Forest} Regresi dan ARIMA secara bersamaan. Pendekatan ini bekerja dengan mengevaluasi performa model berdasarkan fungsi objektif khusus yang meminimalkan galat prediksi berupa metrik \textit{Root Mean Squared Error} (RMSE) pada data validasi yang diekstrak melalui skema validasi silang di dalam arsitektur hibrida sekuensial.
 
 Proses eksplorasi tersebut mengandalkan algoritma \textit{Tree-structured Parzen Estimator} (TPE) yang secara probabilistik mengarahkan pemilihan parameter ke ruang nilai yang berpotensi menghasilkan nilai galat rendah berdasarkan riwayat percobaan sebelumnya. Melalui mekanisme ini, pencarian parameter orde $p$ dan $q$ pada komponen ARIMA serta batas struktural berupa jumlah pohon keputusan (\texttt{n\_estimators}) dan kedalaman maksimum (\texttt{max\_depth}) pada komponen \textit{Random Forest} dapat dilakukan secara otomatis. Tahap penyesuaian parameter berbasis probabilitas ini ditujukan untuk membantu stabilitas konvergensi model serta mempercepat waktu komputasi dibandingkan dengan metode pencarian konvensional, sehingga menghasilkan konfigurasi model yang memiliki kemampuan generalisasi saat dihadapkan pada data baru.
 
 \subsection{Justifikasi Efisiensi Optuna pada Ruang Hiperparameter Kombinasi}
 
-Dalam arsitektur hibrida sekuensial ini, terdapat kombinasi parameter struktural dari dua ranah algoritma yang berbeda secara simultan: parameter struktur pohon \textit{Random Forest} (\texttt{n\_estimators} dan \texttt{max\_depth}) serta parameter orde polinomial statistik \textit{ARIMA} ($p$ dan $q$). Jika dievaluasi menggunakan \textit{Grid Search}, ruang pencarian kombinasi dimensi silang ini akan berlipat ganda secara eksponensial ($O(A \times B)$), yang memicu tingginya konsumsi memori dan waktu komputasi yang kurang efisien untuk pemrosesan operasional harian.
+Dalam arsitektur hibrida sekuensial ini, terdapat kombinasi parameter struktural dari dua ranah algoritma yang berbeda secara simultan: parameter struktur pohon \textit{Random Forest} Regresi (\texttt{n\_estimators} dan \texttt{max\_depth}) serta parameter orde polinomial statistik \textit{ARIMA} ($p$ dan $q$). Jika dievaluasi menggunakan \textit{Grid Search}, ruang pencarian kombinasi dimensi silang ini akan berlipat ganda secara eksponensial ($O(A \times B)$), yang memicu tingginya konsumsi memori dan waktu komputasi yang kurang efisien untuk pemrosesan operasional harian.
 
-\newpage
-
-Pustaka Optuna digunakan sebagai pendekatan untuk menangani kendala kompleksitas tersebut dengan menerapkan pencarian berbasis optimasi Bayesian Tree-structured Parzen Estimator (TPE). TPE secara dinamis membangun fungsi probabilitas penggerak (\textit{surrogate model}) yang mempelajari riwayat hasil kombinasi hiperparameter dari percobaan-percobaan sebelumnya. Optuna memfokuskan pencarian berikutnya secara terarah pada ruang parameter yang memiliki probabilitas tinggi untuk meminimalkan fungsi kesalahan galat (\textit{objective function} berupa RMSE harian), serta memangkas percobaan yang tidak menunjukkan perbaikan performa secara dini (\textit{pruning}). Hal ini membuat proses kalibrasi parameter pembentuk arsitektur hibrida berjalan secara teratur dan efisien.
+Pustaka Optuna digunakan sebagai pendekatan untuk menangani kendala kompleksitas tersebut dengan menerapkan pencarian berbasis optimasi Bayesian Parzen Estimator (TPE). TPE secara dinamis membangun fungsi probabilitas penggerak yang mempelajari riwayat hasil kombinasi hiperparameter dari percobaan-percobaan sebelumnya. Optuna memfokuskan pencarian berikutnya secara terarah pada ruang parameter yang memiliki probabilitas tinggi untuk meminimalkan fungsi kesalahan galat (\textit{objective function} berupa RMSE harian), serta memangkas percobaan yang tidak menunjukkan perbaikan performa secara dini (\textit{pruning}). Hal ini membuat proses kalibrasi parameter pembentuk arsitektur hibrida berjalan secara teratur dan efisien.
 
 \section{Desain Skenario Eksperimen dan Validasi}
 
@@ -342,8 +338,6 @@ Rancangan skenario eksperimen diformulasikan untuk memastikan bahwa arsitektur p
 Untuk mengevaluasi keandalan arsitektur dan memberikan justifikasi terhadap penggunaan rekayasa fitur secara ilmiah, dirancang sebuah skema eksperimen menggunakan metode studi ablasi. Pendekatan ini secara sistematis mengukur dampak dari setiap komponen algoritma maupun fitur masukan terhadap performa prediksi akhir. Melalui pemisahan komponen masukan tersebut, karakteristik model dapat dievaluasi secara independen untuk mengamati apakah nilai kesalahan prediksi yang dihasilkan murni merupakan kontribusi dari desain komposit yang diusulkan.
 
 Evaluasi ablasi diimplementasikan dengan mengisolasi elemen-elemen spesifik di dalam struktur pemrosesan melalui tiga skenario utama, yang didefinisikan sebagai Model A, Model B, dan Model C. Model A bertindak sebagai model acuan dasar (\textit{baseline}) pengukur kinerja murni tanpa proses transformasi, Model B menguji arsitektur hibrida pada kondisi data mentah untuk mengamati kapabilitas hibridisasi secara mandiri, dan Model C mewakili arsitektur akhir yang diintegrasikan dengan fitur hasil rekayasa.
-
-\newpage
 
 Melalui komparasi hasil metrik galat seperti \textit{Root Mean Squared Error} (RMSE) dan \textit{Mean Absolute Error} (MAE) antar-skenario, kontribusi dari modul rekayasa fitur (\textit{feature engineering}) dapat dianalisis secara kuantitatif. Perbandingan tingkat kesalahan antara performa Model B dan Model C dirancang untuk mengisolasi persentase perubahan galat yang dihasilkan secara khusus oleh kelima belas fitur turunan. Hasil analisis komparatif ini digunakan sebagai landasan rasional untuk memvalidasi karakteristik dari perancangan arsitektur yang diusulkan, di mana spesifikasi teknis terkait konfigurasi dan pemanfaatan fitur dari masing-masing skenario pengujian dirangkum pada Tabel \ref{tbl:skenario_ablasi}.
 
@@ -362,7 +356,7 @@ Melalui komparasi hasil metrik galat seperti \textit{Root Mean Squared Error} (R
 \hline
 Model A (\textit{Baseline}) & Model Statistik Tunggal (ARIMA murni). & Deret waktu univariat PM\textsubscript{10} historis tanpa prediktor eksternal (batas bawah performa). \\
 \hline
-Model B (Hibrida Non-FE) & Arsitektur Hibrida (\textit{Random Forest} + ARIMA). & Dataset mentah multivariat berisi 5 polutan dasar ($PM_{10}$, $SO_2$, $CO$, $O_3$, $NO_2$) tanpa rekayasa fitur. \\
+Model B (Hibrida Non-FE) & Arsitektur Hibrida (\textit{Random Forest} Regresi + ARIMA). & Dataset mentah multivariat berisi 5 polutan dasar ($PM_{10}$, $SO_2$, $CO$, $O_3$, $NO_2$) tanpa rekayasa fitur. \\
 \hline
 \textbf{Model C (Hibrida Usulan)} & Arsitektur Hibrida Terkonfigurasi. & Matriks 15 fitur komposit hasil rekayasa (\textit{lag}, \textit{rolling statistics}, penanda temporal, dan interaksi silang). \\
 \hline
@@ -373,8 +367,6 @@ Model B (Hibrida Non-FE) & Arsitektur Hibrida (\textit{Random Forest} + ARIMA). 
 
 Evaluasi performa model prediktif yang memproses data deret waktu memerlukan metode pengujian khusus yang disesuaikan dengan karakteristik urutan waktu. Penggunaan metode validasi silang acak (\textit{K-Fold Cross-Validation} konvensional) kurang sesuai untuk diimplementasikan pada dataset kualitas udara karena proses pengacakan (\textit{shuffling}) baris matriks dapat merusak urutan kronologis data historis. Pelanggaran terhadap urutan waktu ini menimbulkan risiko kebocoran informasi masa depan ke dalam dimensi data latih (\textit{look-ahead bias}), sehingga menghasilkan kalkulasi nilai kesalahan model yang bias. Konsep dasar untuk meminimalkan risiko anomali evaluasi tersebut divisualisasikan melalui metode pemotongan data pada Gambar \ref{gambar:skema_validasi}.
 
-Sebagai langkah penanganan atas permasalahan validasi tersebut, dirancang sebuah skema \textit{TimeSeriesSplit} yang beroperasi menggunakan pendekatan rantaian maju (\textit{Forward Chaining}) sebagaimana ditunjukkan pada visualisasi di atas. Skema validasi ini menjaga urutan kronologis data dengan mempartisi set data menjadi $K=5$ lipatan (\textit{folds}) observasi yang berekspansi searah berjalannya waktu. Secara operasional, batas jendela observasi untuk himpunan data latih akan membesar seiring berjalannya putaran lipatan eksperimen, sementara panjang rentang waktu yang digunakan sebagai basis evaluasi pada himpunan data uji dipertahankan konstan.
-
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
@@ -382,6 +374,8 @@ Sebagai langkah penanganan atas permasalahan validasi tersebut, dirancang sebuah
   \caption{Visualisasi Pembagian Data pada Skema TimeSeriesSplit}
   \label{gambar:skema_validasi}
 \end{figure}
+
+Sebagai langkah penanganan atas permasalahan validasi tersebut, dirancang sebuah skema \textit{TimeSeriesSplit} yang beroperasi menggunakan pendekatan rantaian maju (\textit{Forward Chaining}) sebagaimana ditunjukkan pada visualisasi di atas. Skema validasi ini menjaga urutan kronologis data dengan mempartisi set data menjadi $K=5$ lipatan (\textit{folds}) observasi yang berekspansi searah berjalannya waktu. Secara operasional, batas jendela observasi untuk himpunan data latih akan membesar seiring berjalannya putaran lipatan eksperimen, sementara panjang rentang waktu yang digunakan sebagai basis evaluasi pada himpunan data uji dipertahankan konstan.
 
 Desain skema ini digunakan untuk memastikan bahwa algoritma diuji kemampuannya dalam merekonstruksi proyeksi data yang belum pernah dilalui pada fase pembelajaran. Pemisahan dimensi historis dan periode evaluasi bertujuan untuk menguji ketahanan model ketika dihadapkan pada fluktuasi rill kualitas udara di lapangan. Rincian pembagian batas ekspansi observasi kronologis dari kelima lipatan iterasi tersebut dijabarkan sebagai berikut:
 
@@ -403,7 +397,7 @@ Struktur keluaran pelaporan dirancang untuk menyederhanakan hasil analitik menja
 
 \subsection{Integrasi \textit{TreeSHAP} pada \textit{Pipeline} Inferensi}
 
-Modul penjelasan model dalam penelitian ini dirancang menggunakan algoritma \textit{TreeSHAP} yang diintegrasikan setelah model \textit{Random Forest} menyelesaikan proses prediksi non-linier. Pemilihan \textit{TreeSHAP} didasarkan pada efisiensi komputasionalnya dalam menangani model berbasis pohon dan kemampuannya dalam memberikan estimasi nilai Shapley yang konsisten. Secara matematis, interpretasi ini didasarkan pada kontribusi aditif fitur terhadap nilai prediksi rata-rata, sebagaimana dirumuskan pada Persamaan \ref{eq:shap_val}.
+Modul penjelasan model dalam penelitian ini dirancang menggunakan algoritma \textit{TreeSHAP} yang diintegrasikan setelah model \textit{Random Forest} Regresi menyelesaikan proses prediksi non-linier. Pemilihan \textit{TreeSHAP} didasarkan pada efisiensi komputasionalnya dalam menangani model berbasis pohon dan kemampuannya dalam memberikan estimasi nilai Shapley yang konsisten. Secara matematis, interpretasi ini didasarkan pada kontribusi aditif fitur terhadap nilai prediksi rata-rata, sebagaimana dirumuskan pada Persamaan \ref{eq:shap_val}.
 
 \begin{equation}
 f(x) = \phi_0 + \sum_{i=1}^{M} \phi_i

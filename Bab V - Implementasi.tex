@@ -10,9 +10,11 @@ Konfigurasi lingkungan kerja (\textit{environment}) dilakukan untuk menjaga stab
 
 Infrastruktur teknologi merupakan komponen dasar dalam eksekusi eksperimen sains data dalam penelitian ini. Lingkungan kerja dikonfigurasi untuk mendukung pengolahan data serta pelatihan model hibrida. Pengaturan perangkat keras dan perangkat lunak dilakukan dengan tujuan meminimalkan kendala teknis saat fase komputasi dan mengurangi nilai kesalahan estimasi model.
 
-Spesifikasi perangkat keras yang digunakan mencakup kombinasi antara unit pemrosesan lokal dan berbasis awan (\textit{cloud}). Komputasi lokal menggunakan arsitektur sistem berbasis ARM pada perangkat MacBook Air M3 dengan kapasitas memori 16GB untuk tahap prapemrosesan awal dan penyusunan struktur kode program. Sementara itu, fase pelatihan model yang memerlukan alokasi waktu komputasi yang besar menggunakan layanan Google Colab Pro dengan akselerasi GPU NVIDIA T4 dan kapasitas RAM tinggi guna mendukung proses konvergensi algoritma pada tahap penyetelan parameter.
+Spesifikasi perangkat keras yang digunakan mencakup kombinasi antara unit pemrosesan lokal dan berbasis awan (\textit{cloud}). Komputasi lokal menggunakan arsitektur sistem berbasis ARM pada perangkat MacBook Air M3 dengan kapasitas memori 16GB untuk tahap prapemrosesan awal dan penyusunan struktur kode program. 
 
-Sistem operasi yang digunakan terdiri dari macOS Sequoia pada lingkungan lokal dan Ubuntu 22.04.3 LTS pada lingkungan awan. Bahasa pemrograman Python versi 3.10 ke atas dipilih sebagai bahasa utama karena ekosistem pustaka sains datanya menyediakan berbagai modul standardisasi analisis data yang terintegrasi. Rincian mengenai spesifikasi teknis dari perangkat keras dan perangkat lunak yang digunakan dalam penelitian ini disajikan secara sistematis pada Tabel \ref{tbl:spesifikasi_perangkat}.
+Sementara itu, fase pelatihan model dan optimasi parameter menggunakan lingkungan awan berbasis \textit{Google Colab} versi gratis (\textit{Free Tier}). Penggunaan versi gratis ini dinilai sudah sangat memadai dan mencukupi untuk menangani seluruh rangkaian eksekusi kerangka kerja hibrida tanpa memerlukan alokasi peladen berbayar (\textit{Pro}). Secara eksplisit, spesifikasi \textit{hardware} standar yang disediakan oleh Google Colab gratis mencakup \textit{Central Processing Unit} (CPU) Intel(R) Xeon(R) @ 2.20GHz (2 vCPU) dengan alokasi \textit{System RAM} sebesar $\pm$12,7 GB, serta dukungan akselerasi \textit{Graphics Processing Unit} (GPU) NVIDIA T4 Tensor Core dengan \textit{Video RAM} (VRAM) sebesar 15 GB. 
+
+Argumentasi ini sekaligus membuktikan efisiensi komputasional dari arsitektur hibrida sekuensial yang diusulkan. Karena proses pemisahan komponen non-linier (\textit{Random Forest}) dan linier (ARIMA) dipisahkan secara teratur, pemodelan ini tidak membutuhkan ruang memori masif tingkat tinggi (\textit{High-RAM}) ataupun waktu konvergensi yang eksponensial. Sistem operasi yang digunakan terdiri dari macOS Sequoia pada lingkungan lokal dan Ubuntu 22.04.3 LTS pada lingkungan awan. Bahasa pemrograman Python versi 3.10 ke atas dipilih sebagai bahasa utama karena ekosistem pustaka sains datanya menyediakan berbagai modul standardisasi analisis data yang terintegrasi. Rincian mengenai spesifikasi teknis dari perangkat keras dan perangkat lunak yang digunakan dalam penelitian ini disajikan secara sistematis pada Tabel \ref{tbl:spesifikasi_perangkat}.
 
 \begin{table}[htbp]
 \centering
@@ -29,7 +31,7 @@ Sistem operasi yang digunakan terdiri dari macOS Sequoia pada lingkungan lokal d
 \hline
 1 & Komputasi Lokal & Apple MacBook Air M3, RAM 16GB \\
 \hline
-2 & Komputasi \textit{Cloud} & Google Colab Pro (\textit{Runtime} T4 GPU / \textit{High-RAM}) \\
+2 & Komputasi \textit{Cloud} & Google Colab (Free Tier - Standard Runtime, T4 GPU, RAM 12.7GB) \\
 \hline
 3 & Sistem Operasi & macOS Sequoia (Lokal) / Ubuntu 22.04.3 LTS (\textit{Cloud}) \\
 \hline
@@ -44,6 +46,10 @@ Sistem operasi yang digunakan terdiri dari macOS Sequoia pada lingkungan lokal d
 
 Tahapan pembuka dalam implementasi kode program melibatkan pemanggilan seluruh pustaka sains data yang diperlukan. Proses inisialisasi ini dilakukan untuk memuat berbagai modul yang menyediakan fungsi manipulasi struktur data serta algoritma pembelajaran mesin. Penyiapan pustaka dilakukan pada blok kode pertama untuk memastikan seluruh dependensi berada pada versi yang kompatibel dan dapat digunakan dalam setiap fungsi inferensi di dalam sistem, sebagaimana ditunjukkan pada Gambar \ref{gambar:inisialisasi_pustaka}.
 
+Pustaka dasar seperti \texttt{pandas} dan \texttt{numpy} dimuat untuk keperluan manajemen data tabular dan operasi matriks numerik. Modul \texttt{statsmodels} diintegrasikan untuk memproses analisis deret waktu, termasuk dekomposisi musiman dan eksekusi model ARIMA pada komponen linier. Selain itu, modul \texttt{scikit-learn} digunakan sebagai instrumen dalam pembangunan komponen regresi non-linier berbasis \textit{Random Forest Regressor} (Regresi) serta penyediaan metrik evaluasi model.
+
+Bagian akhir dari inisialisasi pustaka mencakup pemanggilan instrumen untuk pencarian parameter dan interpretasi model prediktif. Pustaka \texttt{optuna} diinisialisasi untuk menjalankan proses pencarian parameter berbasis probabilitas guna menemukan konfigurasi \textit{hyperparameter} yang sesuai bagi model hibrida secara otomatis. Terakhir, pustaka \texttt{shap} (\textit{SHapley Additive exPlanations}) dimuat untuk melakukan analisis \textit{Explainable AI} (XAI) yang bertujuan menguraikan kontribusi fitur terhadap hasil prediksi polusi harian Jakarta.
+
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
@@ -51,10 +57,6 @@ Tahapan pembuka dalam implementasi kode program melibatkan pemanggilan seluruh p
   \caption{Inisialisasi Lingkungan dan Pemanggilan Pustaka (\textit{Library})}
   \label{gambar:inisialisasi_pustaka}
 \end{figure}
-
-Pustaka dasar seperti \texttt{pandas} dan \texttt{numpy} dimuat untuk keperluan manajemen data tabular dan operasi matriks numerik. Modul \texttt{statsmodels} diintegrasikan untuk memproses analisis deret waktu, termasuk dekomposisi musiman dan eksekusi model ARIMA pada komponen linier. Selain itu, modul \texttt{scikit-learn} digunakan sebagai instrumen dalam pembangunan komponen regresi non-linier berbasis \textit{Random Forest Regressor} serta penyediaan metrik evaluasi model.
-
-Bagian akhir dari inisialisasi pustaka mencakup pemanggilan instrumen untuk pencarian parameter dan interpretasi model prediktif. Pustaka \texttt{optuna} diinisialisasi untuk menjalankan proses pencarian parameter berbasis probabilitas guna menemukan konfigurasi \textit{hyperparameter} yang sesuai bagi model hibrida secara otomatis. Terakhir, pustaka \texttt{shap} (\textit{SHapley Additive exPlanations}) dimuat untuk melakukan analisis \textit{Explainable AI} (XAI) yang bertujuan menguraikan kontribusi fitur terhadap hasil prediksi polusi harian Jakarta.
 
 \section{Akuisisi dan Eksplorasi Data Awal (EDA)}
 
@@ -73,6 +75,8 @@ Proses akuisisi data dilakukan dengan menarik berkas dataset dari repositori Goo
 \end{figure}
 
 Setelah data berhasil dimuat ke dalam lingkungan kerja, tahap selanjutnya adalah penyeragaman tipe matriks data. Setiap kolom yang merepresentasikan parameter polutan dikonversi ke dalam tipe numerik untuk memastikan kompatibilitas dengan fungsi matematika pada pustaka sains data. Sistem juga mengeksekusi perintah \texttt{df\_jakarta.reindex(all\_days)} untuk membangun indeks waktu yang utuh dan mengidentifikasi keberadaan tanggal yang tidak terekam dalam dataset asli.
+
+\newpage
 
 Keberadaan celah waktu (\textit{time gaps}) pada data dapat memengaruhi akurasi estimasi model deret waktu. Oleh karena itu, guna menghindari risiko kebocoran data (\textit{look-ahead bias}) pada fase pelatihan, baris data yang kosong pada set pelatihan diimputasi menggunakan metode rata-rata bergerak historis (\textit{historical rolling mean}) dengan jendela waktu mundur $k=5$. Sementara itu, pengisian mundur (\texttt{bfill()}) atau interpolasi berbasis waktu dapat diterapkan secara terbatas pada analisis tren makro non-pelatihan untuk menjaga kontinuitas visualisasi tanpa memengaruhi bobot inferensi kausal dari model hibrida.
 
@@ -96,6 +100,12 @@ Penerapan imputasi linear berbasis waktu mundur atau rata-rata bergerak historis
 
 Analisis eksplorasi ini diimplementasikan untuk mengukur karakteristik spasial polusi antar wilayah di DKI Jakarta sekaligus mengevaluasi hubungan matematis antar variabel independen. Sistem menampilkan persebaran data parameter target $PM_{10}$ menggunakan \textit{Boxplot} dan kurva kepadatan, serta mengekstraksi Matriks Korelasi Pearson untuk mengidentifikasi potensi multikolinearitas dari polutan gas penyerta ($CO$, $NO_2$, $SO_2$, dan $O_3$). Hasil pemetaan sebaran konsentrasi partikulat dan matriks korelasi tersebut secara berturut-turut ditampilkan pada Gambar \ref{gambar:distribusi_stasiun} and Gambar \ref{gambar:korelasi_pearson}.
 
+Berdasarkan visualisasi distribusi spasial di atas, dapat diamati tingkat kemiringan (\textit{skewness}) konsentrasi partikulat dan keberadaan nilai pencilan (\textit{outliers}) di masing-masing stasiun pemantau. Perbedaan distribusi ini menunjukkan bahwa setiap wilayah memiliki karakteristik emisi lokal yang bervariasi, sehingga evaluasi model prediktif dilakukan pada tingkat stasiun secara terpisah.
+
+Pemahaman terhadap metrik korelasi antargas kemudian menjadi acuan empiris untuk proses rekayasa fitur pada tahap selanjutnya. Keberadaan korelasi antara polutan gas tertentu dengan $PM_{10}$ memberikan landasan teoretis untuk menyusun fitur interaksi kimiawi. Pemetaan ini dilakukan agar model \textit{Random Forest} Regresi menerima dimensi masukan yang secara karakteristik fisik dan kimiawi berkaitan dengan proses pembentukan polutan di udara.
+
+\newpage
+
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
@@ -111,10 +121,6 @@ Analisis eksplorasi ini diimplementasikan untuk mengukur karakteristik spasial p
   \caption{Matriks Korelasi Pearson Antar Parameter Polutan}
   \label{gambar:korelasi_pearson}
 \end{figure}
-
-Berdasarkan visualisasi distribusi spasial di atas, dapat diamati tingkat kemiringan (\textit{skewness}) konsentrasi partikulat dan keberadaan nilai pencilan (\textit{outliers}) di masing-masing stasiun pemantau. Perbedaan distribusi ini menunjukkan bahwa setiap wilayah memiliki karakteristik emisi lokal yang bervariasi, sehingga evaluasi model prediktif dilakukan pada tingkat stasiun secara terpisah.
-
-Pemahaman terhadap metrik korelasi antargas kemudian menjadi acuan empiris untuk proses rekayasa fitur pada tahap selanjutnya. Keberadaan korelasi antara polutan gas tertentu dengan $PM_{10}$ memberikan landasan teoretis untuk menyusun fitur interaksi kimiawi. Pemetaan ini dilakukan agar model \textit{Random Forest} menerima dimensi masukan yang secara karakteristik fisik dan kimiawi berkaitan dengan proses pembentukan polutan di udara.
 
 \subsection{Plot Tren Historis Stasiun (2010--2025)}
 
@@ -151,8 +157,6 @@ Pencarian nilai jeda waktu (\textit{lag}) yang sesuai dilakukan dengan mengukur 
 Kode komputasi CCF tersebut melakukan kalkulasi pada berbagai parameter gas penyerta untuk menghitung koefisien korelasi silang pada rentang waktu nol hingga tujuh hari ke belakang. Penggunaan rentang observasi selama satu minggu dinilai memadai untuk memetakan karakteristik siklus akumulasi polutan harian di atmosfer perkotaan tanpa membebani model dengan fitur masa lalu yang nilai korelasinya telah menurun. Nilai yang mendekati batas statistik kemudian diekstrak sebagai kandidat atribut prediktor.
 
 Hasil dari pemetaan korelasi ini menunjukkan bahwa beberapa polutan gas penyerta memiliki efek tunda (\textit{delayed effect}) terhadap konsentrasi partikulat utama. Informasi ini digunakan untuk memandu proses rekayasa fitur pada tahap selanjutnya, di mana variabel dengan korelasi pada \textit{lag} tertentu ditransformasikan menjadi atribut baru. Langkah tersebut ditujukan agar model pembelajaran mesin menerima dimensi masukan yang memiliki kapabilitas estimasi berdasarkan data historis.
-
-\newpage
 
 \subsection{Dekomposisi Deret Waktu Aditif}
 
@@ -214,8 +218,6 @@ $\text{NO}_2$ & -4,1053 & 0,0009 & 3,2766 & 0,0100 \\
 \end{tabularx}
 \end{table}
 
-\newpage
-
 \section{Implementasi Rekayasa Fitur (\textit{Feature Engineering})}
 
 Bagian ini merealisasikan rancangan penambahan dimensi matriks berdasarkan karakteristik kimiawi polutan dan dependensi temporal. Proses rekayasa fitur dilakukan untuk mengekstraksi informasi temporal dan karakteristik kimiawi dari variabel mentah sehingga model hibrida dapat memproses hubungan non-linier yang memengaruhi konsentrasi $PM_{10}$ di atmosfer Jakarta.
@@ -224,7 +226,7 @@ Bagian ini merealisasikan rancangan penambahan dimensi matriks berdasarkan karak
 
 Pembangkitan fitur komposit diimplementasikan dengan menambahkan atribut masukan yang relevan secara domain untuk memfasilitasi proses estimasi model. Proses ini melibatkan transformasi data deret waktu mentah menjadi variabel turunan yang merepresentasikan dinamika polutan dalam berbagai skala waktu. 
 
-Transformasi temporal dilakukan dengan menerapkan operasi \textit{shifting} untuk menghasilkan fitur jeda temporal (\textit{lag}) yang menangkap dependensi jangka pendek dari kualitas udara pada hari-hari sebelumnya. Selain itu, digunakan operasi jendela berjalan (\textit{rolling window}) guna mengekstrak statistik bergerak seperti nilai rata-rata (\textit{mean}) 3-hari dan 7-hari, serta standar deviasi 7-hari. Pendekatan ini digunakan agar komponen \textit{Random Forest} dapat memproses tren fluktuasi polutan dan stabilitas variansi data secara terstruktur.
+Transformasi temporal dilakukan dengan menerapkan operasi \textit{shifting} untuk menghasilkan fitur jeda temporal (\textit{lag}) yang menangkap dependensi jangka pendek dari kualitas udara pada hari-hari sebelumnya. Selain itu, digunakan operasi jendela berjalan (\textit{rolling window}) guna mengekstrak statistik bergerak seperti nilai rata-rata (\textit{mean}) 3-hari dan 7-hari, serta standar deviasi 7-hari. Pendekatan ini digunakan agar komponen \textit{Random Forest} Regresi dapat memproses tren fluktuasi polutan dan stabilitas variansi data secara terstruktur.
 
 Sistem juga membentuk fitur interaksi khusus \texttt{co\_times\_o3} yang merepresentasikan karakteristik laju pembentukan polutan sekunder melalui mekanisme reaksi fotokimia di atmosfer. Atribut kategorikal tambahan seperti \texttt{season} (musim) dan \texttt{is\_weekend} (indikator akhir pekan) diintegrasikan untuk menangkap variasi aktivitas harian manusia serta kondisi meteorologi lokal. Integrasi fitur-fitur ini digunakan untuk menyediakan karakteristik domain sains atmosfer bagi model hibrida dalam memetakan hubungan non-linier antara polutan gas dan partikulat target.
 
@@ -232,21 +234,19 @@ Sistem juga membentuk fitur interaksi khusus \texttt{co\_times\_o3} yang merepre
 
 Skema validasi digunakan untuk menguji kemampuan generalisasi model terhadap data yang tidak digunakan dalam proses pelatihan. Untuk meminimalkan risiko kebocoran informasi masa depan ke masa lalu (\textit{look-ahead bias}), pemisahan data dilakukan secara temporal berdasarkan urutan waktu. Pendekatan ini ditujukan untuk menjaga konsistensi evaluasi data deret waktu agar tetap sesuai dengan urutan kronologis data kualitas udara di lapangan.
 
-\newpage
-
 \subsection{Pemisahan Set Pelatihan dan Pengujian}
 
 Tahap awal evaluasi melibatkan pembagian dataset menjadi dua bagian utama, yaitu data pelatihan (\textit{training set}) dan data pengujian (\textit{testing set}) dengan proporsi masing-masing sebesar 80\% dan 20\%. Pembagian ini dilakukan secara kronologis berdasarkan urutan waktu guna menyimulasikan kondisi operasional nyata, di mana model dikondisikan untuk melakukan penaksiran nilai pada periode waktu setelah masa pelatihan selesai.
 
-Berbeda dengan data tabular konvensional yang dapat diacak (\textit{shuffled}), data deret waktu kualitas udara memiliki dependensi temporal yang saling terikat antar-waktu. Proses pengacakan baris data dihindari karena berpotensi memicu kebocoran informasi dari periode masa depan ke dalam proses pelatihan masa lalu, yang dapat menghasilkan nilai kesalahan yang bias (\textit{overoptimistic results}). Oleh karena itu, pemotongan indeks data dilakukan secara berurutan mulai dari tanggal awal hingga batas waktu pemisahan guna memastikan data pengujian tetap terisolasi hingga fase evaluasi dilakukan, sebagaimana disajikan pada Gambar \ref{gambar:train_test_split}.
-
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=0.7\textwidth]{images/15.png}
+  \includegraphics[width=0.6\textwidth]{images/15.png}
   \caption{Pemotongan Data Latih dan Uji secara Kronologis}
   \label{gambar:train_test_split}
 \end{figure}
+
+Berbeda dengan data tabular konvensional yang dapat diacak (\textit{shuffled}), data deret waktu kualitas udara memiliki dependensi temporal yang saling terikat antar-waktu. Proses pengacakan baris data dihindari karena berpotensi memicu kebocoran informasi dari periode masa depan ke dalam proses pelatihan masa lalu, yang dapat menghasilkan nilai kesalahan yang bias (\textit{overoptimistic results}). Oleh karena itu, pemotongan indeks data dilakukan secara berurutan mulai dari tanggal awal hingga batas waktu pemisahan guna memastikan data pengujian tetap terisolasi hingga fase evaluasi dilakukan, sebagaimana disajikan pada Gambar \ref{gambar:train_test_split}.
 
 \subsection{Validasi Silang Deret Waktu (\textit{TimeSeriesSplit})}
 
@@ -285,13 +285,11 @@ Untuk menjaga stabilitas evaluasi selama fase pelatihan tanpa merusak kronologi 
 
 \section{Implementasi Model Hibrida Sekuensial}
 
-Tahapan ini menguraikan realisasi kode program untuk mengintegrasikan \textit{Random Forest} sebagai komponen pemodelan non-linier dengan ARIMA sebagai komponen pemodelan linier ke dalam satu alur (\textit{pipeline}) estimasi harian. Struktur hibrida sekuensial ini disusun untuk memanfaatkan karakteristik masing-masing algoritma dalam memproses komponen data yang bervariasi. Proses integrasi ini dilakukan agar residu atau galat yang tidak terpetakan oleh model primer dapat dikoreksi oleh model sekunder melalui pendekatan deret waktu.
-
-\newpage
+Tahapan ini menguraikan realisasi kode program untuk mengintegrasikan \textit{Random Forest} Regresi sebagai komponen pemodelan non-linier dengan ARIMA sebagai komponen pemodelan linier ke dalam satu alur (\textit{pipeline}) estimasi harian. Struktur hibrida sekuensial ini disusun untuk memanfaatkan karakteristik masing-masing algoritma dalam memproses komponen data yang bervariasi. Proses integrasi ini dilakukan agar residu atau galat yang tidak terpetakan oleh model primer dapat dikoreksi oleh model sekunder melalui pendekatan deret waktu.
 
 \subsection{Fase Primer dan Penyetelan Parameter menggunakan Optuna}
 
-Implementasi tahap primer berfokus pada pembangunan komponen non-linier menggunakan algoritma \textit{Random Forest Regressor}. Pemilihan algoritma ini didasarkan pada karakteristiknya dalam memproses interaksi antarfitur secara multivariat dan parameter data yang bervariasi tanpa memerlukan asumsi distribusi normal. Fase ini digunakan untuk memodelkan pola utama dari fluktuasi konsentrasi polutan PM\textsubscript{10} berdasarkan fitur-fitur dasar dan rekayasa fitur yang telah dibentuk sebelumnya.
+Implementasi tahap primer berfokus pada pembangunan komponen non-linier menggunakan algoritma \textit{Random Forest Regressor} (Regresi). Pemilihan algoritma ini didasarkan pada karakteristiknya dalam memproses interaksi antarfitur secara multivariat dan parameter data yang bervariasi tanpa memerlukan asumsi distribusi normal. Fase ini digunakan untuk memodelkan pola utama dari fluktuasi konsentrasi polutan PM\textsubscript{10} berdasarkan fitur-fitur dasar dan rekayasa fitur yang telah dibentuk sebelumnya.
 
 Penyetelan konfigurasi model primer dilakukan melalui pencarian \textit{hyperparameter} secara sistematis untuk meminimalkan risiko model mengalami kondisi penyesuaian berlebih (\textit{overfitting}). Proses pencarian parameter dieksekusi menggunakan pencarian probabilistik Bayesian melalui pustaka \texttt{optuna} yang mengevaluasi kombinasi parameter berdasarkan riwayat iterasi sebelumnya untuk mengefisiensikan waktu komputasi. Penyetelan ini secara spesifik mengevaluasi parameter seperti jumlah pohon (\texttt{n\_estimators}) serta kedalaman maksimum pohon (\texttt{max\_depth}) guna meminimalkan fungsi nilai kesalahan (\textit{validation RMSE}).
 
@@ -299,7 +297,9 @@ Konfigurasi parameter yang diperoleh dari fase pencarian tersebut kemudian disim
 
 \subsection{Ekstraksi Residu dan Pemodelan Fase Sekunder}
 
-Setelah fase primer selesai, sistem melakukan kalkulasi ekstraksi nilai residu yang didefinisikan sebagai selisih matematis antara nilai observasi aktual dengan hasil prediksi \textit{Random Forest}. Data residu ini dianalisis karena mengandung komponen informasi temporal linier yang tidak dipetakan oleh model berbasis pohon akibat karakteristik algoritmanya yang tidak mempertimbangkan dependensi temporal secara intrinsik. Eksplorasi terhadap sifat autokorelasi data sisaan galat ini dilakukan melalui analisis plot ACF dan PACF untuk menentukan orde ARIMA yang sesuai, sebagaimana diilustrasikan pada Gambar \ref{gambar:arima_res}.
+Setelah fase primer selesai, sistem melakukan kalkulasi ekstraksi nilai residu yang didefinisikan sebagai selisih matematis antara nilai observasi aktual dengan hasil prediksi \textit{Random Forest} Regresi. Data residu ini dianalisis karena mengandung komponen informasi temporal linier yang tidak dipetakan oleh model berbasis pohon akibat karakteristik algoritmanya yang tidak mempertimbangkan dependensi temporal secara intrinsik. Eksplorasi terhadap sifat autokorelasi data sisaan galat ini dilakukan melalui analisis plot ACF dan PACF untuk menentukan orde ARIMA yang sesuai, sebagaimana diilustrasikan pada Gambar \ref{gambar:arima_res}.
+
+Komponen linier ARIMA selanjutnya dilatih menggunakan deret waktu residu tersebut untuk menangkap dependensi temporal yang masih tertinggal dalam data sisaan. Integrasi antara model primer dan sekunder dilakukan secara sekuensial, di mana luaran dari fase pertama menjadi masukan bagi fase kedua. Proses pelatihan ini bertujuan untuk meminimalkan autokorelasi pada galat estimasi sehingga komponen ARIMA dapat mendeteksi tren linier lokal, di mana logika operasional dari keseluruhan alur pelatihan dan inferensi sekuensial ini dirangkum secara sistematis pada Algoritma \ref{alg:hybrid_training_final}.
 
 \begin{figure}[htbp]
   \centering
@@ -308,10 +308,6 @@ Setelah fase primer selesai, sistem melakukan kalkulasi ekstraksi nilai residu y
   \caption{Plot ACF/PACF Residu dan Pelatihan Model ARIMA Sekunder}
   \label{gambar:arima_res}
 \end{figure}
-
-Komponen linier ARIMA selanjutnya dilatih menggunakan deret waktu residu tersebut untuk menangkap dependensi temporal yang masih tertinggal dalam data sisaan. Integrasi antara model primer dan sekunder dilakukan secara sekuensial, di mana luaran dari fase pertama menjadi masukan bagi fase kedua. Proses pelatihan ini bertujuan untuk meminimalkan autokorelasi pada galat estimasi sehingga komponen ARIMA dapat mendeteksi tren linier lokal, di mana logika operasional dari keseluruhan alur pelatihan dan inferensi sekuensial ini dirangkum secara sistematis pada Algoritma \ref{alg:hybrid_training_final}.
-
-Sinergi antara kedua model di dalam algoritma tersebut didasarkan pada prinsip dekomposisi galat, di mana model non-linier difungsionalisasikan untuk menangkap variansi utama dari fluktuasi polutan, sedangkan model linier digunakan untuk melakukan koreksi terhadap sisaan galat prediksi. Hasil akhir prediksi diperoleh melalui prinsip superposisi, yaitu menjumlahkan estimasi nilai dari \textit{Random Forest} dengan hasil peramalan residu oleh ARIMA. Pendekatan hibrida ini digunakan agar setiap dimensi informasi, baik yang bersifat struktural non-linier maupun dependensi waktu linier, dapat terakomodasi dalam hasil prediksi akhir, di mana seluruh unjuk kerja dari arsitektur yang telah diimplementasikan ini akan diuji secara mendalam pada Bab VI.
 
 \begin{algorithm}[htbp]
 \caption{Pelatihan dan Inferensi Model Hibrida RF-ARIMA}
@@ -334,3 +330,5 @@ Sinergi antara kedua model di dalam algoritma tersebut didasarkan pada prinsip d
 \State \Return $Pred_{Hybrid}$
 \end{algorithmic}
 \end{algorithm}
+
+Sinergi antara kedua model di dalam algoritma tersebut didasarkan pada prinsip dekomposisi galat, di mana model non-linier difungsionalisasikan untuk menangkap variansi utama dari fluktuasi polutan, sedangkan model linier digunakan untuk melakukan koreksi terhadap sisaan galat prediksi. Hasil akhir prediksi diperoleh melalui prinsip superposisi, yaitu menjumlahkan estimasi nilai dari \textit{Random Forest} Regresi dengan hasil peramalan residu oleh ARIMA. Pendekatan hibrida ini digunakan agar setiap dimensi informasi, baik yang bersifat struktural non-linier maupun dependensi waktu linier, dapat terakomodasi dalam hasil prediksi akhir, di mana seluruh unjuk kerja dari arsitektur yang telah diimplementasikan ini akan diuji secara mendalam pada Bab VI.

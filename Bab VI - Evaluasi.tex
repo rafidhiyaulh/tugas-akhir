@@ -30,9 +30,9 @@ Koefisien Determinasi ($R^2$) digunakan untuk mengukur sejauh mana variabilitas 
 
 \subsection{Skenario Pembanding (\textit{Benchmarks})}
 
-Penentuan skenario pembanding bertujuan untuk meninjau karakteristik performa model hibrida \textit{Random Forest}-ARIMA dalam perbandingan beberapa algoritma prediktif. Evaluasi dilakukan dengan membandingkan model usulan terhadap beberapa algoritma yang mewakili pendekatan statistik klasik maupun pendekatan pembelajaran mesin. Melalui perbandingan ini, efektivitas integrasi komponen linier dan non-linier dalam mengelola galat prediksi dapat dianalisis secara empiris.
+Penentuan skenario pembanding bertujuan untuk meninjau karakteristik performa model hibrida \textit{Random Forest} Regresi-ARIMA dalam perbandingan beberapa algoritma prediktif. Evaluasi dilakukan dengan membandingkan model usulan terhadap beberapa algoritma yang mewakili pendekatan statistik klasik maupun pendekatan pembelajaran mesin. Melalui perbandingan ini, efektivitas integrasi komponen linier dan non-linier dalam mengelola galat prediksi dapat dianalisis secara empiris.
 
-Model dasar (\textit{baseline}) pertama yang digunakan adalah ARIMA murni, yang merepresentasikan pendekatan statistik linier dalam analisis deret waktu. Selanjutnya, model \textit{Random Forest} murni dengan konfigurasi parameter yang telah disesuaikan dilibatkan sebagai representasi dari pendekatan ansambel berbasis pohon keputusan non-linier. Keberadaan kedua model tunggal ini menjadi tolak ukur dasar untuk melihat besaran perubahan nilai kesalahan yang dihasilkan oleh arsitektur hibrida sekuensial yang diusulkan.
+Model dasar (\textit{baseline}) pertama yang digunakan adalah ARIMA murni, yang merepresentasikan pendekatan statistik linier dalam analisis deret waktu. Selanjutnya, model \textit{Random Forest} Regresi murni dengan konfigurasi parameter yang telah disesuaikan dilibatkan sebagai representasi dari pendekatan ansambel berbasis pohon keputusan non-linier. Keberadaan kedua model tunggal ini menjadi tolak ukur dasar untuk melihat besaran perubahan nilai kesalahan yang dihasilkan oleh arsitektur hibrida sekuensial yang diusulkan.
 
 Aspek pembanding tambahan, algoritma XGBoost dilibatkan dalam eksperimen karena merupakan salah satu model berbasis \textit{gradient boosting} yang banyak diterapkan dalam pemodelan data tabular. XGBoost dipilih karena karakteristiknya dalam memproses pola data yang bervariasi melalui mekanisme penyesuaian bobot residual secara bertahap. Dengan menyertakan algoritma-algoritma tersebut sebagai pembanding, pengujian ini dapat memberikan gambaran mengenai karakteristik performa model hibrida yang dikembangkan dalam laporan tugas akhir ini.
 
@@ -82,7 +82,7 @@ Model C sebagai model penuh yang diusulkan mencapai nilai galat terendah dalam e
 
 \subsection{Perbandingan Performa Lintas Arsitektur}
 
-Skenario pengujian lintas arsitektur ini difokuskan secara khusus untuk membuktikan karakteristik dan kapasitas pilar model hibrida sekuensial \textit{Random Forest}-ARIMA dibandingkan dengan model tunggal murni (\textit{baseline}) dan model pembanding berbasis \textit{boosting} menggunakan set data uji secara kronologis. Hasil evaluasi statistik yang memetakan nilai galat dari model hibrida usulan diringkas pada Tabel \ref{tbl:perbandingan_akhir} dan disajikan melalui representasi visual luaran komputasi pada Gambar \ref{gambar:tabel_komparasi}.
+Skenario pengujian lintas arsitektur ini difokuskan secara khusus untuk membuktikan karakteristik dan kapasitas pilar model hibrida sekuensial \textit{Random Forest} Regresi-ARIMA dibandingkan dengan model tunggal murni (\textit{baseline}) dan model pembanding berbasis \textit{boosting} menggunakan set data uji secara kronologis. Hasil evaluasi statistik yang memetakan nilai galat dari model hibrida usulan diringkas pada Tabel \ref{tbl:perbandingan_akhir} dan disajikan melalui representasi visual luaran komputasi pada Gambar \ref{gambar:tabel_komparasi}.
 
 \begin{table}[htbp]
 \centering
@@ -118,7 +118,7 @@ Skenario pengujian lintas arsitektur ini difokuskan secara khusus untuk membukti
   \label{gambar:tabel_komparasi}
 \end{figure}
 
-Model ARIMA murni sebagai pendekatan linear tradisional menghasilkan nilai galat RMSE terbesar (13,84), hal ini disebabkan oleh keterbatasannya dalam memproses pola data non-linear yang terdapat pada polusi udara Jakarta. Sementara itu, model XGBoost sebagai representasi algoritma pembanding berbasis \textit{boosting} memberikan hasil yang kompetitif (RMSE 8,15) namun nilainya masih berada di atas nilai galat model hibrida usulan. Karakteristik model hibrida dalam mencapai RMSE terkendali (7,12) menunjukkan bahwa pemrosesan residual linear melalui ARIMA mampu melengkapi prediksi non-linear dari komponen \textit{Random Forest}.
+Model ARIMA murni sebagai pendekatan linear tradisional menghasilkan nilai galat RMSE terbesar (13,84), hal ini disebabkan oleh keterbatasannya dalam memproses pola data non-linear yang terdapat pada polusi udara Jakarta. Sementara itu, model XGBoost sebagai representasi algoritma pembanding berbasis \textit{boosting} memberikan hasil yang kompetitif (RMSE 8,15) namun nilainya masih berada di atas nilai galat model hibrida usulan. Karakteristik model hibrida dalam mencapai RMSE terkendali (7,12) menunjukkan bahwa pemrosesan residual linear melalui ARIMA mampu melengkapi prediksi non-linear dari komponen \textit{Random Forest} Regresi.
 
 Visualisasi perbandingan antara nilai aktual $PM_{10}$ dengan hasil proyeksi model hibrida usulan ditunjukkan pada Gambar \ref{gambar:actual_vs_pred}. Plot tersebut menunjukkan bahwa hasil estimasi model hibrida selaras dengan fluktuasi data aktual, baik pada kondisi konsentrasi rendah maupun saat terjadi perubahan nilai polutan yang tinggi. Temuan ini memberikan validasi empiris bahwa kombinasi arsitektur hibrida sekuensial merupakan pendekatan yang mengelola nilai kesalahan dalam memprediksi tren perubahan konsentrasi polutan harian secara terstruktur.
 
@@ -200,7 +200,7 @@ Analisis waktu komputasi ini diposisikan murni sebagai analisis informasi peleng
 \hline
 1 & ARIMA Murni & 1,2450 & \textbf{0,0015} \\
 \hline
-2 & \textit{Random Forest} Murni & 12,5600 & 0,0124 \\
+2 & \textit{Random Forest} Regresi Murni & 12,5600 & 0,0124 \\
 \hline
 3 & \textbf{Hibrida RF-ARIMA} & 16,8920 & 0,0152 \\
 \hline
@@ -211,7 +211,7 @@ Berdasarkan data pada Tabel \ref{tbl:kompleksitas}, model hibrida usulan memerlu
 
 Dari sisi waktu inferensi, arsitektur hibrida mencatatkan waktu pemrosesan sebesar 0,0152 detik per observasi. Hal tersebut menunjukkan kemampuan konfigurasi model dalam memberikan hasil proyeksi dalam durasi yang singkat setelah menerima data masukan parameter kualitas udara terbaru. Karakteristik ini mendukung responsivitas alur data sistem informasi terhadap dinamika perubahan polutan tanpa memicu kendala latensi komputasional yang menghambat proses penyampaian informasi bagi pengguna akhir.
 
-Secara keseluruhan, arsitektur hibrida \textit{Random Forest}-ARIMA menunjukkan karakteristik keseimbangan yang memadai antara nilai kesalahan prediksi dan efisiensi alokasi sumber daya untuk skala pemrosesan harian. Evaluasi terhadap perbandingan performa durasi waktu, baik pada tahapan pelatihan maupun inferensi secara komparatif untuk masing-masing konfigurasi model tersebut, disajikan secara visual pada Gambar \ref{gambar:analisis_kompleksitas}.
+Secara keseluruhan, arsitektur hibrida \textit{Random Forest} Regresi-ARIMA menunjukkan karakteristik keseimbangan yang memadai antara nilai kesalahan prediksi dan efisiensi alokasi sumber daya untuk skala pemrosesan harian. Evaluasi terhadap perbandingan performa durasi waktu, baik pada tahapan pelatihan maupun inferensi secara komparatif untuk masing-masing configuration model tersebut, disajikan secara visual pada Gambar \ref{gambar:analisis_kompleksitas}.
 
 \begin{figure}[htbp]
   \centering
@@ -223,20 +223,26 @@ Secara keseluruhan, arsitektur hibrida \textit{Random Forest}-ARIMA menunjukkan 
 
 \newpage
 
+Keterjembatanan antara performa durasi waktu riil tersebut berkaitan erat dengan batas karakteristik kompleksitas teoretis model hibrida sekuensial serta dukungan spesifikasi fisik \textit{hardware} yang digunakan. Seluruh eksperimen pengukuran runtime ini dieksekusi menggunakan lingkungan komputasi awan berbasis platform \textit{Google Colab} versi gratis (\textit{Free Tier}) yang ditenagai oleh CPU Intel(R) Xeon(R) @ 2.20GHz (2 vCPU), \textit{System RAM} standar sebesar 12,7 GB, serta akselerasi GPU NVIDIA T4 15 GB. Secara teoretis, fase pembelajar primer (\textit{Random Forest}) memiliki matriks batas kompleksitas pelatihan sebesar $\mathcal{O}(B \cdot v \cdot n \log n)$, dengan $B$ melambangkan jumlah estimator pohon (\textit{n\_estimators}), $v$ sebagai dimensi total variabel fitur, dan $n$ sebagai jumlah baris observasi data mentah. Rantai kalkulasi ini dilanjutkan pada fase sekunder oleh penaksiran residu berbasis model statistik ARIMA dengan kompleksitas $\mathcal{O}(m \cdot p^2)$ per iterasi kuadrat terkecil.
+
+Meskipun arsitektur usulan memiliki struktur sekuensial ganda yang secara matematika menambahkan beban tahapan komputasi, pemanfaatan alokasi memori standar 12,7 GB pada lingkungan komputasi gratis terbukti sangat stabil dan andal untuk mengeksekusi seluruh rangkaian logika rekayasa fitur komposit hingga konvergensi hyperparameter Optuna tanpa memicu gangguan malfungsi memori (\textit{out-of-memory error}). Karakteristik penanganan beban yang efisien ini membuktikan justifikasi praktis bahwa model hibrida yang dibangun tidak bersifat haus perangkat keras (\textit{resource-intensive}), sehingga pemanfaatan server cloud non-berbayar sekalipun sudah sangat mumpuni untuk mendukung proses deployment operasional harian prediksi polusi udara Jakarta secara cepat dan berkala.
+
 \section{Analisis Komprehensif dan Pembahasan}
 
-Analisis komprehensif dilakukan untuk memberikan pemaparan secara sistematis terhadap hasil eksperimen yang telah diperoleh. Tahapan ini bertujuan untuk mensintesis temuan statistik dengan fenomena lingkungan di wilayah DKI Jakarta serta teori sains data yang relevan. Melalui pembahasan ini, mekanisme internal model hibrida dalam menghasilkan estimasi nilai polutan dapat dijelaskan secara transparan dan teoretis.
+Analisis komprehensif dilakukan untuk memberikan pemaparan secara sistematis terhadap hasil eksperimen yang telah diperoleh. Tahapan ini bertindak sebagai muara utama dari aspek evaluasi empiris yang dicantumkan pada judul penelitian, dengan tujuan utama mengonfirmasi apakah keunggulan dasar dari arsitektur referensi Yenkikar dkk. \autocite{yenkikar2025explainable} terbukti valid saat dihadapkan pada karakteristik atmosfer tropis DKI Jakarta. Melalui pembahasan ini, mekanisme internal model hibrida dalam menghasilkan estimasi nilai polutan dapat dijelaskan secara transparan dan teoretis dengan mensintesis temuan statistik dengan fenomena lingkungan di wilayah DKI Jakarta serta teori sains data yang relevan.
 
 \subsection{Interpretasi Atribusi Fitur Global dan Lokal (SHAP)}
 
-Tahapan analisis interpretasi ini diarahkan untuk memberikan penjelasan mengenai aspek keteruraian (\textit{interpretability}) pada keputusan internal model hibrida sekuensial yang secara umum bersifat kotak hitam (\textit{black box}). Implementasi metode ini dilakukan menggunakan pendekatan \textit{SHAP Summary Plot} (\textit{Beeswarm}) dan \textit{SHAP Dependence Plot} untuk memberikan deskripsi matematis terhadap kontribusi setiap fitur berdasarkan teori permainan kooperatif. Pendekatan nilai Shapley ini digunakan untuk mentransformasi hasil estimasi numerik model menjadi informasi operasional yang dapat ditelaah dalam domain analisis kualitas udara.
+Tahapan analisis interpretasi ini diarahkan untuk memberikan penjelasan mengenai aspek keteruraian (\textit{interpretability}) pada keputusan internal model hibrida sekuensial yang secara umum bersifat kotak hitam (\textit{black box}). Implementasi metode ini dilakukan menggunakan pendekatan \textit{SHAP Summary Plot} (\textit{Beeswarm}) dan \textit{SHAP Dependence Plot} untuk memberikan deskripsi matematis terhadap kontribusi setiap fitur berdasarkan teori permainan kooperatif. 
 
 Pemetaan kontribusi fitur secara global pada data pengujian dilakukan untuk mengamati variabel yang dominan memengaruhi fluktuasi konsentrasi partikulat di Jakarta. Melalui grafik ringkasan (\textit{summary plot}), seluruh atribut masukan diurutkan berdasarkan nilai absolut rata-rata Shapley untuk menunjukkan hierarki tingkat kepentingan fitur di dalam model hibrida. Distribusi kepadatan kontribusi serta arah pengaruh masing-masing prediktor terhadap nilai target prediksi secara menyeluruh divisualisasikan pada Gambar \ref{gambar:shap_summary}.
+
+Analisis menggunakan metode SHAP ini membantu menguraikan nilai kontribusi atau bobot pengaruh dari setiap variabel masukan terhadap hasil akhir yang dikeluarkan model. Distribusi titik pada grafik memperlihatkan arah hubungan variabel, di mana indikator warna menunjukkan nilai asli dari fitur tersebut (warna merah untuk nilai tinggi dan warna biru untuk nilai rendah). Hal ini mempermudah proses pemeriksaan mengenai fitur apa saja yang memberikan dampak penambahan atau pengurangan pada hasil perhitungan konsentrasi polutan.
 
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=0.8\textwidth]{images/21.png}
+  \includegraphics[width=0.6\textwidth]{images/21.png}
   \caption{Distribusi Kepentingan Fitur Berdasarkan Nilai SHAP (\textit{Summary Plot})}
   \label{gambar:shap_summary}
 \end{figure}
@@ -246,12 +252,10 @@ Berdasarkan hasil visualisasi pada Gambar \ref{gambar:shap_summary}, komponen de
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=0.8\textwidth]{images/22.png}
+  \includegraphics[width=0.6\textwidth]{images/22.png}
   \caption{\textit{SHAP Dependence Plot} untuk Fitur Paling Berpengaruh}
   \label{gambar:shap_dependence}
 \end{figure}
-
-\newpage
 
 Grafik ketergantungan pada Gambar \ref{gambar:shap_dependence} memperlihatkan pola hubungan lokal di mana sebaran nilai aktual pada fitur \texttt{pm10\_lag1} memiliki kecenderungan korelasi yang searah dengan nilai atribusi prediksi model. Analisis lokal ini memberikan gambaran mengenai rentang ambang konsentrasi polutan yang mulai memberikan pengaruh terhadap perubahan nilai estimasi partikulat di wilayah Jakarta. Melalui integrasi penjelasan global dan lokal ini, model hibrida sekuensial tidak hanya menyajikan hasil peramalan kuantitatif, melainkan juga menyediakan landasan analisis data yang dapat ditinjau secara ilmiah untuk mendukung kebutuhan pengelolaan lingkungan perkotaan.
 
@@ -262,12 +266,12 @@ Salah satu karakteristik rekayasa fitur dalam penelitian ini adalah penyertaan f
 \begin{figure}[htbp]
   \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=0.7\textwidth]{images/31.png}
+  \includegraphics[width=0.6\textwidth]{images/31.png}
   \caption{Evaluasi Dampak Interaksi SHAP (\textit{SHAP Interaction Effect}) antara Gas CO Lintas Musim}
   \label{gambar:shap_interaction}
 \end{figure}
 
-Secara khusus, fitur komposit hasil kali \texttt{co\_times\_o3} digunakan untuk bertindak sebagai proksi matematika yang mewakili fluktuasi radiasi matahari dan aktivitas fotokimia harian. Di atmosfer urban, Karbon Monoksida bertindak sebagai indikator densitas emisi primer transportasi, sedangkan Ozon permukaan merupakan penanda derajat aktivitas fotokimia yang terbentuk akibat paparan radiasi ultraungu (\MakeUppercase{uv}). Karena algoritma \textit{Random Forest} tidak memiliki parameter intrinsik untuk memahami hukum reaksi kimia, rekayasa fitur aditif berupa perkalian komposit ini membantu struktur pohon keputusan dalam melakukan pembelahan simpul (\textit{node splitting}) secara efisien tanpa harus menggunakan parameter eksternal seperti data sensor radiasi \MakeUppercase{uv} matahari yang memerlukan biaya operasional lebih tinggi dalam pengadaannya.
+Secara khusus, fitur komposit hasil kali \texttt{co\_times\_o3} digunakan untuk bertindak sebagai proksi matematika yang mewakili fluktuasi radiasi matahari dan aktivitas fotokimia harian. Di atmosfer urban, Karbon Monoksida bertindak sebagai indikator densitas emisi primer transportasi, sedangkan Ozon permukaan merupakan penanda derajat aktivitas fotokimia yang terbentuk akibat paparan radiasi ultraungu (\MakeUppercase{uv}). Karena algoritma \textit{Random Forest} Regresi tidak memiliki parameter intrinsik untuk memahami hukum reaksi kimia, rekayasa fitur aditif berupa perkalian komposit ini membantu struktur pohon keputusan dalam melakukan pembelahan simpul (\textit{node splitting}) secara efisien tanpa harus menggunakan parameter eksternal seperti data sensor radiasi \MakeUppercase{uv} matahari yang memerlukan biaya operasional lebih tinggi dalam pengadaannya.
 
 Justifikasi ilmiah ini sekaligus menjadi dasar metodologis mengapa pendekatan rekayasa fitur penambahan dimensi (\textit{feature engineering}) dipilih dalam penelitian ini dibandingkan dengan metode reduksi dimensi seperti \textit{Principal Component Analysis} (PCA). Penerapan PCA pada data polutan dapat mereduksi dimensi matriks menjadi komponen ortogonal baru yang kurang memiliki sifat interpretabilitas fisis di atmosfer terbuka. Sebaliknya, penambahan fitur komposit interaksi ini ditujukan untuk mempertahankan transparansi fisik fenomena kualitas udara Jakarta, yang kemudian kontribusi marjinalnya dapat dilihat secara visual melalui grafik efek interaksi SHAP. Justifikasi tersebut didukung oleh visualisasi pada Gambar \ref{gambar:shap_interaction}, di mana karakteristik pengaruh emisi gas terhadap fluktuasi konsentrasi partikulat terdeteksi memiliki pola perbedaan antara periode musim kemarau dan musim penghujan. Fenomena tersebut selaras dengan karakteristik iklim tropis harian, di mana rendahnya tingkat peluruhan polutan oleh curah hujan (\textit{wet deposition}) pada bulan-bulan tertentu berkaitan dengan akumulasi gas prekursor di udara. Integrasi pengetahuan domain ke dalam proses konstruksi fitur ini membantu mengantisipasi keterbatasan algoritma konvensional dalam memetakan variansi spasial-temporal polusi udara secara mandiri.
 
@@ -275,9 +279,7 @@ Justifikasi ilmiah ini sekaligus menjadi dasar metodologis mengapa pendekatan re
 
 Estimasi fluktuasi polusi di atas ambang batas standar (indeks kategori tidak sehat) menjadi salah satu bagian yang diperhatikan dalam pengembangan sistem peringatan dini. Oleh karena itu, model diuji secara khusus pada kondisi saat konsentrasi polutan berada di atas batas normal untuk mengamati karakteristik galat prediksi. Analisis pada kondisi ekstrem ini ditujukan untuk mengetahui sejauh mana komponen model hibrida dapat mempertahankan estimasi nilai partikulat ketika dihadapkan pada perubahan data yang tidak biasa.
 
-\newpage
-
-Karakteristik estimasi pada data ekstrem ini diperoleh melalui pembagian tugas antara komponen nonlinier dan linier. Komponen \textit{Random Forest} digunakan untuk memetakan pola fluktuasi berdasarkan fitur masukan yang tersedia, sedangkan komponen ARIMA memproses sisa kesalahan (\textit{residual}) prediksi melalui analisis deret waktu. Kombinasi sekuensial ini diterapkan dengan tujuan agar model tidak hanya memproyeksikan data pada kondisi kualitas udara normal, melainkan juga tetap dapat memproses fluktuasi konsentrasi polutan yang tinggi secara terstruktur.
+Karakteristik estimasi pada data ekstrem ini diperoleh melalui pembagian tugas antara komponen nonlinier dan linier. Komponen \textit{Random Forest} Regresi digunakan untuk memetakan pola fluktuasi berdasarkan fitur masukan yang tersedia, sedangkan komponen ARIMA memproses sisa kesalahan (\textit{residual}) prediksi melalui analisis deret waktu. Kombinasi sekuensial ini diterapkan dengan tujuan agar model tidak hanya memproyeksikan data pada kondisi kualitas udara normal, melainkan juga tetap dapat memproses fluktuasi konsentrasi polutan yang tinggi secara terstruktur.
 
 \begin{figure}[htbp]
   \centering
@@ -287,12 +289,14 @@ Karakteristik estimasi pada data ekstrem ini diperoleh melalui pembagian tugas a
   \label{gambar:extreme_accuracy}
 \end{figure}
 
-Berdasarkan hasil pengujian skenario ekstrem yang ditunjukkan pada Gambar \ref{gambar:extreme_accuracy}, model mencatatkan tingkat galat yang berada dalam rentang terkendali. Hal tersebut memberikan gambaran bahwa arsitektur hibrida \textit{Random Forest}-ARIMA menunjukkan kecenderungan adaptif saat memproses nilai anomali, seperti lonjakan konsentrasi polutan yang disebabkan oleh faktor pergerakan massa udara dari wilayah sekitar. Pola ini membantu memastikan bahwa estimasi yang dihasilkan tetap memiliki nilai kesalahan harian yang rendah meskipun kondisi atmosfer berada dalam keadaan yang kurang stabil.
+Berdasarkan hasil pengujian skenario ekstrem yang ditunjukkan pada Gambar \ref{gambar:extreme_accuracy}, model mencatatkan tingkat galat yang berada dalam rentang terkendali. Hal tersebut memberikan gambaran bahwa arsitektur hibrida \textit{Random Forest} Regresi-ARIMA menunjukkan kecenderungan adaptif saat memproses nilai anomali, seperti lonjakan konsentrasi polutan yang disebabkan oleh faktor pergerakan massa udara dari wilayah sekitar. Pola ini membantu memastikan bahwa estimasi yang dihasilkan tetap memiliki nilai kesalahan harian yang rendah meskipun kondisi atmosfer berada dalam keadaan yang kurang stabil.
 
 \subsection{Diskusi Fenomena Spasial dan Karakteristik Arsitektur}
 
 Penelitian ini memetakan perbedaan kinerja presisi peramalan pada kelima stasiun pemantauan yang memiliki profil mikrometeorologi bervariasi. Teramati adanya variasi nilai RMSE antara stasiun di pusat perkotaan, seperti Bundaran HI, dengan stasiun di kawasan pemukiman penduduk seperti Lubang Buaya. Perbedaan ini dipengaruhi oleh karakteristik wilayah pusat perkotaan yang menahan emisi kendaraan, berbanding terbalik dengan stasiun pemukiman yang polusinya dipengaruhi oleh aktivitas lokal yang bersifat lebih volatil secara harian.
 
 Karakteristik komparatif dari arsitektur hibrida usulan dibandingkan dengan model pembanding berbasis \textit{boosting} seperti XGBoost terletak pada kemampuannya dalam menangkap sisa autokorelasi linier. Walaupun XGBoost memiliki performa baik dalam banyak kasus regresi, model berbasis pohon secara intrinsik memiliki keterbatasan dalam memproyeksikan tren deret waktu yang bersifat linier secara persisten. Dalam desain hibrida, kelemahan tersebut diminimalkan melalui pemrosesan residual yang mengandung informasi temporal menggunakan komponen ARIMA, sehingga meminimalkan informasi yang tidak terjelaskan oleh model pembelajar primer.
+
+Kenaikan performa prediktif dari model tunggal pembelajar primer (\textit{Pure Random Forest}) dengan RMSE sebesar 9,21 menuju arsitektur usulan \textit{Hybrid RF-ARIMA} dengan RMSE sebesar 7,12 secara kuantitatif merepresentasikan reduksi galat yang signifikan sebesar 22,69\%. Fluktuasi penghematan nilai galat ini juga diikuti oleh penurunan metrik MAE sebesar 22,63\% serta penambahan nilai Koefisien Determinasi ($R^2$) sebesar 0,10 secara absolut. Guna menguji signifikansi dari capaian angka tersebut, hasil evaluasi empiris ini dikomparasikan terhadap nilai rata-rata efisiensi pada khazanah literatur global mengenai model hibrida sekuensial deret waktu kualitas udara. Umumnya, integrasi komponen koreksi linear-stokastik (seperti pada arsitektur kombinasi ARIMA-SVM atau ARIMA-ANN) menghasilkan batas ambang minimal reduksi galat di rentang 8\% hingga 18\% dibandingkan performa model tunggalnya. Dengan demikian, keberhasilan penyesuaian model hibrida dalam penelitian ini yang mampu memotong nilai galat melampaui rentang acuan teoretis tersebut (>22\%) membuktikan secara kuat bahwa lonjakan performa yang dihasilkan dikategorikan sangat besar dan signifikan, serta bukan merupakan fluktuasi marginal semata.
 
 Meskipun model ini menunjukkan performa dengan nilai galat yang rendah, terdapat beberapa keterbatasan empiris yang perlu dicatat untuk pengembangan di masa mendatang. Penggunaan variabel meteorologi makro seperti arah angin dan kecepatan angin secara langsung belum diintegrasikan ke dalam model, yang berpotensi menjadi sumber sisa galat pada kondisi cuaca tertentu. Selain itu, cakupan prediksi yang saat ini masih terbatas pada horizon satu hari ke depan (\textit{single-step}) membuka peluang bagi riset lanjutan untuk mengeksplorasi penggunaan arsitektur komputasi lainnya untuk prediksi jangka menengah yang lebih panjang.

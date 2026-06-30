@@ -30,6 +30,20 @@ Selain celah operasional, evaluasi terhadap studi terdahulu juga menyoroti limit
 
 Kesenjangan selanjutnya terletak pada karakteristik komputasi yang tertutup (\textit{black-box}) pada proses pemodelan data. Penerapan algoritma dengan struktur kompleks sering kali mengorbankan aspek interpretabilitas demi mengejar nilai akurasi. Tanpa adanya modul \textit{Explainable AI} (XAI) yang terintegrasi, proses analisis untuk mengidentifikasi apakah fluktuasi polusi didorong oleh efek akumulasi historis (\textit{lag effect}) atau dipicu oleh reaksi sekunder antarpolutan menjadi terbatas. Identifikasi ketiga kesenjangan ini menjadi dasar pertimbangan untuk mengembangkan model prediktif baru yang ditujukan untuk meminimalkan pengaruh derau (\textit{noise}) serta dapat diinterpretasikan secara transparan.
 
+\section{Karakteristik dan Deskripsi Dataset Penelitian}
+
+Kinerja dan keandalan model hibrida sekuensial yang dikembangkan dalam penelitian ini sangat bergantung pada kualitas dan karakteristik data mentah yang digunakan. Bagian ini menguraikan deskripsi dataset secara eksplisit, meliputi durasi pencatatan, cakupan data pengamatan, jumlah sampel, serta variabel-variabel atmosferik yang terlibat sebagai pemenuhan parameter kelayakan pengolahan data sains. Dataset yang digunakan dalam penelitian ini merupakan data sekunder berupa rekaman historis Indeks Standar Pencemar Udara (ISPU) yang diperoleh secara resmi melalui Dinas Lingkungan Hidup Provinsi DKI Jakarta.
+
+\subsection{Durasi dan Cakupan Data Pengamatan}
+
+Pengamatan kualitas udara dalam penelitian ini mencakup dimensi temporal jangka panjang dengan frekuensi pengamatan harian (\textit{daily time-series}) yang memiliki durasi total selama 16 tahun, terhitung sejak tanggal 1 Januari 2010 hingga 31 Desember 2025. Data pengamatan tersebut dikumpulkan secara spasial dari lima Stasiun Pemantau Kualitas Udara Ambien (SPKUA) yang tersebar secara strategis di berbagai wilayah administratif Provinsi DKI Jakarta. Kelima stasiun tersebut meliputi Stasiun DKI1 yang berlokasi di kawasan bisnis Bundaran HI (Jakarta Pusat), Stasiun DKI2 di kawasan logistik Kelapa Gading (Jakarta Utara), Stasiun DKI3 di kawasan permukiman hijau Jagakarsa (Jakarta Selatan), Stasiun DKI4 di kawasan padat penduduk Lubang Buaya (Jakarta Timur), dan Stasiun DKI5 di koridor transportasi Kebon Jeruk (Jakarta Barat). Pemilihan kelima lokasi ini bertujuan untuk menangkap variabilitas spasial dan karakteristik emisi lokal yang bervariasi di seluruh wilayah metropolitan.
+
+\subsection{Jumlah Data dan Spesifikasi Variabel}
+
+Secara total, dengan rentang waktu harian selama 16 tahun pencatatan yang turut mengasimilasi perhitungan tahun kabisat, dataset ini menghasilkan akumulasi data mentah sebanyak 5.844 baris observasi kontinu untuk masing-masing stasiun pemantau. Ketika seluruh data spasial tersebut digabungkan ke dalam satu kesatuan matriks komputasi multidimensi, sistem mengidentifikasi total keseluruhan sampel data pengamatan sebanyak 29.220 baris observasi harian. 
+
+Seluruh baris observasi tersebut disusun oleh beberapa komponen variabel teknis yang terbagi menjadi dua kategori utama, yaitu variabel identitas data dan variabel polutan atmosferik. Variabel identitas terdiri atas kolom \texttt{tanggal} yang bertindak sebagai indeks waktu runtun waktu kronologis, serta kolom \texttt{stasiun} yang berfungsi sebagai kode penanda lokasi fisik pengamatan spasial. Sementara itu, dimensi masukan multivariat dibentuk oleh lima variabel parameter polutan utama yang mencakup PM\textsubscript{10} sebagai representasi dari konsentrasi partikulat mikro (\textit{Particulate Matter} $\le$ 10 $\mu m$), SO\textsubscript{2} (Sulfur Dioksida), PM\textsubscript (Karbon Monoksida), O\textsubscript{3} (Ozon Permukaan), dan NO\textsubscript{2} (Nitrogen Dioksida). Integrasi dari seluruh komponen kuantitatif dan spesifikasi variabel ini secara fisis merepresentasikan kondisi polusi udara riil di DKI Jakarta yang siap digunakan untuk melatih arsitektur model hibrida sekuensial.
+
 \section{Analisis Karakteristik Dataset Kualitas Udara (\textit{Data Profiling})}
 
 Pemodelan deret waktu bergantung pada pemahaman terhadap karakteristik data yang tersedia. Subbab ini menguraikan analisis statistik deskriptif terhadap data historis ISPU DKI Jakarta untuk rentang waktu 2010 hingga 2025. Proses ini bertujuan untuk menganalisis karakteristik nilai dasar polutan PM\textsubscript{10} dan parameter pendukung lainnya guna menjamin bahwa input yang dimasukkan ke dalam model hibrida memiliki landasan empiris yang valid.
@@ -97,6 +111,8 @@ Subbab ini menganalisis tren historis jangka panjang selama 15 tahun secara hari
 Eksplorasi terhadap deret waktu konsentrasi harian menunjukkan adanya fluktuasi yang dipengaruhi oleh pola aktivitas harian manusia. Pola seperti hari kerja (\textit{weekdays}) dan hari libur (\textit{weekend}) memengaruhi konsentrasi partikulat di atmosfer. Selain itu, pengaruh jangka panjang seperti perubahan infrastruktur kota juga memberikan dampak pada tren stabilisasi atau kenaikan nilai polutan di setiap titik.
 
 Visualisasi tren pada masing-masing stasiun membantu dalam memvalidasi karakteristik perilaku polusi yang tidak tertangkap oleh statistik global. Hal ini menunjukkan perlunya penggunaan model yang sensitif terhadap konteks lokal, di mana satu set hiperparameter model kemungkinan kurang sesuai untuk seluruh lokasi. Analisis karakteristik harian dari stasiun DKI1 hingga DKI5 dipaparkan pada bagian berikut.
+
+\newpage
 
 \subsubsection{Stasiun DKI1 (Bunderan HI)}
 
@@ -257,7 +273,9 @@ Pendekatan ini didasarkan pada asumsi bahwa data kualitas udara mengandung pola-
 \end{equation}
 \eqcaption{Dekomposisi Sinyal Polutan Menjadi Komponen Linier dan Non-Linier}
 
-Komponen $L_t$ pada Persamaan \ref{eq:formalisasi2} merepresentasikan fungsi linier yang memiliki sifat autokorelasi, di mana komponen ini dimodelkan menggunakan persamaan diferensi stokastik ARIMA. Sementara itu, komponen $N_t$ mewakili fungsi non-linier—seperti pengaruh interaksi antarpolutan dan variasi meteorologi—yang dipetakan secara non-parametrik melalui struktur ensambel pohon keputusan \textit{Random Forest}. 
+Komponen $L_t$ pada Persamaan \ref{eq:formalisasi2} merepresentasikan fungsi linier yang memiliki sifat autokorelasi, di mana komponen ini dimodelkan menggunakan persamaan diferensi stokastik ARIMA. Sementara itu, komponen $N_t$ mewakili fungsi non-linier—seperti pengaruh interaksi antarpolutan dan variasi meteorologi—yang dipetakan secara non-parametrik melalui struktur ensambel pohon keputusan \textit{Random Forest} Regresi. 
+
+\newpage
 
 Penggabungan kedua komponen ini secara hibrida ditujukan untuk meminimalkan keterbatasan model regresi tunggal yang memiliki batasan dalam memproses karakteristik data yang bervariasi, sehingga diharapkan dapat mengurangi nilai galat estimasi terhadap dinamika atmosfer Jakarta yang fluktuatif.
 
@@ -275,7 +293,7 @@ Ekstraksi fitur jeda temporal atau \textit{lag features} digunakan untuk menangk
 
 Berdasarkan analisis fungsi autokorelasi (ACF) yang dieksekusi pada tahap \textit{data profiling}, rentang batas jeda waktu ditentukan hingga tujuh hari ke belakang ($t-7$). Rentang waktu ini dinilai merepresentasikan peluruhan dari polutan primer sebelum akhirnya kehilangan nilai keterikatan statistik. Penggunaan fitur jeda yang terlalu panjang memerlukan pertimbangan agar tidak menambah nilai kesalahan (\textit{noise}) yang dapat memengaruhi hasil estimasi prediksi.
 
-Proses ekstraksi ini memetakan nilai historis masa lalu menjadi fitur prediktor independen pada matriks pelatihan. Fitur yang diekstraksi meliputi konsentrasi polutan pada satu hari sebelumnya (PM10\textsubscript{t-1}) hingga tujuh hari sebelumnya (PM10\textsubscript{t-7}). Formulasi matematis dari pembentukan \textit{lag features} ditunjukkan pada Persamaan \ref{eq:lag_features}.
+Proses ekstraksi ini memetakan nilai historis masa lalu menjadi fitur prediktor independen pada matriks pelatihan. Fitur yang diekstraksi meliputi konsentrasi polutan pada satu hari sebelumnya ($\text{PM}_{10}(t-1)$) hingga tujuh hari sebelumnya ($\text{PM}_{10}(t-7)$). Formulasi matematis dari pembentukan \textit{lag features} ditunjukkan pada Persamaan \ref{eq:lag_features}.
 
 \begin{equation}
     L_k = X_{t-k}, \quad \text{untuk } k \in \{1, 2, \dots, 7\}
@@ -283,13 +301,15 @@ Proses ekstraksi ini memetakan nilai historis masa lalu menjadi fitur prediktor 
 \end{equation}
 \eqcaption{Formulasi Ekstraksi Fitur Jeda Temporal}
 
+Penerapan fitur jeda waktu atau \textit{lag} ini berfungsi untuk memasukkan nilai historis kualitas udara dari hari-hari sebelumnya ke dalam model. Sebagai contoh, fitur \textit{lag}-1 menggunakan data konsentrasi polutan satu hari sebelumnya, sedangkan fitur \textit{lag}-7 menggunakan data dari tujuh hari sebelumnya untuk membantu model mempelajari kecenderungan pengulangan pola mingguan berdasarkan riwayat pencatatan yang ada.
+
 \subsection{Fitur Statistik Jendela Berjalan (\textit{Rolling Window Statistics})}
 
 Kondisi kualitas udara di Jakarta dipengaruhi oleh siklus aktivitas harian masyarakat yang berulang setiap minggunya. Untuk merepresentasikan pola pergerakan tersebut, digunakan teknik ekstraksi fitur berbasis jendela observasi berjalan (\textit{rolling window}) dengan rentang waktu 3-hari ($W=3$) dan 7-hari ($W=7$) untuk menghitung metrik statistik lokal yang merangkum dinamika polusi jangka pendek dan mingguan.
 
 Metrik pertama yang diekstraksi adalah rata-rata bergerak (\textit{Rolling Mean}) 3-hari (\texttt{pm10\_ma3}) dan 7-hari (\texttt{pm10\_ma7}), yang berfungsi untuk menghaluskan fluktuasi harian dan memberikan nilai dasar polusi berkala. Metrik kedua adalah standar deviasi berjalan (\textit{Rolling Standard Deviation}) 7-hari (\texttt{pm10\_std7}), yang bertindak sebagai proksi matematis untuk mendeteksi derajat volatilitas data atau adanya perubahan cuaca harian dalam periode satu minggu tersebut.
 
-Kombinasi dari metrik statistik ini memungkinkan model \textit{Random Forest} untuk memahami apakah data observasi harian berada dalam kondisi normal, sedang mengalami tren perubahan nilai, atau merupakan fluktuasi sesaat. Kalkulasi matematis untuk masing-masing fitur statistik jendela berjalan diturunkan pada Persamaan \ref{eq:roll_mean3}, Persamaan \ref{eq:roll_mean7}, dan Persamaan \ref{eq:roll_std7}.
+Kombinasi dari metrik statistik ini memungkinkan model \textit{Random Forest} Regresi untuk memahami apakah data observasi harian berada dalam kondisi normal, sedang mengalami tren perubahan nilai, atau merupakan fluktuasi sesaat. Kalkulasi matematis untuk masing-masing fitur statistik jendela berjalan diturunkan pada Persamaan \ref{eq:roll_mean3}, Persamaan \ref{eq:roll_mean7}, dan Persamaan \ref{eq:roll_std7}.
 
 \begin{equation}
     RM_{3} = \frac{1}{3} \sum_{i=1}^{3} \text{PM10}_{t-i}
@@ -315,7 +335,7 @@ Berdasarkan analisis domain atmosfer, pembentukan partikulat sekunder dikatalisa
 
 Fitur interaksi dibangun dengan menghitung hasil kali konsentrasi Karbon Monoksida (CO) dan Ozon Permukaan (O\textsubscript{3}) untuk memodelkan indikator oksidasi fotokimia (\texttt{co\_times\_o3}). Karbon Monoksida bertindak sebagai indikator emisi primer kendaraan, sedangkan Ozon merupakan penanda derajat transisi cuaca panas. 
 
-Melalui penyusunan fitur interaksi perkalian ini, model \textit{Random Forest} dapat mengidentifikasi kondisi pembentukan polutan sekunder secara lebih efisien tanpa memerlukan kedalaman percabangan pohon keputusan yang tinggi. Formulasi matematis dari fitur interaksi dideskripsikan pada Persamaan \ref{eq:int_co}.
+Melalui penyusunan fitur interaksi perkalian ini, model \textit{Random Forest} Regresi dapat mengidentifikasi kondisi pembentukan polutan sekunder secara lebih efisien tanpa memerlukan kedalaman percabangan pohon keputusan yang tinggi. Formulasi matematis dari fitur interaksi dideskripsikan pada Persamaan \ref{eq:int_co}.
 
 \begin{equation}
     Int(CO, O_3) = CO_t \times O_{3,t}
@@ -323,11 +343,13 @@ Melalui penyusunan fitur interaksi perkalian ini, model \textit{Random Forest} d
 \end{equation}
 \eqcaption{Formulasi Fitur Interaksi Karbon Monoksida dan Ozon}
 
+\newpage
+
+Perkalian komposit antara konsentrasi Karbon Monoksida (CO) dan Ozon ($O_3$) digunakan sebagai parameter tambahan untuk membantu model dalam mengidentifikasi kondisi atmosfer. Gas CO mencerminkan kerapatan emisi dari aktivitas transportasi harian, sedangkan gas $O_3$ di permukaan tanah berkaitan dengan paparan sinar matahari harian. Kombinasi kedua nilai ini memberikan informasi struktural mengenai interaksi antargas prekursor yang memengaruhi keberadaan partikulat di udara terbuka.
+
 \subsection{Fitur Temporal dan Siklus Aktivitas}
 
 Komponen waktu seperti tanggal tidak diproses secara langsung oleh algoritma regresi karena sifatnya yang berupa deret numerik kontinu. Oleh sebab itu, komponen waktu ditransformasi menjadi dimensi spasial diskrit guna menangkap tren perulangan aktivitas masyarakat dan variasi musiman harian. Ekstraksi fitur waktu ini digunakan untuk menyediakan informasi penanggalan kepada model.
-
-\newpage
 
 Fitur pertama yang dibentuk adalah indeks hari dalam satu minggu (\textit{Day of Week}), yang dikalkulasi menggunakan operasi modulo pada indeks hari berurutan. Transformasi ini bertujuan agar model memetakan urutan hari kerja yang menunjukkan karakteristik volume kendaraan yang stabil. Selain itu, fitur kategorikal biner \texttt{is\_weekend} juga ditambahkan untuk menandai hari Sabtu dan Minggu secara eksklusif. 
 
@@ -372,7 +394,7 @@ Aspek lain dari kebutuhan fungsional adalah penyediaan mekanisme evaluasi dan in
 \hline
 1 & F-01 & Memprediksi nilai konsentrasi harian $PM_{10}$ di wilayah DKI Jakarta menggunakan basis data deret waktu historis. \\
 \hline
-2 & F-02 & Mengeksekusi peramalan melalui implementasi arsitektur hibrida sekuensial menggabungkan \textit{Random Forest} (RF) dan ARIMA. \\
+2 & F-02 & Mengeksekusi peramalan melalui implementasi arsitektur hibrida sekuensial menggabungkan \textit{Random Forest} Regresi (RF) dan ARIMA. \\
 \hline
 3 & F-03 & Mentransformasi data mentah menjadi 15 fitur komputasional melalui tahapan rekayasa fitur (\textit{feature engineering}). \\
 \hline
@@ -390,10 +412,6 @@ Aspek lain dari kebutuhan fungsional adalah penyediaan mekanisme evaluasi dan in
 Kebutuhan nonfungsional menetapkan batasan operasional dan atribut kualitas yang menentukan derajat keandalan sistem saat seluruh modul dieksekusi. Atribut kualitas ini tidak berkaitan dengan penyediaan fitur spesifik, melainkan pada bagaimana seluruh elemen komputasi berperilaku di bawah batasan teknis lingkungan peladen harian. Fokus utama pada bagian ini meliputi performa batas nilai galat, ketangguhan konfigurasi model terhadap variansi data, serta efisiensi penggunaan alokasi memori perangkat keras saat menjalankan proses inferensi hibrida. Rincian deskripsi mengenai kebutuhan nonfungsional sistem disajikan pada Tabel \ref{tbl:nonfungsional}.
 
 Salah satu parameter kualitas operasional yang ditargetkan adalah aspek akurasi relatif dan stabilitas estimasi model. Arsitektur hibrida sekuensial yang dikembangkan dikondisikan untuk menunjukkan nilai kesalahan (galat) penaksiran yang lebih rendah jika dibandingkan dengan performa model tunggal murni yang diposisikan sebagai acuan dasar (\textit{baseline}). Selain itu, model menggunakan mekanisme validasi temporal guna meminimalkan risiko algoritma mengalami kondisi penyesuaian berlebih (\textit{overfitting}) terhadap parameter data latih.
-
-\newpage
-
-Aspek keterulangan (\textit{reproducibility}) dan transparansi operasional juga menjadi karakteristik kualitas penting dalam perancangan tugas akhir ini. Seluruh siklus komputasi dirancang sedemikian rupa agar alur pemrosesan dari tahap prapemrosesan data hingga visualisasi taksiran akhir dapat direplikasi pada lingkungan eksekusi yang berbeda tanpa mengubah hasil luaran numerik. Hal ini dilakukan agar keandalan model hibrida yang dihasilkan dapat diuji validitas keilmuannya secara terbuka dan konsisten pada ekosistem pemrograman Python.
 
 \begin{table}[htbp]
 \centering
@@ -419,6 +437,8 @@ Aspek keterulangan (\textit{reproducibility}) dan transparansi operasional juga 
 \end{tabularx}
 \end{table}
 
+Aspek keterulangan (\textit{reproducibility}) dan transparansi operasional juga menjadi karakteristik kualitas penting dalam perancangan tugas akhir ini. Seluruh siklus komputasi dirancang sedemikian rupa agar alur pemrosesan dari tahap prapemrosesan data hingga visualisasi taksiran akhir dapat direplikasi pada lingkungan eksekusi yang berbeda tanpa mengubah hasil luaran numerik. Hal ini dilakukan agar keandalan model hibrida yang dihasilkan dapat diuji validitas keilmuannya secara terbuka dan konsisten pada ekosistem pemrograman Python.
+
 \section{Analisis Pemilihan Paradigma Melalui \textit{Analytical Hierarchy Process}}
 
 Pemilihan arsitektur pemodelan untuk estimasi kualitas udara memerlukan pertimbangan komprehensif yang tidak hanya mencakup aspek akurasi statistik, melainkan juga batasan operasional administratif instansi terkait. Metode \textit{Analytical Hierarchy Process} (AHP) diterapkan pada tahapan ini sebagai kerangka kerja pengambilan keputusan terstruktur untuk mengevaluasi dan membandingkan beberapa alternatif solusi arsitektur pemodelan secara objektif. Melalui pendekatan hierarki ini, berbagai kriteria teknis maupun non-teknis disintesis secara sistematis guna menentukan paradigma solusi awal yang paling sesuai untuk diimplementasikan pada infrastruktur sistem informasi pemantauan lingkungan di DKI Jakarta.
@@ -427,9 +447,11 @@ Pemilihan arsitektur pemodelan untuk estimasi kualitas udara memerlukan pertimba
 
 Sebuah catatan metodologis perlu dikemukakan terkait penggunaan \textit{Analytical Hierarchy Process} (AHP) dalam penelitian tugas akhir berbasis sains data ini. Pada umumnya, pemilihan arsitektur model prediksi ditentukan murni secara empiris berdasarkan metrik kinerja kuantitatif (seperti nilai RMSE) setelah seluruh rangkaian eksperimen selesai dijalankan. Namun, dalam konteks implementasi sistem informasi pada instansi pemerintahan lokal seperti Dinas Lingkungan Hidup DKI Jakarta, batasan operasional tidak hanya bergantung pada dimensi akurasi statistik semata. Terdapat parameter multi-kriteria non-teknis administratif yang harus dipenuhi, seperti tingkat transparansi keputusan (interpretabilitas) agar hasil prakiraan dapat ditelaah secara logis, efisiensi alokasi infrastruktur peladen harian, serta kemudahan replikasi kode operasional sistem.
 
-Oleh karena itu, kerangka kerja AHP pada penelitian ini tidak diposisikan sebagai pengganti evaluasi kinerja empiris model akhir, melainkan sebagai instrumen analisis kebutuhan pra-eksperimen (\textit{pre-development framework}) untuk menjustifikasi pemilihan paradigma arsitektur awal. Tahap evaluasi awal ini dilakukan dengan menyusun matriks perbandingan berpasangan (\textit{pairwise comparison}) untuk lima kriteria operasional, yaitu Interpretabilitas (INT), Akurasi (AKR), Kemampuan Menangkap Pola Kompleks (PLK), Efisiensi Komputasi (KMP), dan Kemudahan Implementasi (IMP). 
+Oleh karena itu, kerangka kerja AHP pada penelitian ini tidak diposisikan sebagai pengganti evaluasi kinerja empiris model akhir, melainkan sebagai instrumen analisis kebutuhan pra-eksperimen (\textit{pre-development framework}) untuk menjustifikasi pemilihan paradigma arsitektur hibrida berbasis studi Yenkikar dkk. \autocite{yenkikar2025explainable} sebagai jangkar utama. Kerangka hibrida sekuensial Yenkikar dkk. dinilai sangat ideal karena secara teoritis mampu menyeimbangkan kriteria akurasi dan interpretabilitas via XAI \autocite{yenkikar2025explainable}. Langkah analisis ini diwujudkan dengan menyusun matriks perbandingan berpasangan (\textit{pairwise comparison}) untuk lima kriteria operasional, yaitu Interpretabilitas (INT), Akurasi (AKR), Kemampuan Menangkap Pola Kompleks (PLK), Efisiensi Komputasi (KMP), dan Kemudahan Implementasi (IMP).
 
 Dalam konteks penyediaan informasi kualitas udara harian, kriteria INT, AKR, dan PLK diberikan bobot kepentingan yang lebih tinggi, sedangkan kriteria KMP dan IMP diberikan bobot yang lebih rendah karena aktivitas peramalan diproses secara berkala (\textit{batch processing}). Nilai kepentingan relatif antar-kriteria tersebut disajikan pada Tabel \ref{tbl:pairwise_kriteria}.
+
+Kalkulasi dilanjutkan dengan melakukan proses normalisasi matriks melalui pembagian setiap elemen baris dengan jumlah total nilai pada kolom bersesuaian. Vektor bobot prioritas global (\textit{Eigenvector}) kemudian diperoleh melalui perhitungan nilai rata-rata baris dari matriks yang telah dinormalisasi. Nilai bobot prioritas global ini berfungsi sebagai parameter pengali untuk menentukan solusi paradigma arsitektur pemodelan yang dinilai memenuhi keselarasan kebutuhan administratif instansi, sebagaimana hasil perhitungan yang dirangkum pada Tabel \ref{tbl:eigen_kriteria}.
 
 \begin{table}[htbp]
 \centering
@@ -461,10 +483,6 @@ Implementasi (IMP) & 0,25 & 0,33 & 0,50 & 1,00 & 1,00 \\
 \hline
 \end{tabularx}
 \end{table}
-
-Kalkulasi dilanjutkan dengan melakukan proses normalisasi matriks melalui pembagian setiap elemen baris dengan jumlah total nilai pada kolom bersesuaian. Vektor bobot prioritas global (\textit{Eigenvector}) kemudian diperoleh melalui perhitungan nilai rata-rata baris dari matriks yang telah dinormalisasi. Nilai bobot prioritas global ini berfungsi sebagai parameter pengali untuk menentukan solusi paradigma arsitektur pemodelan yang dinilai memenuhi keselarasan kebutuhan administratif instansi, sebagaimana hasil perhitungan yang dirangkum pada Tabel \ref{tbl:eigen_kriteria}.
-
-\newpage
 
 \begin{table}[htbp]
 \centering
@@ -507,6 +525,8 @@ Untuk menjamin bahwa penilaian hierarki beserta pembobotan bersifat logis secara
 
 Setelah diperoleh nilai eigen maksimum, langkah selanjutnya adalah menghitung \textit{Consistency Index} (CI). Indeks ini mengukur seberapa jauh matriks evaluasi menyimpang dari kondisi konsisten, dengan mempertimbangkan jumlah dimensi kriteria ($n=5$), yang diformulasikan melalui Persamaan \ref{eq:ci}.
 
+\newpage
+
 \begin{equation}
     CI = \frac{\lambda_{max} - n}{n - 1} = \frac{5,165 - 5}{4} = 0,041
     \label{eq:ci}
@@ -523,7 +543,7 @@ Berdasarkan hasil pembagian pada Persamaan \ref{eq:cr}, diperoleh nilai batas se
 
 \subsection{Penilaian Alternatif Berdasarkan Kriteria}
 
-Tahap evaluasi alternatif menguji secara komparatif kemampuan komputasional dari setiap arsitektur solusi terhadap masing-masing kriteria yang telah ditentukan batasan nilainya. Proses ini dilaksanakan dengan membentuk matriks perbandingan berpasangan lokal berskala 3x3 untuk menilai ketiga kandidat (ARIMA, \textit{Random Forest}, dan Hibrida) secara terpisah. Tujuannya adalah untuk menganalisis karakteristik dari setiap algoritma secara mandiri.
+Tahap evaluasi alternatif menguji secara komparatif kemampuan komputasional dari setiap arsitektur solusi terhadap masing-masing kriteria yang telah ditentukan batasan nilainya. Proses ini dilaksanakan dengan membentuk matriks perbandingan berpasangan lokal berskala 3x3 untuk menilai ketiga kandidat (ARIMA, \textit{Random Forest} Regresi, dan Hibrida) secara terpisah. Tujuannya adalah untuk menganalisis karakteristik dari setiap algoritma secara mandiri.
 
 Prosedur ini mengacu pada metodologi dekomposisi, di mana batasan dari satu arsitektur akan tercermin pada nilai prioritas lokal yang bersangkutan. Hal ini dilakukan agar analisis didasarkan pada pengukuran kriteria yang terstruktur.
 
@@ -557,7 +577,7 @@ Hybrid & 0,25 & 1,00 & 1,00 & \textbf{0,167} \\
 \end{tabularx}
 \end{table}
 
-Berdasarkan nilai tersebut, model statistik linier ARIMA menghasilkan nilai lokal tertinggi (0,667) karena hubungannya dipetakan langsung melalui koefisien matematika yang transparan. Model \textit{Random Forest} murni memiliki nilai rendah (0,167) karena karakteristiknya yang tertutup (\textit{black-box}). Namun, pada model hibrida usulan, kelemahan sifat tertutup tersebut diatasi dengan mengintegrasikan modul analisis SHAP pada tahapan pascapelatihan. Intervensi ini memungkinkan model hibrida memberikan kejelasan kontribusi fitur, sehingga bobot lokal kriteria ini dapat dipertahankan untuk mendukung nilai prioritas global.
+Berdasarkan nilai tersebut, model statistik linier ARIMA menghasilkan nilai lokal tertinggi (0,667) karena hubungannya dipetakan langsung melalui koefisien matematika yang transparan. Model \textit{Random Forest} Regresi murni memiliki nilai rendah (0,167) karena karakteristiknya yang tertutup (\textit{black-box}). Namun, pada model hibrida usulan, kelemahan sifat tertutup tersebut diatasi dengan mengintegrasikan modul analisis SHAP pada tahapan pascapelatihan. Intervensi ini memungkinkan model hibrida memberikan kejelasan kontribusi fitur, sehingga bobot lokal kriteria ini dapat dipertahankan untuk mendukung nilai prioritas global.
 
 \subsubsection{Evaluasi Terhadap Akurasi (AKR)}
 
@@ -587,7 +607,7 @@ Hybrid & 5,00 & 3,00 & 1,00 & \textbf{0,637} \\
 \end{tabularx}
 \end{table}
 
-Model hibrida sekuensial memperoleh nilai tertinggi (0,637) karena menggabungkan kapasitas pengolahan data secara bertahap. Pola data non-linier dipetakan terlebih dahulu oleh komponen pembelajar primer, kemudian sisaan galatnya dikoreksi oleh fungsi deret waktu ARIMA pada tahap sekunder. Skema penggabungan ini menghasilkan nilai kesalahan peramalan yang lebih rendah dibandingkan model tunggal ARIMA murni (0,105) yang terbatas pada tren linier, maupun \textit{Random Forest} murni (0,258) yang tidak mempertimbangkan autokorelasi residu.
+Model hibrida sekuensial memperoleh nilai tertinggi (0,637) karena menggabungkan kapasitas pengolahan data secara bertahap. Pola data non-linier dipetakan terlebih dahulu oleh komponen pembelajar primer, kemudian sisaan galatnya dikoreksi oleh fungsi deret waktu ARIMA pada tahap sekunder. Skema penggabungan ini menghasilkan nilai kesalahan peramalan yang lebih rendah dibandingkan model tunggal ARIMA murni (0,105) yang terbatas pada tren linier, maupun \textit{Random Forest} Regresi murni (0,258) yang tidak mempertimbangkan autokorelasi residu.
 
 \subsubsection{Evaluasi Terhadap Pola Kompleks (PLK)}
 
@@ -625,8 +645,6 @@ Kriteria Efisiensi Komputasi memetakan besaran alokasi konsumsi ruang memori ope
 
 Dalam evaluasi dimensi komputasional ini, arsitektur Hibrida memerlukan alokasi sumber daya sistem dan waktu pelatihan yang lebih lama. Hal ini disebabkan oleh tahapan pemrosesan di mana komputasi dijalankan secara sekuensial melalui ekstraksi arsitektur pohon terlebih dahulu sebelum dilanjutkan dengan estimasi matriks residu secara berulang oleh elemen statistika. Karakteristik ini meningkatkan alokasi waktu pemrosesan komputasi pada memori utama.
 
-Secara kontras, model linier murni maupun ansambel tunggal memerlukan kalkulasi waktu yang bersifat proporsional terhadap densitas data, sehingga memiliki durasi pemrosesan yang relatif konstan dan memiliki kebutuhan komputasi yang rendah. Penggunaan komputasi kedua arsitektur tunggal tersebut memengaruhi metrik penentuan yang diturunkan, sebagaimana yang dirangkum pada sebaran vektor matriks dalam Tabel \ref{tbl:eval_kmp}.
-
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=centering}
@@ -650,6 +668,8 @@ Hybrid & 0,25 & 0,25 & 1,00 & \textbf{0,111} \\
 \hline
 \end{tabularx}
 \end{table}
+
+Secara kontras, model linier murni maupun ansambel tunggal memerlukan kalkulasi waktu yang bersifat proporsional terhadap densitas data, sehingga memiliki durasi pemrosesan yang relatif konstan dan memiliki kebutuhan komputasi yang rendah. Penggunaan komputasi kedua arsitektur tunggal tersebut memengaruhi metrik penentuan yang diturunkan, sebagaimana yang dirangkum pada sebaran vektor matriks dalam Tabel \ref{tbl:eval_kmp}.
 
 \subsubsection{Evaluasi Terhadap Kemudahan Implementasi (IMP)}
 
@@ -685,6 +705,8 @@ Sebaliknya, arsitektur Hibrida memerlukan penyusunan fungsi alur \textit{pipelin
 
 Fase agregasi akhir dalam prosedur AHP dilakukan melalui operasi sintesis global dengan mengalikan matriks bobot prioritas lokal terhadap nilai bobot kriteria utama. Hasil perhitungan sintesis secara menyeluruh disajikan pada Tabel \ref{tbl:sintesis_ahp}.
 
+Berdasarkan hasil kalkulasi agregasi pada Tabel \ref{tbl:sintesis_ahp}, solusi Model Hibrida yang dikombinasikan dengan teknik rekayasa fitur (\textit{Feature Engineering}) memperoleh skor prioritas tertinggi sebesar 36,5\%. Hasil matematis ini didorong oleh nilai prioritas lokal yang tinggi pada kriteria Akurasi (AKR) dan Pola Kompleks (PLK), serta dukungan analisis SHAP yang menjaga fungsi kriteria Interpretabilitas (INT). Meskipun model hibrida memiliki nilai yang rendah pada aspek efisiensi komputasi memori (KMP) dan kemudahan implementasi kode (IMP) karena strukturnya yang sekuensial, karakteristik tersebut tidak memengaruhi penurunan skor total secara global karena kedua kriteria operasional itu memiliki bobot kepentingan yang rendah. Dengan demikian, keputusan pemilihan arsitektur hibrida ini memiliki landasan kuantitatif yang konsisten untuk digunakan sebagai model estimasi harian kualitas udara DKI Jakarta.
+
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=centering}
@@ -704,11 +726,9 @@ Fase agregasi akhir dalam prosedur AHP dilakukan melalui operasi sintesis global
 \hline
 ARIMA & 0,667 & 0,105 & 0,095 & 0,444 & 0,429 & \textbf{0,364} (36,4\%) \\
 \hline
-Random Forest & 0,167 & 0,258 & 0,327 & 0,444 & 0,429 & \textbf{0,271} (27,1\%) \\
+RF Regresi & 0,167 & 0,258 & 0,327 & 0,444 & 0,429 & \textbf{0,271} (27,1\%) \\
 \hline
 \textbf{Hibrida + FE} & 0,167 & 0,637 & 0,578 & 0,111 & 0,143 & \textbf{0,365} (36,5\%) \\
 \hline
 \end{tabularx}
 \end{table}
-
-Berdasarkan hasil kalkulasi agregasi pada Tabel \ref{tbl:sintesis_ahp}, solusi Model Hibrida yang dikombinasikan dengan teknik rekayasa fitur (\textit{Feature Engineering}) memperoleh skor prioritas tertinggi sebesar 36,5\%. Hasil matematis ini didorong oleh nilai prioritas lokal yang tinggi pada kriteria Akurasi (AKR) dan Pola Kompleks (PLK), serta dukungan analisis SHAP yang menjaga fungsi kriteria Interpretabilitas (INT). Meskipun model hibrida memiliki nilai yang rendah pada aspek efisiensi komputasi memori (KMP) dan kemudahan implementasi kode (IMP) karena strukturnya yang sekuensial, karakteristik tersebut tidak memengaruhi penurunan skor total secara global karena kedua kriteria operasional itu memiliki bobot kepentingan yang rendah. Dengan demikian, keputusan pemilihan arsitektur hibrida ini memiliki landasan kuantitatif yang konsisten untuk digunakan sebagai model estimasi harian kualitas udara DKI Jakarta.

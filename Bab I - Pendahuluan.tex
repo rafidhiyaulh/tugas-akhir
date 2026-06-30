@@ -20,27 +20,28 @@ Namun demikian, sebagian besar literatur yang mengimplementasikan model hibrida 
 
 Keterbatasan lain dalam implementasi pemodelan prediktif berbasis \textit{machine learning} adalah karakteristiknya yang menyerupai kotak hitam (\textit{black-box}), sehingga hubungan inferensial internal model sulit diinterpretasikan \autocite{jimenez2024explainable}. Walaupun model hibrida mampu menghasilkan estimasi numerik $PM_{10}$, model tersebut tidak secara langsung mengonfirmasi kontribusi spesifik dari tiap faktor prediktor. Aspek transparansi ini krusial apabila hasil prediksi akan digunakan sebagai basis analisis oleh otoritas terkait. Untuk mengatasi hambatan tersebut, pendekatan \textit{Explainable Artificial Intelligence} (XAI) dapat diintegrasikan. Metode \textit{SHapley Additive exPlanations} (SHAP) merupakan salah satu pendekatan matematis berbasis teori permainan (\textit{game theory}) yang digunakan untuk mengukur dan memvisualisasikan kontribusi marginal masing-masing fitur terhadap hasil keluaran model \autocite{molnar2025shap}.
 
-Berdasarkan kondisi kualitas udara di DKI Jakarta serta ruang pengembangan pada literatur terdahulu, penelitian Tugas Akhir ini bertujuan untuk menguji model hibrida \textit{Random Forest}-ARIMA untuk prediksi harian PM\textsubscript{10}. Model ini dikonstruksi dengan memanfaatkan teknik \textit{feature engineering} guna mengeksplorasi hubungan temporal dan interaksi polutan pada dataset kualitas udara Jakarta periode tahun 2010--2025. Selanjutnya, model prediksi dianalisis menggunakan metode SHAP untuk memberikan gambaran mengenai kontribusi fitur prediktor \autocite{lundberg2025shap}. Melalui pengujian pendekatan ini, diharapkan penelitian ini dapat memberikan analisis komparatif estimasi kualitas udara yang dapat ditelaah secara sistematis sebagai materi pertimbangan dalam pengelolaan lingkungan.
+Untuk mengatasi keterbatasan model tunggal dalam memetakan fluktuasi kualitas udara, penelitian ini menjadikan studi terdahulu yang dilakukan oleh Yenkikar dkk. \autocite{yenkikar2025explainable} sebagai referensi utama dan jangkar metodologis. Yenkikar dkk. berhasil membuktikan keberhasilan arsitektur hibrida sekuensial yang mengombinasikan keunggulan non-parametrik \textit{Random Forest} Regresi dalam menangkap pola non-linier dengan kapasitas model statistik ARIMA dalam mengurai dependensi linier pada deret sisaan galat (\textit{residual}) \autocite{yenkikar2025explainable}. 
+
+Meskipun demikian, terdapat urgensi mendasar mengapa penelitian lanjutan ini perlu dilakukan. Model asli yang dikembangkan oleh Yenkikar dkk. dilatih menggunakan karakteristik atmosfer luar negeri dan parameter lingkungan yang berbeda, serta belum mengasimilasi pengayaan informasi lewat fitur komposit yang mencerminkan interaksi fisikokimia polutan lokal \autocite{yenkikar2025explainable}. Oleh karena itu, batasan utama dari penelitian tugas akhir ini diarahkan pada tahapan analisis dan evaluasi secara mendalam terhadap penerapan arsitektur hibrida tersebut ketika diintegrasikan dengan pilar rekayasa fitur (\textit{feature engineering}) baru untuk konteks wilayah metropolitan tropis DKI Jakarta.
+
+Kebutuhan akan analisis dan evaluasi inilah yang mendasari penentuan judul tugas akhir ini. Proses analisis dilakukan untuk membedah bagaimana 15 fitur komputasional baru—termasuk fitur interaksi gas prekursor dan komponen temporal—memengaruhi sensitivitas pembelahan simpul pohon keputusan. Sementara itu, proses evaluasi difokuskan untuk menguji secara empiris melalui validasi silang temporal apakah koreksi residual ARIMA mampu menekan nilai galat secara signifikan pada lima stasiun pemantau yang memiliki karakteristik heterogenitas spasial. Melalui batasan cakupan analisis dan evaluasi yang transparan ini, keandalan dan efisiensi arsitektur hibrida Yenkikar dkk. dapat diuji validitas dan aplikabilitas riilnya di bawah kondisi fluktuasi polusi udara Jakarta yang volatil \autocite{yenkikar2025explainable}.
 
 \section{Rumusan Masalah}
-
 Berdasarkan latar belakang yang telah diuraikan, rumusan masalah dalam penelitian Tugas Akhir ini difokuskan pada analisis karakteristik pemodelan prediktif untuk memproyeksikan konsentrasi polutan secara harian serta evaluasi performa model hibrida. Permasalahan tersebut dirumuskan ke dalam pertanyaan-pertanyaan berikut:
 
-\newpage
-
 \begin{enumerate}
-    \item Bagaimana merancang model estimasi harian konsentrasi PM\textsubscript{10} di DKI Jakarta untuk memproyeksikan kualitas udara satu hari ke depan ($t+1$)?
-    \item Bagaimana mengintegrasikan algoritma \textit{Random Forest} dan ARIMA ke dalam sebuah model hibrida sekuensial untuk memodelkan komponen linier dan non-linier pada data deret waktu?
-    \item Bagaimana pengaruh penerapan teknik rekayasa fitur (\textit{feature engineering}), yang meliputi variabel \textit{lag}, statistik berjalan, dan interaksi antarpolutan, terhadap performa galat (\textit{error}) estimasi model hibrida \textit{Random Forest}-ARIMA?
-    \item Bagaimana menerapkan metode \textit{SHapley Additive exPlanations} (SHAP) untuk menganalisis dan menggambarkan kontribusi marginal dari masing-masing fitur prediktor terhadap hasil keluaran model hibrida?
+   \item Bagaimana merancang model estimasi harian konsentrasi PM\textsubscript{10} di DKI Jakarta untuk memproyeksikan kualitas udara satu hari ke depan ($t+1$)?
+   \item Bagaimana mengintegrasikan algoritma \textit{Random Forest} dan ARIMA ke dalam sebuah model hibrida sekuensial untuk memodelkan komponen linier dan non-linier pada data deret waktu?
+   \item Bagaimana pengaruh penerapan teknik rekayasa fitur (\textit{feature engineering}), yang meliputi variabel \textit{lag}, statistik berjalan, dan interaksi antarpolutan, terhadap performa galat (\textit{error}) estimasi model hibrida \textit{Random Forest}-ARIMA?
+   \item Bagaimana menerapkan metode \textit{SHapley Additive exPlanations} (SHAP) untuk menganalisis dan menggambarkan kontribusi marginal dari masing-masing fitur prediktor terhadap hasil keluaran model hibrida?
 \end{enumerate}
 
 \section{Tujuan Penelitian}
 
 Tujuan utama dari penelitian Tugas Akhir ini adalah mengembangkan dan menguji model prediksi harian konsentrasi PM\textsubscript{10} di DKI Jakarta menggunakan pendekatan hibrida \textit{Random Forest}-ARIMA guna mengevaluasi performa galat dan tingkat interpretabilitas model tersebut pada data deret waktu. Secara lebih spesifik, tujuan penelitian ini adalah:
 \begin{enumerate}
-    \item Mengonstruksi arsitektur model hibrida \textit{Random Forest}-ARIMA dengan menerapkan teknik rekayasa fitur (\textit{feature engineering}) pada dataset kualitas udara Jakarta periode tahun 2010--2025 serta mengevaluasi nilai galat prediksinya.
-    \item Menganalisis kontribusi marginal dan pengaruh fitur masukan terhadap hasil estimasi PM\textsubscript{10} menggunakan metode \textit{SHapley Additive exPlanations} (SHAP) untuk memberikan penjelasan internal model yang terstruktur.
+   \item Mengonstruksi arsitektur model hibrida \textit{Random Forest}-ARIMA dengan menerapkan teknik rekayasa fitur (\textit{feature engineering}) pada dataset kualitas udara Jakarta periode tahun 2010--2025 serta mengevaluasi nilai galat prediksinya.
+   \item Menganalisis kontribusi marginal dan pengaruh fitur masukan terhadap hasil estimasi PM\textsubscript{10} menggunakan metode \textit{SHapley Additive exPlanations} (SHAP) untuk memberikan penjelasan internal model yang terstruktur.
 \end{enumerate}
 
 \section{Kriteria Keberhasilan}
@@ -48,9 +49,9 @@ Tujuan utama dari penelitian Tugas Akhir ini adalah mengembangkan dan menguji mo
 Untuk mengukur dan mengevaluasi hasil pemodelan ini secara objektif, ditetapkan tiga kriteria evaluasi teknis sebagai berikut:
 
 \begin{enumerate}
-    \item {Reduksi Kesalahan Estimasi (Benchmarking):} Model hibrida \textit{Random Forest}-ARIMA yang dikembangkan dapat meminimalkan tingkat kesalahan peramalan. Keberhasilan ini diukur melalui penurunan metrik \textit{Root Mean Square Error} (RMSE) minimal sebesar 15\% jika dibandingkan dengan model \textit{baseline} (ARIMA murni). Batas threshold 15\% ini merujuk pada acuan batas reduksi galat yang representatif dalam evaluasi model deret waktu \autocite{yenkikar2025explainable}.
-    \item {Kontribusi Rekayasa Fitur (Studi Ablasi):} Hasil eksperimen studi ablasi menunjukkan secara empiris bahwa pemanfaatan fitur turunan (hasil \textit{feature engineering}) menghasilkan nilai kesalahan prediksi yang lebih rendah jika dibandingkan dengan arsitektur model yang hanya dilatih menggunakan variabel polutan dasar.
-    \item {Interpretabilitas Hasil Model (XAI):} Pemodelan dapat diintegrasikan dengan metode SHAP untuk menghasilkan visualisasi kontribusi fitur, baik pada tingkat global maupun lokal. Visualisasi tersebut dapat memetakan arah hubungan dan pengaruh masing-masing fitur masukan terhadap hasil prediksi PM\textsubscript{10} secara logis serta selaras dengan karakteristik fisis kualitas udara.
+   \item {Reduksi Kesalahan Estimasi (Benchmarking):} Model hibrida \textit{Random Forest}-ARIMA yang dikembangkan dapat meminimalkan tingkat kesalahan peramalan. Keberhasilan ini diukur melalui penurunan metrik \textit{Root Mean Square Error} (RMSE) minimal sebesar 15\% jika dibandingkan dengan model \textit{baseline} (ARIMA murni). Batas threshold 15\% ini merujuk pada acuan batas reduksi galat yang representatif dalam evaluasi model deret waktu \autocite{yenkikar2025explainable}.
+   \item {Kontribusi Rekayasa Fitur (Studi Ablasi):} Hasil eksperimen studi ablasi menunjukkan secara empiris bahwa pemanfaatan fitur turunan (hasil \textit{feature engineering}) menghasilkan nilai kesalahan prediksi yang lebih rendah jika dibandingkan dengan arsitektur model yang hanya dilatih menggunakan variabel polutan dasar.
+   \item {Interpretabilitas Hasil Model (XAI):} Pemodelan dapat diintegrasikan dengan metode SHAP untuk menghasilkan visualisasi kontribusi fitur, baik pada tingkat global maupun lokal. Visualisasi tersebut dapat memetakan arah hubungan dan pengaruh masing-masing fitur masukan terhadap hasil prediksi PM\textsubscript{10} secara logis serta selaras dengan karakteristik fisis kualitas udara.
 \end{enumerate}
 
 \section{Manfaat Penelitian}
@@ -58,12 +59,12 @@ Untuk mengukur dan mengevaluasi hasil pemodelan ini secara objektif, ditetapkan 
 Penelitian Tugas Akhir ini diharapkan dapat memberikan kontribusi manfaat ilmiah serta aplikatif sebagai berikut:
 
 \begin{enumerate}
-    \item Memberikan kajian empiris tambahan mengenai karakteristik pencatatan dan implementasi model hibrida \textit{Random Forest}-ARIMA yang dikombinasikan dengan teknik rekayasa fitur pada data kualitas udara di wilayah urban beriklim tropis.
-    \item Menjadi materi referensi ilmiah mengenai pengaruh penggunaan dimensi fitur temporal (\textit{lag} dan \textit{rolling window}) terhadap fluktuasi nilai galat pemodelan deret waktu untuk polutan udara secara berskala.
-    \item Menyediakan contoh dokumentasi metodologis terkait penerapan pendekatan \textit{Explainable AI} (XAI) menggunakan analisis SHAP untuk memetakan hubungan kausalitas antarpolutan udara secara terstruktur.
-    \item Menghasilkan rancangan konfigurasi model prediksi harian PM\textsubscript{10} yang dapat dijadikan bahan pertimbangan atau komponen awal dalam pengembangan sistem kajian kualitas udara di kawasan perkotaan Jakarta.
-    \item Menyediakan data dan analisis kontribusi polutan yang dapat dimanfaatkan oleh analis lingkungan sebagai referensi tambahan dalam memahami faktor-faktor dominan yang memengaruhi dinamika kualitas udara lokal.
-    \item Membantu praktisi pemodelan dalam menginterpretasikan perilaku keputusan internal model \textit{machine learning} melalui visualisasi kontribusi fitur yang lebih transparan dan akuntabel.
+   \item Memberikan kajian empiris tambahan mengenai karakteristik pencatatan dan implementasi model hibrida \textit{Random Forest}-ARIMA yang dikombinasikan dengan teknik rekayasa fitur pada data kualitas udara di wilayah urban beriklim tropis.
+   \item Menjadi materi referensi ilmiah mengenai pengaruh penggunaan dimensi fitur temporal (\textit{lag} dan \textit{rolling window}) terhadap fluktuasi nilai galat pemodelan deret waktu untuk polutan udara secara berskala.
+   \item Menyediakan contoh dokumentasi metodologis terkait penerapan pendekatan \textit{Explainable AI} (XAI) menggunakan analisis SHAP untuk memetakan hubungan kausalitas antarpolutan udara secara terstruktur.
+   \item Menghasilkan rancangan konfigurasi model prediksi harian PM\textsubscript{10} yang dapat dijadikan bahan pertimbangan atau komponen awal dalam pengembangan sistem kajian kualitas udara di kawasan perkotaan Jakarta.
+   \item Menyediakan data dan analisis kontribusi polutan yang dapat dimanfaatkan oleh analis lingkungan sebagai referensi tambahan dalam memahami faktor-faktor dominan yang memengaruhi dinamika kualitas udara lokal.
+   \item Membantu praktisi pemodelan dalam menginterpretasikan perilaku keputusan internal model \textit{machine learning} melalui visualisasi kontribusi fitur yang lebih transparan dan akuntabel.
 \end{enumerate}
 
 \section{Kontribusi Penelitian}
@@ -71,40 +72,42 @@ Penelitian Tugas Akhir ini diharapkan dapat memberikan kontribusi manfaat ilmiah
 Penelitian Tugas Akhir ini memberikan kontribusi teknis dan empiris yang difokuskan pada tiga aspek pengembangan sistem estimasi kualitas udara berikut:
 
 \begin{enumerate}
-    \item {Penyusunan Atribut Rekayasa Fitur Temporal dan Komposit:} Penelitian ini berkontribusi dalam menyusun matriks 15 fitur komposit turunan yang menggabungkan dependensi temporal (\textit{lag} dan \textit{rolling statistics}) serta variabel hasil perkalian antarpolutan ($CO \times O_3$). Pendekatan harian ini digunakan untuk menyertakan karakteristik hubungan antarvariabel polutan secara statistik, sebagai alternatif dari pemrosesan variabel dasar secara terpisah.
-    \item {Penerapan Konstruksi Model Hibrida Sekuensial:} Penelitian ini berkontribusi pada implementasi model estimasi harian $PM_{10}$ melalui penggabungan algoritma \textit{Random Forest} dan ARIMA secara sekuensial. Metode ini mengeksplorasi pembagian tugas pemrosesan data, di mana algoritma pohon keputusan digunakan untuk memetakan fluktuasi non-linier dari data masukan, sedangkan model statistik ARIMA digunakan untuk mengolah data sisaan (\textit{residual}) guna menguji pengurangan nilai galat peramalan.
-    \item {Analisis Transparansi Perilaku Model Menggunakan SHAP:} Penelitian ini berkontribusi dalam pemanfaatan pendekatan \textit{Explainable AI} (XAI) melalui metode \textit{TreeSHAP} untuk menganalisis keputusan internal model hibrida yang bersifat tertutup (\textit{black-box}). Tahapan ini menghasilkan gambaran kuantitatif mengenai bobot kontribusi masing-masing fitur rekayasa terhadap nilai estimasi, sehingga memberikan informasi tambahan yang dapat ditelaah secara logis dalam konteks kualitas udara Jakarta.
+   \item {Penyusunan Atribut Rekayasa Fitur Temporal dan Komposit:} Penelitian ini berkontribusi dalam menyusun matriks 15 fitur komposit turunan yang menggabungkan dependensi temporal (\textit{lag} dan \textit{rolling statistics}) serta variabel hasil perkalian antarpolutan ($CO \times O_3$). Pendekatan harian ini digunakan untuk menyertakan karakteristik hubungan antarvariabel polutan secara statistik, sebagai alternatif dari pemrosesan variabel dasar secara terpisah.
+   \item {Penerapan Konstruksi Model Hibrida Sekuensial:} Penelitian ini berkontribusi pada implementasi model estimasi harian $PM_{10}$ melalui penggabungan algoritma \textit{Random Forest} dan ARIMA secara sekuensial. Metode ini mengeksplorasi pembagian tugas pemrosesan data, di mana algoritma pohon keputusan digunakan untuk memetakan fluktuasi non-linier dari data masukan, sedangkan model statistik ARIMA digunakan untuk mengolah data sisaan (\textit{residual}) guna menguji pengurangan nilai galat peramalan.
+   \item {Analisis Transparansi Perilaku Model Menggunakan SHAP:} Penelitian ini berkontribusi dalam pemanfaatan pendekatan \textit{Explainable AI} (XAI) melalui metode \textit{TreeSHAP} untuk menganalisis keputusan internal model hibrida yang bersifat tertutup (\textit{black-box}). Tahapan ini menghasilkan gambaran kuantitatif mengenai bobot kontribusi masing-masing fitur rekayasa terhadap nilai estimasi, sehingga memberikan informasi tambahan yang dapat ditelaah secara logis dalam konteks kualitas udara Jakarta.
 \end{enumerate}
 
 \section{Batasan Masalah}
 
 Guna menjaga fokus penelitian serta kejelasan parameter yang dievaluasi, ruang lingkup kajian dalam Tugas Akhir ini dibatasi pada hal-hal berikut:
 
+\newpage
+
 \begin{enumerate}
-    \item {Lokasi Geografis dan Stasiun Pemantauan:} Penelitian hanya menggunakan data kualitas udara di wilayah administratif Provinsi DKI Jakarta yang terekam dari lima stasiun pemantauan resmi di bawah pengelolaan otoritas terkait.
-    \item {Dataset dan Rentang Waktu:} Data yang digunakan merupakan data sekunder Indeks Standar Pencemar Udara (ISPU) dengan resolusi harian, terhitung mulai tanggal 1 Januari 2010 hingga 28 Februari 2025.
-    \item {Variabel Penelitian:} Fitur masukan (prediktor) yang dimasukkan ke dalam model dibatasi pada lima parameter polutan ISPU, yaitu PM\textsubscript{10}, SO\textsubscript{2}, CO, O\textsubscript{3}, dan NO\textsubscript{2}. Parameter PM\textsubscript{10} bertindak sebagai target proyeksi sekaligus sebagai fitur riwayat temporal (\textit{lag feature}). Penelitian ini tidak melibatkan variabel eksternal seperti data meteorologi (curah hujan, kecepatan angin) maupun volume lalu lintas kendaraan.
-    \item {Resolusi Prediksi:} Target luaran (\textit{output}) dari model difokuskan pada estimasi tingkat polusi harian untuk satu hari ke depan (\textit{next-day forecast, t+1}), dan tidak mencakup proyeksi berskala per jam (\textit{hourly}) atau waktu nyata (\textit{real-time}).
-    \item {Ruang Lingkup Implementasi:} Penelitian ini dibatasi pada siklus evaluasi model secara \textit{offline} (\textit{offline model evaluation}), yang mencakup tahap prapemrosesan data, perancangan konfigurasi model, penyetelan \textit{hyperparameter}, pengamatan metrik evaluasi galat, hingga visualisasi SHAP. Penelitian ini tidak mencakup tahap rekayasa perangkat lunak lanjutan seperti pembuatan antarmuka aplikasi (\textit{dashboard}) maupun implementasi sistem di lingkungan produksi nyata (\textit{deployment}).
+   \item {Lokasi Geografis dan Stasiun Pemantauan:} Penelitian hanya menggunakan data kualitas udara di wilayah administratif Provinsi DKI Jakarta yang terekam dari lima stasiun pemantauan resmi di bawah pengelolaan otoritas terkait.
+   \item {Dataset dan Rentang Waktu:} Data yang digunakan merupakan data sekunder Indeks Standar Pencemar Udara (ISPU) dengan resolusi harian, terhitung mulai tanggal 1 Januari 2010 hingga 28 Februari 2025.
+   \item {Variabel Penelitian:} Fitur masukan (prediktor) yang dimasukkan ke dalam model dibatasi pada lima parameter polutan ISPU, yaitu PM\textsubscript{10}, SO\textsubscript{2}, CO, O\textsubscript{3}, dan NO\textsubscript{2}. Parameter PM\textsubscript{10} bertindak sebagai target proyeksi sekaligus sebagai fitur riwayat temporal (\textit{lag feature}). Penelitian ini tidak melibatkan variabel eksternal seperti data meteorologi (curah hujan, kecepatan angin) maupun volume lalu lintas kendaraan.
+   \item {Resolusi Prediksi:} Target luaran (\textit{output}) dari model difokuskan pada estimasi tingkat polusi harian untuk satu hari ke depan (\textit{next-day forecast, t+1}), dan tidak mencakup proyeksi berskala per jam (\textit{hourly}) atau waktu nyata (\textit{real-time}).
+   \item {Ruang Lingkup Implementasi:} Penelitian ini dibatasi pada siklus evaluasi model secara \textit{offline} (\textit{offline model evaluation}), yang mencakup tahap prapemrosesan data, perancangan konfigurasi model, penyetelan \textit{hyperparameter}, pengamatan metrik evaluasi galat, hingga visualisasi SHAP. Penelitian ini tidak mencakup tahap rekayasa perangkat lunak lanjutan seperti pembuatan antarmuka aplikasi (\textit{dashboard}) maupun implementasi sistem di lingkungan produksi nyata (\textit{deployment}).
 \end{enumerate}
 
 \section{Metodologi Penelitian}
 
 Penelitian Tugas Akhir ini menggunakan kerangka kerja \textit{Design Science Research Methodology} (DSRM). DSRM merupakan salah satu kerangka metodologi yang digunakan untuk penelitian di bidang sistem informasi dan sains data yang berfokus pada analisis rancangan objek kajian. Pemilihan metodologi ini didasarkan pada tujuan penelitian untuk mengonstruksi, menguji konfigurasi artefak komputasi, mendemonstrasikan, serta mengevaluasi kinerjanya secara terukur melalui serangkaian eksperimen numerik \autocite{haryanti2022dsrm}. Alur kerangka kerja DSRM tersebut dapat dilihat pada Gambar \ref{gambar:dsrm}.
 
-\begin{figure}[h]
-  \centering
-  \captionsetup{justification=centering}
-  \includegraphics[width=0.8\textwidth]{images/gambar1.png}
-  \caption{Kerangka Kerja \textit{Design Science Research Methodology} (DSRM) \autocite{haryanti2022dsrm}}
-  \label{gambar:dsrm}
-\end{figure}
+\newpage
 
 Artefak yang dikembangkan dalam penelitian ini berupa konfigurasi pemodelan hibrida \textit{Random Forest}-ARIMA yang disusun berdasarkan prinsip pemisahan komponen data \autocite{yenkikar2025explainable}. Eksplorasi model ini mencakup tiga karakteristik penyesuaian: Pemanfaatan dataset kualitas udara Jakarta dengan rentang waktu 15 tahun (2010--2025) untuk mengamati konsistensi perilaku model pada variasi tren yang panjang, pengayaan dimensi masukan melalui rekayasa fitur menjadi matriks 15 fitur turunan, dan penempatan parameter PM\textsubscript{10} sebagai target proyeksi keluaran sekaligus sebagai variabel riwayat (\textit{lag}) masukan.
 
-Guna menjaga keteraturan tahapan penelitian, pelaksanaan DSRM dibagi ke dalam lima langkah sistematis sebagai berikut:
+\begin{figure}[h]
+ \centering
+ \captionsetup{justification=centering}
+ \includegraphics[width=0.8\textwidth]{images/gambar1.png}
+ \caption{Kerangka Kerja \textit{Design Science Research Methodology} (DSRM) \autocite{haryanti2022dsrm}}
+ \label{gambar:dsrm}
+\end{figure}
 
-\newpage
+Guna menjaga keteraturan tahapan penelitian, pelaksanaan DSRM dibagi ke dalam lima langkah sistematis sebagai berikut:
 
 \begin{enumerate}
 
@@ -119,12 +122,12 @@ Tahap ini merupakan proses perancangan konfigurasi komputasi. Arsitektur pemodel
 
 \item {\textit{Identify DSRM Step (Execution Procedure)}}\\
 Tahap ini merupakan pelaksanaan teknis pemrograman yang mencakup prosedur berikut:
-    \begin{enumerate}
-        \item \textit{Data Preprocessing}: Rangkaian pembersihan data deret waktu, termasuk penyelarasan data antarstasiun, pengisian nilai kosong (\textit{imputation}), serta penyesuaian rentang nilai (\textit{scaling}).
-        \item \textit{Time-Series Feature Engineering}: Ekstraksi fitur masukan menggunakan bahasa pemrograman Python untuk menghasilkan 15 turunan fitur temporal, seperti jeda waktu (\textit{lag}) dan statistik berjalan (\textit{rolling window}).
-        \item \textit{Skema Pelatihan Kronologis}: Validasi model menggunakan metode \textit{Time-Series Cross-Validation} (\textit{Forward Chaining}) dengan pembagian rasio data latih dan uji sebesar 80:20 secara berurutan tanpa pengacakan (\textit{shuffle=False}) untuk menghindari risiko kebocoran data masa depan (\textit{look-ahead bias}).
-        \item \textit{Hyperparameter Tuning}: Pencarian konfigurasi nilai hiperparameter (seperti parameter jumlah pohon keputusan dan kedalaman maksimum) menggunakan kerangka eksperimen Bayesian pada pustaka Optuna untuk meminimalkan nilai galat.
-    \end{enumerate}
+   \begin{enumerate}
+       \item \textit{Data Preprocessing}: Rangkaian pembersihan data deret waktu, termasuk penyelarasan data antarstasiun, pengisian nilai kosong (\textit{imputation}), serta penyesuaian rentang nilai (\textit{scaling}).
+       \item \textit{Time-Series Feature Engineering}: Ekstraksi fitur masukan menggunakan bahasa pemrograman Python untuk menghasilkan 15 turunan fitur temporal, seperti jeda waktu (\textit{lag}) dan statistik berjalan (\textit{rolling window}).
+       \item \textit{Skema Pelatihan Kronologis}: Validasi model menggunakan metode \textit{Time-Series Cross-Validation} (\textit{Forward Chaining}) dengan pembagian rasio data latih dan uji sebesar 80:20 secara berurutan tanpa pengacakan (\textit{shuffle=False}) untuk menghindari risiko kebocoran data masa depan (\textit{look-ahead bias}).
+       \item \textit{Hyperparameter Tuning}: Pencarian konfigurasi nilai hiperparameter (seperti parameter jumlah pohon keputusan dan kedalaman maksimum) menggunakan kerangka eksperimen Bayesian pada pustaka Optuna untuk meminimalkan nilai galat.
+   \end{enumerate}
 
 \item {\textit{Case Study and Implementation DSRM}}\\
 Tahap terakhir adalah implementasi konfigurasi model menggunakan dataset historis ISPU DKI Jakarta \autocite{pohan2025jakarta}. Tahap ini ditujukan untuk mengukur perbandingan performa galat model usulan terhadap model \textit{baseline} (ARIMA murni). Evaluasi diukur melalui persentase penurunan nilai \textit{Root Mean Square Error} (RMSE), serta perbandingan metrik \textit{Mean Absolute Error} (MAE) dan koefisien determinasi ($R^2$). Sebagai analisis akhir, hasil estimasi ditelaah menggunakan grafik \textit{SHAP beeswarm} dan \textit{SHAP dependence}.
@@ -136,11 +139,14 @@ Tahap terakhir adalah implementasi konfigurasi model menggunakan dataset histori
 Laporan Tugas Akhir ini disusun ke dalam tujuh bab dengan sistematika penulisan sebagai berikut:
 
 \begin{enumerate}
-    \item {Bab I Pendahuluan:} Menguraikan latar belakang penurunan kualitas udara, rumusan masalah, tujuan penelitian, kriteria keberhasilan, manfaat penelitian, kontribusi penelitian, batasan masalah, metodologi penelitian, serta sistematika penulisan laporan.
-    \item {Bab II Studi Literatur:} Menjelaskan pemetaan riset terkait (\textit{state-of-the-art}) dan landasan teori yang mendasari penelitian, meliputi regulasi ISPU, algoritma \textit{Random Forest}, pemodelan deret waktu ARIMA, metode rekayasa fitur, mekanisme kerja Optuna, serta kerangka interpretasi model menggunakan SHAP.
-    \item {Bab III Analisis Masalah:} Menyajikan evaluasi terhadap mekanisme pelaporan data yang berjalan, analisis karakteristik dataset kualitas udara Jakarta, analisis pola hubungan empiris polutan, formulasi desain fitur, hingga justifikasi pemilihan solusi prediktif menggunakan \textit{Analytical Hierarchy Process} (AHP).
-    \item {Bab IV Perancangan:} Mendeskripsikan arsitektur konseptual pemodelan usulan, desain \textit{data pipeline} eksperimen, spesifikasi algoritmik rekayasa fitur, desain struktur hibrida sekuensial, serta skenario pengujian studi ablasi dan validasi silang.
-    \item {Bab V Implementasi:} Mendokumentasikan langkah teknis komputasi pada lingkungan eksperimen yang mencakup eksplorasi data awal, analisis stasioneritas, penerapan rekayasa fitur komposit, pemisahan data latih-uji secara kronologis, hingga kalkulasi fase primer dan sekunder pada model hibrida.
-    \item {Bab VI Evaluasi:} Menyajikan metrik evaluasi ekspektasi statistik, pelaporan hasil pengujian studi ablasi, komparasi performa nilai galat antar-model, analisis waktu komputasi pelatihan dan inferensi, serta pembahasan mengenai interpretasi kontribusi fitur menggunakan visualisasi deskriptif SHAP.
-    \item {Bab VII Penutup:} Menyampaikan kesimpulan akhir yang ditarik dari hasil evaluasi untuk menjawab pertanyaan penelitian, serta menyajikan saran mengenai keterbatasan dan peluang studi komparatif di masa mendatang.
+   \item {Bab I Pendahuluan:} Menguraikan latar belakang penurunan kualitas udara, rumusan masalah, tujuan penelitian, kriteria keberhasilan, manfaat penelitian, kontribusi penelitian, batasan masalah, metodologi penelitian, serta sistematika penulisan laporan.
+   
+   \newpage
+
+   \item {Bab II Studi Literatur:} Menjelaskan pemetaan riset terkait (\textit{state-of-the-art}) dan landasan teori yang mendasari penelitian, meliputi regulasi ISPU, algoritma \textit{Random Forest}, pemodelan deret waktu ARIMA, metode rekayasa fitur, mekanisme kerja Optuna, serta kerangka interpretasi model menggunakan SHAP.
+   \item {Bab III Analisis Masalah:} Menyajikan evaluasi terhadap mekanisme pelaporan data yang berjalan, analisis karakteristik dataset kualitas udara Jakarta, analisis pola hubungan empiris polutan, formulasi desain fitur, hingga justifikasi pemilihan solusi prediktif menggunakan \textit{Analytical Hierarchy Process} (AHP).
+   \item {Bab IV Perancangan:} Mendeskripsikan arsitektur konseptual pemodelan usulan, desain \textit{data pipeline} eksperimen, spesifikasi algoritmik rekayasa fitur, desain struktur hibrida sekuensial, serta skenario pengujian studi ablasi dan validasi silang.
+   \item {Bab V Implementasi:} Mendokumentasikan langkah teknis komputasi pada lingkungan eksperimen yang mencakup eksplorasi data awal, analisis stasioneritas, penerapan rekayasa fitur komposit, pemisahan data latih-uji secara kronologis, hingga kalkulasi fase primer dan sekunder pada model hibrida.
+   \item {Bab VI Evaluasi:} Menyajikan metrik evaluasi ekspektasi statistik, pelaporan hasil pengujian studi ablasi, komparasi performa nilai galat antar-model, analisis waktu komputasi pelatihan dan inferensi, serta pembahasan mengenai interpretasi kontribusi fitur menggunakan visualisasi deskriptif SHAP.
+   \item {Bab VII Penutup:} Menyampaikan kesimpulan akhir yang ditarik dari hasil evaluasi untuk menjawab pertanyaan penelitian, serta menyajikan saran mengenai keterbatasan dan peluang studi komparatif di masa mendatang.
 \end{enumerate}
