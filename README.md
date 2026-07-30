@@ -18,7 +18,7 @@ This thesis is conducted as part of a lecturer research project under the superv
 
 ## Publication
 
-Submitted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**.
+Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**.
 
 ---
 
@@ -48,6 +48,8 @@ Evaluated with 5-fold time-series cross-validation.
 ├── Bab V - Implementasi.tex                        # Chapter V  — Implementation
 ├── Bab VI - Evaluasi.tex                           # Chapter VI — Evaluation
 ├── Bab VII - Penutup.tex                           # Chapter VII — Conclusion
+├── 5 Abstrak.tex                                   # Abstract
+├── Lampiran-A.tex                                  # Appendix A
 ├── images/                                         # Figures and diagrams
 ├── tables/                                         # Tables
 ├── listings/                                       # Code listings
@@ -57,6 +59,10 @@ Evaluated with 5-fold time-series cross-validation.
 └── 18222069_Muhammad Rafi Dhiyaulhaq_Poster.png    # IEEE FMLDS 2026 poster
 ```
 
+> Note: front/back-matter files (title page, approval sheet, originality statement, AI-usage
+> statement, preface, and the various *Daftar* lists) are administrative documents kept locally
+> but excluded from version control via `.gitignore`.
+
 ---
 
 ## Documents
@@ -65,10 +71,10 @@ Evaluated with 5-fold time-series cross-validation.
 Complete, signed, and approved undergraduate thesis (laporan lengkap).
 
 **`18222069_Muhammad Rafi Dhiyaulhaq_Paper.pdf`**  
-Conference paper submitted to the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
+Conference paper accepted at the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
 
 **`18222069_Muhammad Rafi Dhiyaulhaq_Poster.png`**  
-Conference poster submitted to the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
+Conference poster accepted at the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
 
 ---
 

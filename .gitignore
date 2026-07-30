@@ -83,3 +83,21 @@ TA.pdf
 # LaTeX class files (auto-downloaded)
 # =============================================
 IEEEtran.cls
+
+# =============================================
+# Front/back matter .tex files (administrative,
+# not part of the tracked content)
+# =============================================
+1 Halaman Judul.tex
+2 Lembar Pengesahan.tex
+3 Pernyataan Orisinalitas.tex
+4 Pernyataan Penggunaan AI.tex
+6 Kata Pengantar.tex
+7 Daftar Isi.tex
+7a Daftar Lampiran.tex
+8 Daftar Gambar.tex
+9 Daftar Tabel.tex
+10 Daftar Persamaan.tex
+11 Daftar Algoritma.tex
+13 Daftar Simbol.tex
+14 Daftar Singkatan.tex
