@@ -18,7 +18,7 @@ This thesis is conducted as part of a lecturer research project under the superv
 
 ## Publication
 
-Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**.
+Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**, held in Kobe, Japan, 20–23 November 2026.
 
 ---
 
@@ -39,29 +39,30 @@ Evaluated with 5-fold time-series cross-validation.
 
 ```
 .
-├── TA.tex                                          # Main LaTeX entry point
-├── daftar-pustaka.bib                              # Bibliography (BibLaTeX)
-├── Bab I - Pendahuluan.tex                         # Chapter I  — Introduction
-├── Bab II - Studi.tex                              # Chapter II — Literature Review
-├── Bab III - Analisis.tex                          # Chapter III — Analysis
-├── Bab IV - Perancangan.tex                        # Chapter IV — Design
-├── Bab V - Implementasi.tex                        # Chapter V  — Implementation
-├── Bab VI - Evaluasi.tex                           # Chapter VI — Evaluation
-├── Bab VII - Penutup.tex                           # Chapter VII — Conclusion
-├── 5 Abstrak.tex                                   # Abstract
-├── Lampiran-A.tex                                  # Appendix A
-├── images/                                         # Figures and diagrams
-├── tables/                                         # Tables
-├── listings/                                       # Code listings
-├── algorithms/                                     # Algorithm pseudocode
+├── latex/                                          # All LaTeX source and build files
+│   ├── TA.tex                                      # Main LaTeX entry point
+│   ├── daftar-pustaka.bib                          # Bibliography (BibLaTeX)
+│   ├── Bab I - Pendahuluan.tex                     # Chapter I  — Introduction
+│   ├── Bab II - Studi.tex                          # Chapter II — Literature Review
+│   ├── Bab III - Analisis.tex                      # Chapter III — Analysis
+│   ├── Bab IV - Perancangan.tex                    # Chapter IV — Design
+│   ├── Bab V - Implementasi.tex                    # Chapter V  — Implementation
+│   ├── Bab VI - Evaluasi.tex                       # Chapter VI — Evaluation
+│   ├── Bab VII - Penutup.tex                       # Chapter VII — Conclusion
+│   ├── 5 Abstrak.tex                               # Abstract
+│   ├── Lampiran-A.tex                              # Appendix A
+│   ├── images/                                     # Figures and diagrams
+│   ├── tables/                                     # Tables
+│   ├── listings/                                   # Code listings
+│   └── algorithms/                                 # Algorithm pseudocode
 ├── 18222069_Muhammad Rafi Dhiyaulhaq.pdf           # Final signed thesis report
 ├── 18222069_Muhammad Rafi Dhiyaulhaq_Paper.pdf     # IEEE FMLDS 2026 paper
 └── 18222069_Muhammad Rafi Dhiyaulhaq_Poster.png    # IEEE FMLDS 2026 poster
 ```
 
-> Note: front/back-matter files (title page, approval sheet, originality statement, AI-usage
-> statement, preface, and the various *Daftar* lists) are administrative documents kept locally
-> but excluded from version control via `.gitignore`.
+> Note: front/back-matter files inside `latex/` (title page, approval sheet, originality
+> statement, AI-usage statement, preface, and the various *Daftar* lists) are administrative
+> documents kept locally but excluded from version control via `.gitignore`.
 
 ---
 
@@ -83,6 +84,7 @@ Conference poster accepted at the 2026 IEEE International Conference on Future M
 Requires XeLaTeX and Biber.
 
 ```bash
+cd latex
 xelatex TA.tex
 biber TA
 xelatex TA.tex
