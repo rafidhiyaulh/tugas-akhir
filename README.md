@@ -1,6 +1,6 @@
 # Analisis dan Evaluasi Prediksi Harian PM₁₀ Jakarta Menggunakan Model Hibrida Random Forest Regresi-ARIMA Berbasis Rekayasa Fitur
 
-**Muhammad Rafi Dhiyaulhaq — 18222069**  
+**Muhammad Rafi Dhiyaulhaq (18222069)**  
 Program Studi Sistem dan Teknologi Informasi, Sekolah Teknik Elektro dan Informatika  
 Institut Teknologi Bandung
 
@@ -42,13 +42,13 @@ Evaluated with 5-fold time-series cross-validation.
 ├── latex/                                          # All LaTeX source and build files
 │   ├── TA.tex                                      # Main LaTeX entry point
 │   ├── daftar-pustaka.bib                          # Bibliography (BibLaTeX)
-│   ├── Bab I - Pendahuluan.tex                     # Chapter I  — Introduction
-│   ├── Bab II - Studi.tex                          # Chapter II — Literature Review
-│   ├── Bab III - Analisis.tex                      # Chapter III — Analysis
-│   ├── Bab IV - Perancangan.tex                    # Chapter IV — Design
-│   ├── Bab V - Implementasi.tex                    # Chapter V  — Implementation
-│   ├── Bab VI - Evaluasi.tex                       # Chapter VI — Evaluation
-│   ├── Bab VII - Penutup.tex                       # Chapter VII — Conclusion
+│   ├── Bab I - Pendahuluan.tex                     # Chapter I: Introduction
+│   ├── Bab II - Studi.tex                          # Chapter II: Literature Review
+│   ├── Bab III - Analisis.tex                      # Chapter III: Analysis
+│   ├── Bab IV - Perancangan.tex                    # Chapter IV: Design
+│   ├── Bab V - Implementasi.tex                    # Chapter V: Implementation
+│   ├── Bab VI - Evaluasi.tex                       # Chapter VI: Evaluation
+│   ├── Bab VII - Penutup.tex                       # Chapter VII: Conclusion
 │   ├── 5 Abstrak.tex                               # Abstract
 │   ├── Lampiran-A.tex                              # Appendix A
 │   ├── images/                                     # Figures and diagrams
