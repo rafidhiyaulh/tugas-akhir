@@ -24,8 +24,16 @@ Accepted to the **2026 IEEE International Conference on Future Machine Learning 
 
 ## Results
 
-| Model | RMSE |
-|---|---|
+| Model | RMSE | MAE | R² |
+|---|---|---|---|
+| **Hybrid RF–ARIMA (proposed)** | **7.12** | **5.30** | **0.89** |
+| XGBoost | 8.15 | 6.05 | 0.84 |
+| Random Forest Regression (tuned) | 9.21 | 6.85 | 0.79 |
+| ARIMA | 13.84 | 10.12 | 0.61 |
+
+Evaluated with an 80/20 chronological split and 5-fold time-series cross-validation on 29,220 daily records from 5 Jakarta monitoring stations. The hybrid model reduces RMSE by 22.69% and MAE by 22.63% compared with the tuned Random Forest baseline.
+
+---|---|
 | **Hybrid RF–ARIMA (proposed)** | **13.4004** |
 | Random Forest Regression | 13.5717 |
 | XGBoost | 14.3307 |
