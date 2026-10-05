@@ -65,7 +65,7 @@ Dataset: daily ISPU records for DKI Jakarta 2010–2025 (Kaggle, *Air Quality In
 ```bash
 pip install pandas numpy scikit-learn statsmodels xgboost optuna shap matplotlib seaborn
 
-jupyter notebook notebook/PM10_Forecasting_corrected.ipynb
+jupyter notebook notebook/PM10_Forecasting.ipynb
 ```
 
 ---
