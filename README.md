@@ -52,7 +52,7 @@ Next-day forecasting on a chronological hold-out test set of 1,043 days (Oct 202
 ```
 .
 ├── notebook/
-│   └── PM10_Forecasting_corrected.ipynb      # Pipeline that reproduces all paper results
+│   └── PM10_Forecasting.ipynb      # Pipeline that reproduces all paper results
 ├── latex/                                    # Thesis LaTeX source
 ├── Muhammad Rafi Dhiyaulhaq.pdf              # Final signed thesis report
 └── Muhammad Rafi Dhiyaulhaq_Paper.pdf        # IEEE FMLDS 2026 paper
