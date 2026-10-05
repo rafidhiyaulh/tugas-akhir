@@ -1,6 +1,6 @@
 # Analisis dan Evaluasi Prediksi Harian PM₁₀ Jakarta Menggunakan Model Hibrida Random Forest Regresi-ARIMA Berbasis Rekayasa Fitur
 
-**Muhammad Rafi Dhiyaulhaq (18222069)**  
+**Muhammad Rafi Dhiyaulhaq**  
 Program Studi Sistem dan Teknologi Informasi, Sekolah Teknik Elektro dan Informatika  
 Institut Teknologi Bandung
 
@@ -8,9 +8,9 @@ Institut Teknologi Bandung
 
 ## Overview
 
-Undergraduate thesis (*Tugas Akhir*) proposing a sequential hybrid Random Forest–ARIMA architecture with time-series feature engineering to improve daily PM₁₀ forecasting accuracy for DKI Jakarta (2010–2025). The model is augmented with SHAP-based explainability to identify key pollution drivers and support air quality policy decisions.
+Undergraduate thesis (*Tugas Akhir*) that analyzes and evaluates a sequential hybrid Random Forest–ARIMA architecture with time-series feature engineering for next-day (t+1) PM₁₀ forecasting in DKI Jakarta (2010–2025). The model is complemented with TreeSHAP explainability to identify the main drivers of the forecasts.
 
-This thesis is conducted as part of a lecturer research project under the supervision of **Dr. Fetty Fitriyanti Lubis, S.T., M.T.**
+This thesis was conducted as part of a lecturer research project under the supervision of **Dr. Fetty Fitriyanti Lubis, S.T., M.T.**
 
 **Grade: A**
 
@@ -18,28 +18,32 @@ This thesis is conducted as part of a lecturer research project under the superv
 
 ## Publication
 
-Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**, held in Kobe, Japan, 20–23 November 2026.
+*Analysis and Evaluation of Daily PM₁₀ Forecasting in Jakarta Using a Hybrid Random Forest Regressive and ARIMA Model Based on Feature Engineering.*  
+M. R. Dhiyaulhaq, F. F. Lubis, and J. Sembiring.  
+Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**, Kobe, Japan, 20–23 November 2026.
 
 ---
 
-## Results
+## Results (IEEE FMLDS 2026 paper)
+
+Next-day forecasting on a chronological hold-out test set of 1,043 days (Oct 2021 – Feb 2025). Values are PM₁₀ ISPU sub-indices.
 
 | Model | RMSE | MAE | R² |
 |---|---|---|---|
-| **Hybrid RF–ARIMA (proposed)** | **7.12** | **5.30** | **0.89** |
-| XGBoost | 8.15 | 6.05 | 0.84 |
-| Random Forest Regression (tuned) | 9.21 | 6.85 | 0.79 |
-| ARIMA | 13.84 | 10.12 | 0.61 |
+| **Hybrid RF–ARIMA (proposed)** | **14.73** | **10.34** | **0.37** |
+| Random Forest (Optuna-tuned) | 14.82 | 10.55 | 0.36 |
+| ARIMA(5,1,0), rolling one-step | 15.23 | 10.70 | 0.32 |
+| XGBoost (untuned) | 16.52 | 12.09 | 0.20 |
+| Persistence (yₜ = yₜ₋₁) | 17.75 | 11.96 | 0.08 |
 
-Evaluated with an 80/20 chronological split and 5-fold time-series cross-validation on 29,220 daily records from 5 Jakarta monitoring stations. The hybrid model reduces RMSE by 22.69% and MAE by 22.63% compared with the tuned Random Forest baseline.
+**Key findings**
+- The hybrid reduces RMSE by 17.0% vs. persistence and 3.3% vs. a rolling ARIMA. Both differences are significant under the Diebold–Mariano test.
+- The ARIMA residual stage improves on the tuned Random Forest by only 0.63% RMSE, which is not significant (p = 0.17). Most of the skill comes from PM₁₀ lag and rolling features.
+- TreeSHAP shows that recent PM₁₀ levels (3-day and 7-day means, 1-day lag) and the dry season dominate the forecasts.
 
----|---|
-| **Hybrid RF–ARIMA (proposed)** | **13.4004** |
-| Random Forest Regression | 13.5717 |
-| XGBoost | 14.3307 |
-| ARIMA | 18.8432 |
+**Setup:** 5,538 daily ISPU records (Jan 2010 – Feb 2025) with 18 features, all built from information available up to day t−1. Missing values are imputed from past data only. Random Forest hyperparameters are tuned with Optuna (TPE) using 5-fold `TimeSeriesSplit` on the training period only. ARIMA is fitted to out-of-bag residuals and applied as a rolling one-step correction.
 
-Evaluated with 5-fold time-series cross-validation.
+> **Note:** The paper uses a revised, leakage-free evaluation pipeline. Its results supersede the evaluation figures in the thesis report.
 
 ---
 
@@ -47,47 +51,26 @@ Evaluated with 5-fold time-series cross-validation.
 
 ```
 .
-├── latex/                                          # All LaTeX source and build files
-│   ├── TA.tex                                      # Main LaTeX entry point
-│   ├── daftar-pustaka.bib                          # Bibliography (BibLaTeX)
-│   ├── Bab I - Pendahuluan.tex                     # Chapter I: Introduction
-│   ├── Bab II - Studi.tex                          # Chapter II: Literature Review
-│   ├── Bab III - Analisis.tex                      # Chapter III: Analysis
-│   ├── Bab IV - Perancangan.tex                    # Chapter IV: Design
-│   ├── Bab V - Implementasi.tex                    # Chapter V: Implementation
-│   ├── Bab VI - Evaluasi.tex                       # Chapter VI: Evaluation
-│   ├── Bab VII - Penutup.tex                       # Chapter VII: Conclusion
-│   ├── 5 Abstrak.tex                               # Abstract
-│   ├── Lampiran-A.tex                              # Appendix A
-│   ├── images/                                     # Figures and diagrams
-│   ├── tables/                                     # Tables
-│   ├── listings/                                   # Code listings
-│   └── algorithms/                                 # Algorithm pseudocode
-├── 18222069_Muhammad Rafi Dhiyaulhaq.pdf           # Final signed thesis report
-├── 18222069_Muhammad Rafi Dhiyaulhaq_Paper.pdf     # IEEE FMLDS 2026 paper
-└── 18222069_Muhammad Rafi Dhiyaulhaq_Poster.png    # IEEE FMLDS 2026 poster
+├── notebook/
+│   └── PM10_Forecasting_corrected.ipynb      # Pipeline that reproduces all paper results
+├── latex/                                    # Thesis LaTeX source
+├── Muhammad Rafi Dhiyaulhaq.pdf              # Final signed thesis report
+└── Muhammad Rafi Dhiyaulhaq_Paper.pdf        # IEEE FMLDS 2026 paper
 ```
 
-> Note: front/back-matter files inside `latex/` (title page, approval sheet, originality
-> statement, AI-usage statement, preface, and the various *Daftar* lists) are administrative
-> documents kept locally but excluded from version control via `.gitignore`.
+## Reproducing the Results
+
+Dataset: daily ISPU records for DKI Jakarta 2010–2025 (Kaggle, *Air Quality Index in Jakarta*).
+
+```bash
+pip install pandas numpy scikit-learn statsmodels xgboost optuna shap matplotlib seaborn
+
+jupyter notebook notebook/PM10_Forecasting_corrected.ipynb
+```
 
 ---
 
-## Documents
-
-**`18222069_Muhammad Rafi Dhiyaulhaq.pdf`**  
-Complete, signed, and approved undergraduate thesis (laporan lengkap).
-
-**`18222069_Muhammad Rafi Dhiyaulhaq_Paper.pdf`**  
-Conference paper accepted at the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
-
-**`18222069_Muhammad Rafi Dhiyaulhaq_Poster.png`**  
-Conference poster accepted at the 2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026).
-
----
-
-## Compilation
+## Compiling the Thesis
 
 Requires XeLaTeX and Biber.
 
@@ -101,4 +84,4 @@ xelatex TA.tex
 
 ---
 
-<p align="center"><sub>© 2026 Muhammad Rafi Dhiyaulhaq · Institut Teknologi Bandung</sub></p>
+<p
